@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <title>沖繩五天四夜親子包車旅遊規劃書</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,14 +26,14 @@
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
   body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:800px;margin:0 auto;padding:0 24px;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 32px;}
 
   header.hero{background:linear-gradient(160deg,#aef0f3 0%,#c6f5dd 52%,#ffeec2 120%);color:#16323a;padding:64px 0 60px;position:relative;overflow:hidden;}
   header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:44px;background:radial-gradient(circle at 12px -6px, var(--bg) 14px, transparent 15px) repeat-x;background-size:32px 32px;}
   .hero .wrap{position:relative;z-index:2;}
   .hero .eyebrow{font-family:"Zen Maru Gothic",sans-serif;letter-spacing:.32em;font-size:.78rem;color:#d2701f;font-weight:700;margin-bottom:16px;}
   .hero h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(2rem,6vw,3rem);line-height:1.28;margin-bottom:14px;color:#143038;}
-  .hero .sub{font-size:1.02rem;color:#274750;max-width:580px;}
+  .hero .sub{font-size:1.02rem;color:#274750;max-width:640px;}
   .hero .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
   .hero .pill{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,1);padding:7px 15px;border-radius:999px;font-size:.85rem;color:#163b44;font-weight:600;}
 
@@ -93,57 +96,67 @@
   /* overview tab */
   .ov-intro{font-size:.98rem;color:var(--ink-soft);margin-bottom:8px;}
   .ov-scroll{overflow-x:auto;margin:18px 0 24px;}
-  .ov-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:580px;}
-  .ov-table th{background:var(--aqua-soft);color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;padding:11px 10px;text-align:left;border-bottom:2px solid var(--sky);white-space:nowrap;}
-  .ov-table td{padding:11px 10px;border-bottom:1px dotted var(--line);vertical-align:top;}
+  .ov-table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:620px;}
+  .ov-table th{background:var(--aqua-soft);color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;padding:12px 12px;text-align:left;border-bottom:2px solid var(--sky);white-space:nowrap;}
+  .ov-table td{padding:12px 12px;border-bottom:1px dotted var(--line);vertical-align:top;}
   .ov-table tr:last-child td{border-bottom:none;}
   .ov-table .dn{font-family:"Noto Serif TC",serif;font-weight:900;color:var(--sun-deep);white-space:nowrap;}
   .ov-table .ht{font-weight:700;color:var(--sky-deep);white-space:nowrap;}
-  .ov-card{display:flex;gap:14px;background:var(--aqua);border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:14px 18px;margin:10px 0;font-size:.92rem;color:var(--ink-soft);}
-  .ov-card b{color:var(--sky-deep);font-family:"Noto Serif TC",serif;}
+  .ov-card{display:flex;gap:16px;background:var(--aqua);border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:14px 20px;margin:10px 0;font-size:.92rem;color:var(--ink-soft);}
+  .ov-card b{flex:0 0 auto;white-space:nowrap;color:var(--sky-deep);font-family:"Noto Serif TC",serif;}
+  .ov-card span{flex:1;}
 
   /* must-buy / must-eat picks */
-  .picks{margin:18px 0 4px;background:linear-gradient(120deg,#f3fbf6,#eef9f7);border:1px solid #d4ede9;border-radius:14px;padding:14px 16px;}
+  .picks{margin:18px 0 4px;background:linear-gradient(120deg,#f3fbf6,#eef9f7);border:1px solid #d4ede9;border-radius:14px;padding:14px 18px;}
   .picks .ph{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.88rem;color:var(--leaf);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
-  .pk{display:flex;gap:10px;padding:9px 0;border-top:1px dashed #cfe9e6;flex-wrap:wrap;align-items:baseline;}
+  .pk{display:flex;gap:12px;padding:9px 0;border-top:1px dashed #cfe9e6;flex-wrap:wrap;align-items:baseline;}
   .pk:first-of-type{border-top:none;}
-  .pk .pkn{font-weight:700;color:var(--ink);font-size:.9rem;min-width:118px;}
-  .pk .pkbody{flex:1;min-width:200px;font-size:.84rem;color:var(--ink-soft);}
+  .pk .pkn{font-weight:700;color:var(--ink);font-size:.9rem;flex:0 0 130px;}
+  .pk .pkbody{flex:1;min-width:240px;font-size:.85rem;color:var(--ink-soft);}
   .pk .lab{font-family:"Zen Maru Gothic",sans-serif;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px;color:#fff;margin-right:5px;display:inline-block;}
   .pk .buy{background:var(--grape);} .pk .eat{background:var(--coral);} .pk .see{background:var(--sky-deep);}
 
-  section.tips{margin-top:24px;}
-  .tip{padding:20px 0;border-top:1px solid var(--line);}
-  .tip h3{font-family:"Noto Serif TC",serif;font-size:1.1rem;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
-  .tip h3 .badge{flex:0 0 28px;height:28px;border-radius:50%;background:var(--sun-deep);color:#fff;display:grid;place-items:center;font-weight:900;font-size:.9rem;font-family:"Zen Maru Gothic",sans-serif;}
-  .tip p{font-size:.94rem;color:var(--ink-soft);}
-  .tip .hl{background:rgba(255,197,107,.32);padding:1px 5px;border-radius:4px;color:var(--ink);font-weight:500;}
+  /* per-day note */
+  .daynote{margin:22px 0 4px;background:linear-gradient(120deg,#fff6e6,#ffeef2);border:1px solid #ffe0c0;border-radius:14px;padding:14px 20px;}
+  .daynote h4{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sun-deep);font-size:.9rem;margin-bottom:6px;display:flex;align-items:center;gap:7px;}
+  .daynote ul{list-style:none;}
+  .daynote li{font-size:.9rem;color:var(--ink-soft);padding:4px 0 4px 18px;position:relative;}
+  .daynote li::before{content:"・";position:absolute;left:0;color:var(--sun-deep);font-weight:700;}
+  .daynote .hl{background:rgba(240,106,154,.16);padding:1px 6px;border-radius:4px;color:#c43d6f;font-weight:700;}
 
-  section.links{margin-top:46px;margin-bottom:30px;}
-  .lk-group{margin-bottom:22px;}
-  .lk-group h4{font-family:"Zen Maru Gothic",sans-serif;font-size:.95rem;color:var(--sky-deep);margin-bottom:6px;font-weight:700;}
-  .lk{display:flex;gap:10px;padding:9px 0;border-bottom:1px dotted var(--line);align-items:baseline;flex-wrap:wrap;}
-  .lk .nm{font-weight:700;color:var(--ink);font-size:.92rem;min-width:150px;}
+  /* per-day reference links */
+  .day-links{margin:22px 0 4px;}
+  .day-links h4{font-family:"Zen Maru Gothic",sans-serif;font-size:.92rem;color:var(--sky-deep);margin-bottom:4px;font-weight:700;display:flex;align-items:center;gap:7px;}
+  .lk{display:flex;gap:12px;padding:9px 0;border-bottom:1px dotted var(--line);align-items:baseline;flex-wrap:wrap;}
+  .lk .nm{font-weight:700;color:var(--ink);font-size:.92rem;flex:0 0 180px;}
   .lk a{color:var(--sun-deep);font-size:.86rem;text-decoration:none;word-break:break-all;}
   .lk a:hover{text-decoration:underline;}
-  .lk .note{font-size:.8rem;color:var(--ink-soft);width:100%;}
+  .lk .note{font-size:.82rem;color:var(--ink-soft);width:100%;}
 
   /* dining cards */
-  .dine{margin:16px 0 4px;background:linear-gradient(120deg,#fffaf0,#fff5f7);border:1px solid #ffe6cf;border-radius:14px;padding:14px 16px;}
+  .dine{margin:16px 0 4px;background:linear-gradient(120deg,#fffaf0,#fff5f7);border:1px solid #ffe6cf;border-radius:14px;padding:14px 18px;}
   .dine .dh{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.86rem;color:var(--sun-deep);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
   .dine .dh .meal{background:var(--sun-deep);color:#fff;border-radius:6px;padding:1px 8px;font-size:.74rem;}
-  .rc{display:flex;gap:10px;padding:8px 0;border-top:1px dashed #ffd9b8;align-items:baseline;flex-wrap:wrap;}
+  .rc{display:flex;gap:12px;padding:8px 0;border-top:1px dashed #ffd9b8;align-items:baseline;flex-wrap:wrap;}
   .rc:first-of-type{border-top:none;}
   .rc .rn{font-weight:700;color:var(--ink);font-size:.9rem;}
   .rc .score{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:#e0892b;font-size:.82rem;background:rgba(255,197,107,.3);border-radius:6px;padding:0 7px;}
   .rc a{color:var(--sky-deep);font-size:.8rem;text-decoration:none;}
   .rc a:hover{text-decoration:underline;}
-  .rc .rnote{width:100%;font-size:.8rem;color:var(--ink-soft);}
+  .rc .rnote{width:100%;font-size:.82rem;color:var(--ink-soft);}
 
   footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-size:.82rem;border-top:1px solid var(--line);margin-top:30px;}
   footer .star{color:var(--sun-deep);}
 
-  @media(max-width:640px){.day-hd{flex-wrap:wrap;}.info-row .k{flex-basis:78px;}.lk .nm{min-width:100%;}.pk .pkn{min-width:100%;}.tabbtn{flex:1 1 28%;padding:7px 8px;font-size:.86rem;}}
+  @media(max-width:680px){
+    .wrap{padding:0 20px;}
+    .day-hd{flex-wrap:wrap;}
+    .info-row .k{flex-basis:78px;}
+    .ov-card{flex-direction:column;gap:4px;}
+    .pk .pkn{flex-basis:100%;}
+    .lk .nm{flex-basis:100%;}
+    .tabbtn{flex:1 1 28%;padding:7px 8px;font-size:.86rem;}
+  }
 </style>
 </head>
 <body>
@@ -200,7 +213,7 @@
 
     <!-- TAB: OVERVIEW -->
     <div id="tab-ov" class="tab-panel active">
-      <p class="ov-intro">本行程為 <strong>11/5–11/9 五天四夜</strong>、7 大 2 小（2 位 1–2 歲幼童）的沖繩親子包車旅遊。住宿採<strong>兩段式</strong>：前 2 晚住中北部 BEB5 瀨良垣，把握中北部的無敵海景與秋高氣爽；後 2 晚南下住那霸 OMO5，玩遍市區並就近機場。動線依地理由北而南推進，全程<strong>不南北折返、只搬一次行李</strong>。下方各日 tab 有詳細時間、美食與每個景點的「必推必買」。</p>
+      <p class="ov-intro">本行程為 <strong>11/5–11/9 五天四夜</strong>、7 大 2 小（2 位 1–2 歲幼童）的沖繩親子包車旅遊。住宿採<strong>兩段式</strong>：前 2 晚住中北部 BEB5 瀨良垣，把握中北部的無敵海景與秋高氣爽；後 2 晚南下住那霸 OMO5，玩遍市區並就近機場。動線依地理由北而南推進，全程<strong>不南北折返、只搬一次行李</strong>。各日 tab 內附詳細時間、美食、每個景點的「必推必買」與當天專屬小提醒、連結。</p>
 
       <div class="ov-scroll">
         <table class="ov-table">
@@ -210,17 +223,20 @@
           <tbody>
             <tr><td class="dn">Day 1</td><td>11/5</td><td class="ht">BEB5</td><td>抵達北上、萬座毛海景暖身、入住恩納</td><td>象鼻岩斷崖、恩納阿古豬涮涮鍋</td></tr>
             <tr><td class="dn">Day 2</td><td>11/6</td><td class="ht">BEB5</td><td>北部經典：美麗海水族館＋古宇利大橋</td><td>鯨鯊黑潮之海、古宇利蝦餐車、心形岩</td></tr>
-            <tr><td class="dn">Day 3</td><td>11/7</td><td class="ht">→ OMO5</td><td>美國村日落散策、南下入住那霸</td><td>Blue Seal 冰淇淋、日落海灘、摩天輪夜景</td></tr>
+            <tr><td class="dn">Day 3</td><td>11/7</td><td class="ht">→ OMO5</td><td>美國村日落、南下入住那霸</td><td>Blue Seal 冰淇淋、日落海灘、摩天輪夜景</td></tr>
             <tr><td class="dn">Day 4</td><td>11/8</td><td class="ht">OMO5</td><td>那霸市區一圈：參拜＋血拼</td><td>國際通紅芋塔/雪鹽、瀨長島幸福鬆餅、Outlet</td></tr>
             <tr><td class="dn">Day 5</td><td>11/9</td><td class="ht">—</td><td>港川文青、PARCO 血拼、（首里城）、返程</td><td>oHacorté 水果塔、PARCO 免稅掃貨</td></tr>
           </tbody>
         </table>
       </div>
 
+      <h3 class="sec-label" style="margin-top:10px;">全程通用提醒（各日 tab 不再重複）</h3>
       <div class="ov-card"><b>🏨 住宿兩段</b><span>前 2 晚 <strong>BEB5 瀨良垣</strong>（恩納村·公寓式附廚房，約 NT$5,000–6,000/晚）；後 2 晚 <strong>OMO5 那霸</strong>（鄰國際通·距機場約 15 分，約 NT$3,000–4,000/晚）。僅 Day 3 退房南下時搬一次行李。</span></div>
       <div class="ov-card"><b>🧭 動線原則</b><span>由北而南：Day1–2 待中北部玩萬座毛、美麗海、古宇利；Day3 沿西海岸南下，美國村銜接傍晚入住那霸；Day4–5 集中市區景點，最後一線往機場，不走回頭路。</span></div>
+      <div class="ov-card"><b>🚐 安全座椅</b><span>日本法律強制 6 歲以下須坐安全座椅。簽約時備註「提早安裝 2 張適合 1–2 歲（依體重身高）的安全座椅」，並確認後車廂可容 3 間房行李＋2 台嬰兒推車。</span></div>
+      <div class="ov-card"><b>😴 車上補眠</b><span>長車程（Day1 機場北上 60 分、Day2 古宇利返程 70 分）刻意對齊寶寶午睡時間，讓孩子在有冷氣的汽座上安穩補眠，抵達景點剛好精神飽滿。</span></div>
+      <div class="ov-card"><b>🍽️ 9 人訂位</b><span>7 大 2 小共 9 人，熱門餐廳座位有限且多需座敷。行前先以電話／官網預約，並備註「2 位幼兒需兒童椅／座敷」。商場美食街選擇多，可現場彈性處理。</span></div>
       <div class="ov-card"><b>☔ 雨備</b><span>若 11 月遇陣雨，可將 Day 4 改為「AEON MALL 沖繩來客夢 Rycom」（巨型室內商場、頂級育嬰室、免費兒童造型推車），百分之百親子雨備。</span></div>
-      <div class="ov-card"><b>👶 親子重點</b><span>長車程（Day1 北上 60 分、Day2 古宇利返程 70 分）刻意對齊寶寶午睡；9 人座位熱門餐廳務必先訂位、備註兒童椅／座敷；停留時間皆含拍照與餵食緩衝。</span></div>
     </div>
 
     <!-- TAB: DAY 1 -->
@@ -268,8 +284,22 @@
       <div class="picks">
         <div class="ph">⭐ 各景點必推必買・必吃</div>
         <div class="pk"><span class="pkn">萬座毛</span><span class="pkbody"><span class="lab see">必拍</span>象鼻岩＋斷崖海景全景；<span class="lab buy">必買</span>物產中心的沖繩黑糖、海鹽、紅芋塔、藍色海鹽汽水，可邊走邊吃霜淇淋。</span></div>
-        <div class="pk"><span class="pkn">恩納晚餐</span><span class="pkbody"><span class="lab eat">必吃</span>阿古豬(Agu)涮涮鍋、海葡萄(海ぶどう)、沖繩そば(soki soba)；餐後可嘗<span class="lab eat">必吃</span>沖繩在地 Orion 生啤(大人)。</span></div>
+        <div class="pk"><span class="pkn">恩納晚餐</span><span class="pkbody"><span class="lab eat">必吃</span>阿古豬(Agu)涮涮鍋、海葡萄(海ぶどう)、沖繩そば(soki soba)；餐後可嘗在地 Orion 生啤(大人)。</span></div>
         <div class="pk"><span class="pkn">飯店超市</span><span class="pkbody"><span class="lab buy">必囤</span>寶寶副食品、和光堂/明治嬰兒食品、鮮乳、水果、雪鹽餅乾，公寓式房型大冰箱好存放。</span></div>
+      </div>
+      <div class="daynote">
+        <h4>📌 Day 1 當日小提醒</h4>
+        <ul>
+          <li>機場一上車就<span class="hl">確認安裝 2 張嬰兒安全座椅</span>，再出發北上。</li>
+          <li>機場→恩納約 60 分，刻意對齊寶寶午睡，車上補眠最舒服。</li>
+          <li>恩納人氣涮涮鍋（嘉福、碧）幾乎天天客滿，<span class="hl">務必先訂 9 人位、備註兒童椅／座敷</span>。</li>
+          <li>入住後先到 MaxValu 等超市補副食品、鮮乳，放進公寓式房型大冰箱。</li>
+        </ul>
+      </div>
+      <div class="day-links">
+        <h4>🔗 Day 1 相關連結</h4>
+        <div class="lk"><span class="nm">星野 BEB5 沖繩瀨良垣</span><a href="https://hoshinoresorts.com/zh_tw/hotels/beb5okinawaseragaki/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/beb5okinawaseragaki</a><span class="note">恩納村瀨良垣 · 公寓式附廚房 · 前 2 晚住宿 · 約 NT$5,000–6,000／晚</span></div>
+        <div class="lk"><span class="nm">萬座毛</span><a href="https://www.manzamo.jp/" target="_blank" rel="noopener">manzamo.jp</a><span class="note">恩納村 · 象鼻岩國家級名勝 · 平坦步道推車友善 · 離 BEB5 約 15 分 · 建議停留 40 分</span></div>
       </div>
       <div class="review"><b>★ 點評</b>　下午抵達後直接高速北上，順路在恩納的萬座毛吹海風暖身即入住飯店，把所有市區景點留到後段住那霸時再玩。第一天最輕鬆、不南北折返，讓長途飛行後的寶寶與大人都能好好休息。</div>
     </article>
@@ -326,8 +356,22 @@
       <div class="picks">
         <div class="ph">⭐ 各景點必推必買・必吃</div>
         <div class="pk"><span class="pkn">美麗海水族館</span><span class="pkbody"><span class="lab see">必看</span>黑潮之海鯨鯊、戶外免費海豚秀、觸摸池;<span class="lab buy">必買</span>鯨鯊布偶、水族館限定 ちんすこう/餅乾、鯨鯊造型零食;<span class="lab eat">必吃</span>「黑潮之海」旁咖啡廳邊看大水槽邊喝飲料。</span></div>
-        <div class="pk"><span class="pkn">古宇利島</span><span class="pkbody"><span class="lab eat">必吃</span>島上蝦餐車的<strong>蒜香奶油蝦(ガーリックシュリンプ)</strong>、海葡萄丼;<span class="lab see">必拍</span>心形岩、古宇利大橋海景;<span class="lab eat">必嘗</span>海洋塔的海鹽霜淇淋。</span></div>
+        <div class="pk"><span class="pkn">古宇利島</span><span class="pkbody"><span class="lab eat">必吃</span>島上蝦餐車的<strong>蒜香奶油蝦(ガーリックシュリンプ)</strong>、海葡萄丼;<span class="lab see">必拍</span>心形岩、古宇利大橋海景;海洋塔的海鹽霜淇淋。</span></div>
         <div class="pk"><span class="pkn">本部町順買</span><span class="pkbody"><span class="lab buy">必買</span>沖繩在地「鹽屋(MASUYA)」雪鹽系列、紅型雜貨;回程經 ON THE BEACH 等海景咖啡可外帶點心。</span></div>
+      </div>
+      <div class="daynote">
+        <h4>📌 Day 2 當日小提醒</h4>
+        <ul>
+          <li>本日是全程<span class="hl">拉車最長的一天（約 170 分）</span>，建議早出發避開水族館人潮。</li>
+          <li>古宇利返程約 70 分，正好讓兩位寶寶在汽座上午睡；請司機放慢過橋讓大人拍照。</li>
+          <li>水族館與古宇利皆推車友善，園區內有育嬰室、哺乳室，換尿布方便。</li>
+        </ul>
+      </div>
+      <div class="day-links">
+        <h4>🔗 Day 2 相關連結</h4>
+        <div class="lk"><span class="nm">沖繩美麗海水族館</span><a href="https://churaumi.okinawa/tc/" target="_blank" rel="noopener">churaumi.okinawa/tc</a><span class="note">海洋博公園內 · 鯨鯊黑潮之海、戶外免費海豚秀 · 建議停留 150 分</span></div>
+        <div class="lk"><span class="nm">古宇利島・古宇利大橋</span><a href="https://www.kourijima.info/" target="_blank" rel="noopener">kourijima.info</a><span class="note">距水族館車程約 40 分 · 全長 1,960m 跨海大橋絕景 · 建議停留 90 分</span></div>
+        <div class="lk"><span class="nm">古宇利海洋塔</span><a href="https://www.kouri-oceantower.com/" target="_blank" rel="noopener">kouri-oceantower.com</a><span class="note">島上 360° 海景展望台、貝殼博物館</span></div>
       </div>
       <div class="review"><b>★ 點評</b>　本日為全程拉車最長的一天（約 170 分），但水族館與古宇利大橋是沖繩兩大招牌。古宇利返程約 70 分，剛好是兩位寶寶在包車上舒適午睡的黃金時間，請司機放慢過橋讓大人拍照。</div>
     </article>
@@ -380,6 +424,19 @@
         <div class="pk"><span class="pkn">美國村</span><span class="pkbody"><span class="lab eat">必吃</span>沖繩起家的 <strong>Blue Seal 冰淇淋</strong>(紅芋/鹽味餅乾口味)、塔可飯、夏威夷鬆餅;<span class="lab buy">必買</span>美式古著、雜貨、帆布包、進口零食、藥妝。</span></div>
         <div class="pk"><span class="pkn">日落海灘 / 摩天輪</span><span class="pkbody"><span class="lab see">必拍</span>日落海灘夕陽、傍晚點燈的彩色摩天輪與壁畫牆，是美國村最上鏡的打卡點。</span></div>
         <div class="pk"><span class="pkn">OMO5 那霸</span><span class="pkbody"><span class="lab see">必體驗</span>飯店免費的「OMO Base」在地嚮導服務與周邊散步地圖;放好行李後可步行至附近商店街覓食。</span></div>
+      </div>
+      <div class="daynote">
+        <h4>📌 Day 3 當日小提醒</h4>
+        <ul>
+          <li>今天是全程<span class="hl">唯一一次搬行李</span>：早上 BEB5 退房後行李全留車上，傍晚再一次入住 OMO5。</li>
+          <li>11 月美國村傍晚微涼，記得幫兩位寶寶多帶一件薄外套。</li>
+          <li>日落時間較早，想拍夕陽／摩天輪夜景請預留傍晚時段再南下那霸。</li>
+        </ul>
+      </div>
+      <div class="day-links">
+        <h4>🔗 Day 3 相關連結</h4>
+        <div class="lk"><span class="nm">美濱美國村</span><a href="https://www.okinawa-americanvillage.com/" target="_blank" rel="noopener">okinawa-americanvillage.com</a><span class="note">北谷町 · 美式繽紛街區、日落海灘、摩天輪 · 距 BEB5 約 40 分 · 建議停留 180 分</span></div>
+        <div class="lk"><span class="nm">OMO5 沖繩那霸 by 星野集團</span><a href="https://hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha</a><span class="note">那霸市 · 鄰國際通商圈、距機場約 15 分 · 後 2 晚住宿 · 約 NT$3,000–4,000／晚</span></div>
       </div>
       <div class="review"><b>★ 點評</b>　退房後沿西海岸國道 58 號一路南下，美國村午後散策＋日落海灘剛好銜接傍晚入住那霸 OMO5，中部到市區一線到底不回頭。11 月傍晚微涼，記得幫兩位寶寶多穿一件薄外套。</div>
     </article>
@@ -447,6 +504,22 @@
         <div class="pk"><span class="pkn">瀨長島</span><span class="pkbody"><span class="lab eat">必吃</span><strong>幸福鬆餅(幸せのパンケーキ)</strong>、龍蝦堡、沖繩甜甜圈沙翁;<span class="lab see">必拍</span>白牆海景＋低空飛機。</span></div>
         <div class="pk"><span class="pkn">Ashibinaa</span><span class="pkbody"><span class="lab buy">必買</span>名牌 Outlet 折扣(Coach、adidas、Le Creuset、日系童裝);可現場辦免稅。</span></div>
       </div>
+      <div class="daynote">
+        <h4>📌 Day 4 當日小提醒</h4>
+        <ul>
+          <li>市區段段只要 5–20 分超短程，可<span class="hl">依寶寶狀況彈性增減景點</span>，不趕路。</li>
+          <li>國際通晚餐（海渡、規樂）熱門，建議事先訂位、備註兒童椅／座敷。</li>
+          <li>若遇陣雨，整天可改為 <span class="hl">AEON Rycom</span>（巨型室內商場、頂級育嬰室）當完美雨備。</li>
+        </ul>
+      </div>
+      <div class="day-links">
+        <h4>🔗 Day 4 相關連結</h4>
+        <div class="lk"><span class="nm">波上宮</span><a href="https://naminouegu.jp/" target="_blank" rel="noopener">naminouegu.jp</a><span class="note">那霸市若狹 · 琉球八社之首 · OMO5 車程約 10 分 · 建議停留 30 分</span></div>
+        <div class="lk"><span class="nm">國際通</span><a href="https://www.kokusaidori.org/" target="_blank" rel="noopener">kokusaidori.org</a><span class="note">那霸最大繁華街約 1.6km · 建議停留 90 分 ※週日 12–18 時部分路段步行者天國</span></div>
+        <div class="lk"><span class="nm">瀨長島 Umikaji Terrace</span><a href="https://www.umikajiterrace.com/" target="_blank" rel="noopener">umikajiterrace.com</a><span class="note">豐見城市 · 海景商店街、近機場看飛機 · 建議停留 60 分</span></div>
+        <div class="lk"><span class="nm">Ashibinaa Outlet</span><a href="https://www.ashibinaa.com/lang/tw/" target="_blank" rel="noopener">ashibinaa.com/lang/tw</a><span class="note">豐見城市 · 沖繩唯一大型 Outlet · 機場車程約 15 分 · 建議停留 90 分</span></div>
+        <div class="lk"><span class="nm">AEON MALL 來客夢 Rycom（雨備）</span><a href="https://okinawarycom-aeonmall.com/" target="_blank" rel="noopener">okinawarycom-aeonmall.com</a><span class="note">北中城村 · 沖繩最大商場 · 巨型魚缸、頂級育嬰室 · 距 OMO5 約 25 分</span></div>
+      </div>
       <div class="review"><b>★ 點評</b>　所有市區景點集中在住 OMO5 的這天，波上宮→國際通→瀨長島→Ashibinaa 繞那霸・豐見城南部一小圈，段段只要 5–20 分超短程，可依寶寶狀況彈性增減。若遇雨改去 AEON Rycom 當完美雨備，毫不浪費行程。</div>
     </article>
     </div>
@@ -509,86 +582,24 @@
         <div class="pk"><span class="pkn">PARCO CITY</span><span class="pkbody"><span class="lab buy">必買</span>唐吉訶德、無印良品、UNIQLO、藥妝、沖繩伴手禮專區，可一次<strong>免稅</strong>掃齊;<span class="lab eat">必吃</span>3F 美食街沖繩麵與甜點。</span></div>
         <div class="pk"><span class="pkn">首里城（條件式）</span><span class="pkbody"><span class="lab see">必看</span>守禮門、2026/11/23 起重新開放的<strong>正殿</strong>;<span class="lab buy">必買</span>御城印、紅型/琉球玻璃紀念品。</span></div>
       </div>
+      <div class="daynote">
+        <h4>📌 Day 5 當日小提醒</h4>
+        <ul>
+          <li>首里城正殿 <span class="hl">2026/11/23 起才開放且需事前預約購票</span>；日期在此之前則略過、直接前往機場。</li>
+          <li>PARCO CITY 可一次免稅採買最後伴手禮，記得<span class="hl">隨身帶護照</span>辦理退稅。</li>
+          <li>PARCO→機場僅約 15 分，仍請預留辦理登機、退稅與帶幼童的緩衝時間。</li>
+        </ul>
+      </div>
+      <div class="day-links">
+        <h4>🔗 Day 5 相關連結</h4>
+        <div class="lk"><span class="nm">港川外人住宅區</span><a href="https://www.okinawastory.jp/spot/600014653" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">浦添市 · 美軍住宅改建文青聚落 · 建議停留 60 分</span></div>
+        <div class="lk"><span class="nm">SAN-A 浦添西海岸 PARCO CITY</span><a href="https://www.parcocity.jp/" target="_blank" rel="noopener">parcocity.jp</a><span class="note">浦添市 · 縣內最大約 250 店 · 機場車程約 15 分 · 10:00–22:00 · 建議停留 120 分</span></div>
+        <div class="lk"><span class="nm">首里城公園（條件式）</span><a href="https://oki-park.jp/shurijo/tc/" target="_blank" rel="noopener">oki-park.jp/shurijo/tc</a><span class="note">那霸市首里 · 正殿 2026/11/23 起重新開放（事前預約購票）· 建議停留 90 分</span></div>
+      </div>
       <div class="review"><b>★ 點評</b>　從 OMO5 那霸出發，港川、PARCO CITY、首里城、機場一線往南排列不回頭，且因已住在那霸、首段車程比住北部時更短。PARCO 距機場僅 15 分；若加首里城也僅多約 15 分，最後血拼／登城都不怕趕飛機。</div>
     </article>
     </div>
 
-  </section>
-
-  <section class="tips">
-    <div class="sec-label">隨行核心叮嚀</div>
-    <h2 class="sec-title">兩位 1–2 歲幼童包車提醒</h2>
-    <div class="tip">
-      <h3><span class="badge">1</span>安全座椅與包車確認</h3>
-      <p>日本法律強制規定 6 歲以下兒童必須乘坐安全座椅。此行程有 2 位幼童，請務必在向包車公司簽約時明確備註：<span class="hl">「需要提早安裝 2 張適合 1–2 歲（依體重與身高）的安全座椅」</span>，並確認車型後車廂有足夠空間裝載 3 間房成員的行李與 2 台嬰兒推車。</p>
-    </div>
-    <div class="tip">
-      <h3><span class="badge">2</span>靈活運用包車時段「車上補眠」</h3>
-      <p>1–2 歲寶寶通常有固定的午睡習慣。本行程的長車程路段（如 <span class="hl">Day 1 機場北上 60 分、Day 2 古宇利返程 70 分</span>）多落在 30–70 分鐘之間。可以刻意安排在寶寶準備午睡時讓包車開動，讓孩子在有冷氣的舒適汽座上安穩補眠，抵達景點時剛好精神飽滿。</p>
-    </div>
-    <div class="tip">
-      <h3><span class="badge">3</span>兩段式住宿、行李一次大搬遷</h3>
-      <p>本行程<span class="hl">前 2 晚住 BEB5、後 2 晚住 OMO5 那霸</span>，僅在 <span class="hl">Day 3</span> 退房南下時搬一次行李。請於 Day 3 早上整理好行李並在 BEB5 退房，東西全留車上，玩完美國村傍晚再一次入住 OMO5，全程只拆裝一次行李、不來回奔波。</p>
-    </div>
-    <div class="tip">
-      <h3><span class="badge">4</span>首里城日期確認與訂票</h3>
-      <p>首里城正殿 <span class="hl">2026/11/23 起</span>才正式開放，正殿觀覽屆時採事前預約購票制。請於確定出遊日後上官網確認開放與購票方式；若日期在此之前，Day 5 直接略過首里城前往機場即可。</p>
-    </div>
-    <div class="tip">
-      <h3><span class="badge">5</span>9 人團體用餐務必先訂位</h3>
-      <p>本團 <span class="hl">7 大 2 小共 9 人</span>，沖繩熱門餐廳座位有限、且多需座敷（榻榻米）容納嬰幼兒。建議行前先以電話或官網預約，並備註<span class="hl">「2 位幼兒需兒童椅／座敷」</span>。Day 1 恩納村的人氣涮涮鍋（如嘉福、碧）幾乎天天客滿，務必提早訂；Day 4 國際通晚餐（海渡、規樂）亦建議先訂。美國村、PARCO 美食街選擇多，可現場彈性處理。</p>
-    </div>
-  </section>
-
-  <section class="links">
-    <div class="sec-label">附錄</div>
-    <h2 class="sec-title">所有景點 · 商場參考連結</h2>
-
-    <div class="lk-group">
-      <h4>🏨 住宿</h4>
-      <div class="lk"><span class="nm">星野 BEB5 沖繩瀨良垣（前 2 晚）</span><a href="https://hoshinoresorts.com/zh_tw/hotels/beb5okinawaseragaki/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/beb5okinawaseragaki</a><span class="note">恩納村瀨良垣 · 公寓式附廚房設備 · 離中北部景點近 · 約 NT$5,000–6,000／晚</span></div>
-      <div class="lk"><span class="nm">OMO5 沖繩那霸 by 星野集團（後 2 晚）</span><a href="https://hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha</a><span class="note">那霸市 · 鄰國際通商圈、距機場約 15 分 · 約 NT$3,000–4,000／晚</span></div>
-    </div>
-
-    <div class="lk-group">
-      <h4>⛩️ 那霸市區景點</h4>
-      <div class="lk"><span class="nm">波上宮</span><a href="https://naminouegu.jp/" target="_blank" rel="noopener">naminouegu.jp</a><span class="note">那霸市若狹 · 琉球八社之首 · OMO5 車程約 10 分 · 建議停留 30 分</span></div>
-      <div class="lk"><span class="nm">國際通</span><a href="https://www.kokusaidori.org/" target="_blank" rel="noopener">kokusaidori.org</a><span class="note">那霸最大繁華街約 1.6km · OMO5 步行／車程數分 · 建議停留 90 分 ※週日 12–18 時部分路段步行者天國</span></div>
-      <div class="lk"><span class="nm">首里城公園</span><a href="https://oki-park.jp/shurijo/tc/" target="_blank" rel="noopener">oki-park.jp/shurijo/tc</a><span class="note">那霸市首里 · 正殿 2026/11/23 起重新開放（事前預約購票）· 建議停留 90 分</span></div>
-    </div>
-
-    <div class="lk-group">
-      <h4>🏝️ 中北部景點</h4>
-      <div class="lk"><span class="nm">萬座毛</span><a href="https://www.manzamo.jp/" target="_blank" rel="noopener">manzamo.jp</a><span class="note">恩納村 · 象鼻岩國家級名勝 · 平坦步道推車友善 · 離 BEB5 約 15 分 · 建議停留 40 分</span></div>
-      <div class="lk"><span class="nm">沖繩美麗海水族館</span><a href="https://churaumi.okinawa/tc/" target="_blank" rel="noopener">churaumi.okinawa/tc</a><span class="note">海洋博公園內 · 鯨鯊黑潮之海、戶外免費海豚秀 · 建議停留 150 分</span></div>
-      <div class="lk"><span class="nm">古宇利島・古宇利大橋</span><a href="https://www.kourijima.info/" target="_blank" rel="noopener">kourijima.info</a><span class="note">距水族館車程約 40 分 · 全長 1,960m 跨海大橋絕景 · 建議停留 90 分</span></div>
-      <div class="lk"><span class="nm">古宇利海洋塔</span><a href="https://www.kouri-oceantower.com/" target="_blank" rel="noopener">kouri-oceantower.com</a><span class="note">島上 360° 海景展望台、貝殼博物館</span></div>
-      <div class="lk"><span class="nm">瀨長島 Umikaji Terrace</span><a href="https://www.umikajiterrace.com/" target="_blank" rel="noopener">umikajiterrace.com</a><span class="note">豐見城市 · 海景商店街 · 機場車程約 15 分 · 建議停留 60 分</span></div>
-      <div class="lk"><span class="nm">港川外人住宅區</span><a href="https://www.okinawastory.jp/spot/600014653" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">浦添市 · 美軍住宅改建文青聚落 · 建議停留 60 分</span></div>
-    </div>
-
-    <div class="lk-group">
-      <h4>🛒 購物 · 商場</h4>
-      <div class="lk"><span class="nm">美濱美國村</span><a href="https://www.okinawa-americanvillage.com/" target="_blank" rel="noopener">okinawa-americanvillage.com</a><span class="note">北谷町 · 美式繽紛街區、日落海灘 · 距 BEB5 約 40 分 · 建議停留 180 分</span></div>
-      <div class="lk"><span class="nm">Ashibinaa Outlet</span><a href="https://www.ashibinaa.com/lang/tw/" target="_blank" rel="noopener">ashibinaa.com/lang/tw</a><span class="note">豐見城市 · 沖繩唯一大型 Outlet · 機場車程約 15 分 · 建議停留 90 分</span></div>
-      <div class="lk"><span class="nm">AEON MALL 沖繩來客夢 Rycom</span><a href="https://okinawarycom-aeonmall.com/" target="_blank" rel="noopener">okinawarycom-aeonmall.com</a><span class="note">北中城村 · 沖繩最大商場 · 巨型魚缸、頂級育嬰室 · <strong>Day 4 雨備首選</strong>（距 OMO5 約 25 分）</span></div>
-      <div class="lk"><span class="nm">SAN-A 浦添西海岸 PARCO CITY</span><a href="https://www.parcocity.jp/" target="_blank" rel="noopener">parcocity.jp</a><span class="note">浦添市 · 縣內最大約 250 店 · 機場車程約 15 分 · 10:00–22:00 · 建議停留 120 分</span></div>
-    </div>
-
-    <div class="lk-group">
-      <h4>📍 住宿區域</h4>
-      <div class="lk"><span class="nm">恩納村（前 2 晚）</span><a href="https://www.vill.onna.okinawa.jp/" target="_blank" rel="noopener">vill.onna.okinawa.jp（村公所）</a><span class="note">沖繩本島中部西海岸的度假村帶，飯店 BEB5 瀨良垣所在地。Day1–2 從這裡玩萬座毛、北上美麗海與古宇利，地理位置適中、不需南北奔波。以阿古豬涮涮鍋、海景咖啡與夕陽聞名。</span></div>
-      <div class="lk"><span class="nm">那霸市（後 2 晚）</span><a href="https://www.naha-navi.or.jp/" target="_blank" rel="noopener">naha-navi.or.jp（那霸市觀光協會）</a><span class="note">OMO5 那霸所在地，鄰國際通商圈、距機場約 15 分。Day3 傍晚南下入住後，Day4–5 玩遍波上宮、國際通、瀨長島、Ashibinaa、港川、PARCO 等市區景點，最後離開不趕路。</span></div>
-    </div>
-
-    <div class="lk-group">
-      <h4>🍴 各日餐廳建議（高分・適合 7 大 2 小）</h4>
-      <div class="lk"><span class="nm">Day1 恩納村晚餐</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJB-pLH34F5TQRm3lef8aivds" target="_blank" rel="noopener">Kafuku 嘉福 ★4.9</a><span class="note">飯店附近 Agu 豬涮涮鍋首選；另推 しゃぶしゃぶ恩納 ★4.6、碧~ao~ ★4.7（皆需事先預約 9 人）</span></div>
-      <div class="lk"><span class="nm">Day2 美麗海周邊</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJQbXsyeT55DQR10urERl_d8o" target="_blank" rel="noopener">J's Kitchen ★4.7</a><span class="note">另推 papaiya ★4.2（緊鄰水族館）、Kairo ★4.4（座敷兒童區）</span></div>
-      <div class="lk"><span class="nm">Day3 美國村</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJmVXA1G0T5TQRlQ5QkiadDCw" target="_blank" rel="noopener">FRANKEY TAVERN ★4.6</a><span class="note">另推 The Calif Kitchen ★4.5（兒童遊戲區）、美濱殿內 ★4.3（在地料理）</span></div>
-      <div class="lk"><span class="nm">Day4 國際通</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJgchlrG1p5TQRsjzGvZxJIy8" target="_blank" rel="noopener">海渡 KAITO ★4.9</a><span class="note">另推 Yunangi ★4.5（沖繩家庭料理）、琉球規樂 ★4.8（Agu 豬涮涮鍋）</span></div>
-      <div class="lk"><span class="nm">Day5 PARCO CITY</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJIx6hSHpr5TQREcKeU0KIxPY" target="_blank" rel="noopener">和風亭 ★3.9</a><span class="note">另推 やまや食堂 ★4.1（明太子定食）、THE PLATINUM 自助餐 ★3.4（備選）</span></div>
-    </div>
   </section>
 
 </div>
