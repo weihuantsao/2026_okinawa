@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沖繩五天四夜親子包車旅遊規劃書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* brighter palette */
+    --sky:#7dd5e3; --sky-deep:#1f93ab;
+    --aqua:#f2fcfb; --aqua-soft:#e3f7f4;
+    --sun:#ffc56b; --sun-deep:#f08a2e;
+    --coral:#ff8a78; --leaf:#54bf8c;
+    --grape:#a877d8; --rose:#f06a9a;
+    --bg:#fffefb; --paper:#ffffff;
+    /* darker text for contrast on bright bg */
+    --ink:#1f2d33; --ink-soft:#5b6b71;
+    --line:#ecf3f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:800px;margin:0 auto;padding:0 24px;}
+
+  header.hero{background:linear-gradient(160deg,#aef0f3 0%,#c6f5dd 52%,#ffeec2 120%);color:#16323a;padding:64px 0 60px;position:relative;overflow:hidden;}
+  header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:44px;background:radial-gradient(circle at 12px -6px, var(--bg) 14px, transparent 15px) repeat-x;background-size:32px 32px;}
+  .hero .wrap{position:relative;z-index:2;}
+  .hero .eyebrow{font-family:"Zen Maru Gothic",sans-serif;letter-spacing:.32em;font-size:.78rem;color:#d2701f;font-weight:700;margin-bottom:16px;}
+  .hero h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(2rem,6vw,3rem);line-height:1.28;margin-bottom:14px;color:#143038;}
+  .hero .sub{font-size:1.02rem;color:#274750;max-width:580px;}
+  .hero .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
+  .hero .pill{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,1);padding:7px 15px;border-radius:999px;font-size:.85rem;color:#163b44;font-weight:600;}
+
+  .sec-label{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sun-deep);letter-spacing:.18em;font-size:.82rem;margin-bottom:6px;}
+  .sec-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:1.5rem;color:var(--ink);margin-bottom:20px;}
+
+  section.basic{margin-top:52px;}
+  .info-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dotted var(--line);}
+  .info-row:last-child{border-bottom:none;}
+  .info-row .k{flex:0 0 96px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sky-deep);font-size:.92rem;}
+  .info-row .v{font-size:.95rem;color:var(--ink-soft);}
+  .info-row .v strong{color:var(--ink);}
+
+  .notice{margin-top:30px;background:linear-gradient(120deg,#fff6e6,#ffeef2);border:1px solid #ffe0c0;border-radius:16px;padding:18px 22px;}
+  .notice h4{font-family:"Noto Serif TC",serif;color:var(--sun-deep);font-size:1.02rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+  .notice p{font-size:.9rem;color:var(--ink-soft);}
+  .notice .hl{background:rgba(240,106,154,.16);padding:1px 6px;border-radius:4px;color:#c43d6f;font-weight:700;}
+
+  section.days{margin-top:54px;}
+  .day{margin-bottom:64px;}
+  .day-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;border-bottom:3px solid var(--sun);padding-bottom:10px;}
+  .day-hd .num{font-family:"Noto Serif TC",serif;font-weight:900;font-size:2.2rem;color:var(--sun-deep);line-height:1;}
+  .day-hd .num small{display:block;font-family:"Zen Maru Gothic",sans-serif;font-size:.55rem;letter-spacing:.25em;color:var(--ink-soft);font-weight:700;}
+  .day-hd .ttl{font-family:"Noto Serif TC",serif;font-weight:700;font-size:1.12rem;color:var(--ink);line-height:1.4;}
+  .day-flow{font-size:.85rem;color:var(--ink-soft);margin:14px 0 4px;}
+  .day-flow b{color:var(--sky-deep);}
+
+  .map-box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px 16px 10px;margin:18px 0 22px;box-shadow:0 6px 18px rgba(31,147,171,.10);}
+  .map-box .map-cap{font-size:.74rem;color:var(--ink-soft);text-align:right;margin-top:2px;font-family:"Zen Maru Gothic",sans-serif;letter-spacing:.05em;}
+  .map-box svg{width:100%;height:auto;display:block;}
+
+  /* stay-time summary chips */
+  .stays{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px;}
+  .stay{display:flex;align-items:center;gap:6px;background:var(--aqua-soft);border:1px solid #d4ede9;border-radius:999px;padding:4px 12px;font-size:.82rem;color:var(--ink);}
+  .stay .nm{font-weight:700;}
+  .stay .tm{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sun-deep);}
+  .stay.opt{background:#fdeaf1;border-color:#f8cdde;}
+  .stay.opt .tm{color:var(--rose);}
+
+  .slot{display:flex;gap:14px;padding:7px 0;}
+  .slot .tag{flex:0 0 56px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.8rem;color:#fff;text-align:center;height:fit-content;border-radius:8px;padding:4px 0;margin-top:3px;}
+  .slot .tag.am{background:var(--leaf);} .slot .tag.pm{background:var(--sky-deep);} .slot .tag.eve{background:var(--sun-deep);} .slot .tag.all{background:var(--grape);} .slot .tag.opt{background:var(--rose);}
+  .slot p{font-size:.96rem;}
+  .slot p .dur{display:inline-block;font-family:"Zen Maru Gothic",sans-serif;font-size:.78rem;font-weight:700;color:var(--sun-deep);background:rgba(255,197,107,.28);border-radius:6px;padding:0 7px;margin-left:4px;}
+  .slot.optional p{color:var(--ink-soft);}
+  .review{margin-top:14px;padding:14px 18px;background:var(--aqua);border-left:4px solid var(--sun);border-radius:0 12px 12px 0;font-size:.92rem;color:var(--ink-soft);}
+  .review b{color:var(--sun-deep);font-family:"Noto Serif TC",serif;}
+
+  section.tips{margin-top:24px;}
+  .tip{padding:20px 0;border-top:1px solid var(--line);}
+  .tip h3{font-family:"Noto Serif TC",serif;font-size:1.1rem;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:10px;}
+  .tip h3 .badge{flex:0 0 28px;height:28px;border-radius:50%;background:var(--sun-deep);color:#fff;display:grid;place-items:center;font-weight:900;font-size:.9rem;font-family:"Zen Maru Gothic",sans-serif;}
+  .tip p{font-size:.94rem;color:var(--ink-soft);}
+  .tip .hl{background:rgba(255,197,107,.32);padding:1px 5px;border-radius:4px;color:var(--ink);font-weight:500;}
+
+  section.links{margin-top:46px;margin-bottom:30px;}
+  .lk-group{margin-bottom:22px;}
+  .lk-group h4{font-family:"Zen Maru Gothic",sans-serif;font-size:.95rem;color:var(--sky-deep);margin-bottom:6px;font-weight:700;}
+  .lk{display:flex;gap:10px;padding:9px 0;border-bottom:1px dotted var(--line);align-items:baseline;flex-wrap:wrap;}
+  .lk .nm{font-weight:700;color:var(--ink);font-size:.92rem;min-width:150px;}
+  .lk a{color:var(--sun-deep);font-size:.86rem;text-decoration:none;word-break:break-all;}
+  .lk a:hover{text-decoration:underline;}
+  .lk .note{font-size:.8rem;color:var(--ink-soft);width:100%;}
+
+  /* dining cards */
+  .dine{margin:16px 0 4px;background:linear-gradient(120deg,#fffaf0,#fff5f7);border:1px solid #ffe6cf;border-radius:14px;padding:14px 16px;}
+  .dine .dh{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.86rem;color:var(--sun-deep);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
+  .dine .dh .meal{background:var(--sun-deep);color:#fff;border-radius:6px;padding:1px 8px;font-size:.74rem;}
+  .rc{display:flex;gap:10px;padding:8px 0;border-top:1px dashed #ffd9b8;align-items:baseline;flex-wrap:wrap;}
+  .rc:first-of-type{border-top:none;}
+  .rc .rn{font-weight:700;color:var(--ink);font-size:.9rem;}
+  .rc .score{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:#e0892b;font-size:.82rem;background:rgba(255,197,107,.3);border-radius:6px;padding:0 7px;}
+  .rc a{color:var(--sky-deep);font-size:.8rem;text-decoration:none;}
+  .rc a:hover{text-decoration:underline;}
+  .rc .rnote{width:100%;font-size:.8rem;color:var(--ink-soft);}
+
+  footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-size:.82rem;border-top:1px solid var(--line);margin-top:30px;}
+  footer .star{color:var(--sun-deep);}
+
+  @media(max-width:640px){.day-hd{flex-wrap:wrap;}.info-row .k{flex-basis:78px;}.lk .nm{min-width:100%;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N</div>
+    <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
+    <p class="sub">🍁 11 月秋季出遊 ｜ 2 位 1–2 歲幼童同行安心版。慢節奏、知名景點、離島絕景、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
+    <div class="pills">
+      <span class="pill">🏨 飯店：星野 BEB5 瀨良垣</span>
+      <span class="pill">🚐 全程專車包車</span>
+      <span class="pill">👶 2 張嬰兒安全座椅</span>
+      <span class="pill">⛩️ 波上宮 × 國際通</span>
+      <span class="pill">🏝️ 瀨長島 × 古宇利島</span>
+      <span class="pill">🛒 Ashibinaa × Rycom × PARCO</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="basic">
+    <div class="sec-label">基本資訊與在意關鍵</div>
+    <h2 class="sec-title">出發前的安心確認</h2>
+    <div class="info-row"><span class="k">住宿飯店</span><span class="v"><strong>星野集團 BEB5 沖繩瀨良垣</strong>。11 月房源充足可同訂 3 間房，單間每晚約 <strong>NT$3,840</strong>（4 晚約 NT$15,358）。公寓式設計附大客廳、微波爐、大冰箱，適合處理寶寶副食品。</span></div>
+    <div class="info-row"><span class="k">交通方式</span><span class="v">全程<strong>專車包車服務</strong>，配備 <strong>2 張嬰兒安全座椅</strong>，免去搬運與趕電車的狼狽。</span></div>
+    <div class="info-row"><span class="k">同行成員</span><span class="v"><strong>大人 7 位</strong>、<strong>1–2 歲幼童 2 位</strong>（共 9 人）。</span></div>
+    <div class="info-row"><span class="k">行程核心</span><span class="v">慢節奏、知名景點、離島絕景、市區參拜與血拼、<strong>無障礙</strong>與完美<strong>雨備</strong>。</span></div>
+    <div class="info-row"><span class="k">動線原則</span><span class="v"><strong>市區景點集中頭尾兩天</strong>（Day1 南部、Day5 南下機場），中段 Day2–4 待中北部不折返，全程不走回頭路。</span></div>
+    <div class="info-row"><span class="k">停留時間</span><span class="v">各景點下方標示<strong>建議停留時間</strong>（已含親子拍照、休息、餵食緩衝），實際可依寶寶狀況彈性增減。</span></div>
+  </section>
+
+  <div class="notice">
+    <h4>⛩️ 首里城正殿開放重要提醒</h4>
+    <p>首里城正殿歷經火災重建，確定於 <span class="hl">2026/11/23（一・假日）</span>正式重新開放（前一日 11/22 舉行完成式）。在此之前正殿仍在工事中，僅能從守禮門、參觀甲板遠看外觀。<br>
+    👉 <strong>若你的出遊日在 11/23 之後</strong>：Day 5 已將首里城排為「條件式景點」，順路即可登城（正殿觀覽屆時採事前預約購票，請先上官網訂票）。<br>
+    👉 <strong>若在 11/23 之前</strong>：建議略過正殿，可改為守禮門快拍或直接前往機場。</p>
+  </div>
+
+  <section class="days">
+    <div class="sec-label">每日詳細行程</div>
+    <h2 class="sec-title">逐日動線 · 路線地圖 · 停留時間</h2>
+
+    <!-- DAY 1 -->
+    <article class="day">
+      <div class="day-hd"><div class="num"><small>DAY</small>1</div><div class="ttl">抵達沖繩 ➔ 波上宮參拜 ➔ 國際通 ➔ 瀨長島 ➔ Ashibinaa ➔ 入住飯店</div></div>
+      <p class="day-flow"><b>今日動線：</b>那霸機場 → 波上宮 → 國際通 → 瀨長島 → Ashibinaa → 恩納村（中部） ｜ 總拉車約 103 分（南部小範圍移動）</p>
+      <div class="map-box">
+        <svg viewBox="0 0 720 152" role="img" aria-label="Day1 路程時間比例地圖">
+          <line x1="55" y1="120" x2="640" y2="120" stroke="#cfe9e6" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
+            <line x1="55" y1="116" x2="55" y2="124" stroke="#cfe9e6"/><text x="55" y="137" text-anchor="middle">0分</text>
+            <line x1="217" y1="116" x2="217" y2="124" stroke="#cfe9e6"/><text x="217" y="137" text-anchor="middle">30</text>
+            <line x1="379" y1="116" x2="379" y2="124" stroke="#cfe9e6"/><text x="379" y="137" text-anchor="middle">60</text>
+            <line x1="541" y1="116" x2="541" y2="124" stroke="#cfe9e6"/><text x="541" y="137" text-anchor="middle">90</text>
+          </g>
+          <line x1="55" y1="68" x2="611" y2="68" stroke="#7dd5e3" stroke-width="4" stroke-linecap="round"/>
+          <g font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#5b6b71">
+            <text x="76" y="44" text-anchor="middle">8分</text>
+            <text x="125" y="56" text-anchor="middle">10分</text>
+            <text x="192" y="44" text-anchor="middle">15分</text>
+            <text x="273" y="56" text-anchor="middle">15分</text>
+            <text x="462" y="44" text-anchor="middle">自動車道·55分</text>
+          </g>
+          <g font-family="'Noto Sans TC',sans-serif">
+            <circle cx="55" cy="68" r="10" fill="#54bf8c"/><text x="55" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A</text>
+            <text x="55" y="92" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">機場</text>
+            <circle cx="98" cy="68" r="10" fill="#f06a9a"/><text x="98" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B</text>
+            <text x="98" y="106" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">波上宮</text>
+            <circle cx="152" cy="68" r="10" fill="#f06a9a"/><text x="152" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">C</text>
+            <text x="152" y="92" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">國際通</text>
+            <circle cx="233" cy="68" r="10" fill="#ff8a78"/><text x="233" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">D</text>
+            <text x="233" y="106" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">瀨長島</text>
+            <circle cx="314" cy="68" r="10" fill="#f08a2e"/><text x="314" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">E</text>
+            <text x="314" y="92" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">Ashibinaa</text>
+            <circle cx="611" cy="68" r="10" fill="#1f93ab"/><text x="611" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">F</text>
+            <text x="611" y="92" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">BEB5 飯店</text>
+          </g>
+        </svg>
+        <div class="map-cap">路線長度＝實際拉車時間比例 · 約 5.4px／分</div>
+      </div>
+      <div class="stays">
+        <span class="stay"><span class="nm">波上宮</span><span class="tm">30分</span></span>
+        <span class="stay"><span class="nm">國際通</span><span class="tm">90分</span></span>
+        <span class="stay"><span class="nm">瀨長島</span><span class="tm">60分</span></span>
+        <span class="stay"><span class="nm">Ashibinaa</span><span class="tm">90分</span></span>
+      </div>
+      <div class="slot"><span class="tag pm">中午</span><p>那霸機場接機，先到車程約 8 分鐘的「波上宮」——琉球八社之首、海崖上的神社，旅程開端參拜祈求平安。<span class="dur">停留 30 分</span></p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>前往「國際通」（奇蹟的一英里），午餐與逛街，採買第一波伴手禮、吃沖繩在地料理。<span class="dur">停留 90 分</span></p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>轉往「瀨長島 Umikaji Terrace」，白牆地中海風海景商店街，可看飛機起降、吃沙翁，輕鬆暖身。<span class="dur">停留 60 分</span></p></div>
+      <div class="slot"><span class="tag eve">傍晚</span><p>鄰近「Ashibinaa Outlet」（沖繩唯一大型 Outlet）採購寶寶防風衣物。<span class="dur">停留 90 分</span>結束後包車高速北上入住 BEB5，飯店附近超市（如 MaxValu）補貨副食品、鮮乳與點心。</p></div>
+      <div class="dine">
+        <div class="dh"><span class="meal">午餐 / 晚餐</span>國際通周邊餐廳（7 大 2 小）</div>
+        <div class="rc"><span class="rn">海渡 KAITO 國際通</span><span class="score">★4.9</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJgchlrG1p5TQRsjzGvZxJIy8" target="_blank" rel="noopener">地圖</a><span class="rnote">沖繩料理居酒屋 · 晚 18:00–24:00 · 擺盤精緻、評價極高，適合晚餐聚餐</span></div>
+        <div class="rc"><span class="rn">Yunangi ゆうなんぎい</span><span class="score">★4.5</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJq6qrMnZp5TQR8Q22HwB-Pbw" target="_blank" rel="noopener">地圖</a><span class="rnote">老字號沖繩家庭料理 · 17:00–22:00（週日休）· 套餐份量大可分食，建議早到避排隊</span></div>
+        <div class="rc"><span class="rn">琉球規樂 Ryukyu Kiraku</span><span class="score">★4.8</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJ6SQMNqlp5TQRF1rDeCWi1pk" target="_blank" rel="noopener">地圖</a><span class="rnote">Agu 豬涮涮鍋 · 16:00–23:00 · 上菜快、空間舒適，適合大團體</span></div>
+      </div>
+      <div class="review"><b>★ 點評</b>　波上宮、國際通、瀨長島、Ashibinaa 全在那霸—豐見城南部極近範圍，下飛機一次玩完所有市區景點，傍晚才北上，中段四天完全不必再南下折返。Day 1 內容雖滿，但段段短程不繞路。</div>
+    </article>
+
+    <!-- DAY 2 -->
+    <article class="day">
+      <div class="day-hd"><div class="num"><small>DAY</small>2</div><div class="ttl">沖繩最經典：美麗海水族館 ➔ 古宇利大橋絕景離島</div></div>
+      <p class="day-flow"><b>今日動線：</b>恩納村（中部）→ 本部町（北部）→ 今歸仁・古宇利島 → 恩納村 ｜ 總拉車約 170 分</p>
+      <div class="map-box">
+        <svg viewBox="0 0 720 150" role="img" aria-label="Day2 路程時間比例地圖">
+          <line x1="55" y1="118" x2="650" y2="118" stroke="#cfe9e6" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
+            <line x1="55" y1="114" x2="55" y2="122" stroke="#cfe9e6"/><text x="55" y="135" text-anchor="middle">0分</text>
+            <line x1="157" y1="114" x2="157" y2="122" stroke="#cfe9e6"/><text x="157" y="135" text-anchor="middle">30</text>
+            <line x1="259" y1="114" x2="259" y2="122" stroke="#cfe9e6"/><text x="259" y="135" text-anchor="middle">60</text>
+            <line x1="361" y1="114" x2="361" y2="122" stroke="#cfe9e6"/><text x="361" y="135" text-anchor="middle">90</text>
+            <line x1="463" y1="114" x2="463" y2="122" stroke="#cfe9e6"/><text x="463" y="135" text-anchor="middle">120</text>
+            <line x1="565" y1="114" x2="565" y2="122" stroke="#cfe9e6"/><text x="565" y="135" text-anchor="middle">150</text>
+          </g>
+          <line x1="55" y1="70" x2="633" y2="70" stroke="#7dd5e3" stroke-width="4" stroke-linecap="round"/>
+          <g font-family="'Noto Sans TC',sans-serif" font-size="10.5" fill="#5b6b71">
+            <text x="157" y="58" text-anchor="middle">自動車道·60分</text>
+            <text x="327" y="58" text-anchor="middle">縣道·40分</text>
+            <text x="514" y="58" text-anchor="middle">回程·70分</text>
+          </g>
+          <g font-family="'Noto Sans TC',sans-serif">
+            <circle cx="55" cy="70" r="11" fill="#1f93ab"/><text x="55" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+            <text x="55" y="98" text-anchor="middle" font-size="10.5" fill="#1f2d33" font-weight="700">BEB5</text>
+            <circle cx="259" cy="70" r="11" fill="#f08a2e"/><text x="259" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">B</text>
+            <text x="259" y="98" text-anchor="middle" font-size="10.5" fill="#1f2d33" font-weight="700">美麗海水族館</text>
+            <circle cx="395" cy="70" r="11" fill="#ff8a78"/><text x="395" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">C</text>
+            <text x="395" y="98" text-anchor="middle" font-size="10.5" fill="#1f2d33" font-weight="700">古宇利島</text>
+            <circle cx="633" cy="70" r="11" fill="#1f93ab"/><text x="633" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+            <text x="633" y="98" text-anchor="middle" font-size="10.5" fill="#1f2d33" font-weight="700">返回 BEB5</text>
+          </g>
+        </svg>
+        <div class="map-cap">路線長度＝實際拉車時間比例 · 約 3.4px／分</div>
+      </div>
+      <div class="stays">
+        <span class="stay"><span class="nm">美麗海水族館</span><span class="tm">150分</span></span>
+        <span class="stay"><span class="nm">古宇利島</span><span class="tm">90分</span></span>
+      </div>
+      <div class="slot"><span class="tag am">上午</span><p>飯店出發，前往沖繩必訪地標「美麗海水族館」（海洋博公園）。觀看黑潮之海巨大鯨鯊、戶外免費海豚秀。<span class="dur">停留 150 分</span></p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>驅車前往「古宇利島」，途經全長 1,960m 的古宇利大橋，兩側翡翠藍海絕景。島上有古宇利海灘、海洋塔可眺望全景。<span class="dur">停留 90 分</span></p></div>
+      <div class="slot"><span class="tag eve">傍晚</span><p>返回 BEB5 飯店休息，晚餐可安排恩納村在地阿古豬料理。</p></div>
+      <div class="dine">
+        <div class="dh"><span class="meal">午餐</span>美麗海・本部町周邊（7 大 2 小）</div>
+        <div class="rc"><span class="rn">J's Kitchen</span><span class="score">★4.7</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJQbXsyeT55DQR10urERl_d8o" target="_blank" rel="noopener">地圖</a><span class="rnote">美式漢堡・塔可飯 · 11:30–17:00（週四休）· 座敷兒童區、兒童披薩，7 人團體實測友善</span></div>
+        <div class="rc"><span class="rn">papaiya</span><span class="score">★4.2</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJwxbphMv75DQRf-LNwC59A2M" target="_blank" rel="noopener">地圖</a><span class="rnote">Agu 豬定食 · 緊鄰水族館 · 海景、自助點餐、英文菜單、份量大</span></div>
+        <div class="rc"><span class="rn">Kairo かいろ</span><span class="score">★4.4</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJDeJEdMz75DQR_0_bfyDe_A8" target="_blank" rel="noopener">地圖</a><span class="rnote">咖哩・塔可飯 · 11:30–16:00（二四休）· 座敷兒童區、兒童餐具、海景溫馨</span></div>
+      </div>
+      <div class="review"><b>★ 點評</b>　本日為全程拉車最長的一天（約 170 分），但水族館與古宇利大橋是沖繩兩大招牌。古宇利返程約 70 分，剛好是兩位寶寶在包車上舒適午睡的黃金時間，請司機放慢過橋讓大人拍照。</div>
+    </article>
+
+    <!-- DAY 3 -->
+    <article class="day">
+      <div class="day-hd"><div class="num"><small>DAY</small>3</div><div class="ttl">世界級地標「萬座毛」➔ 異國風情「美國村」日落散策</div></div>
+      <p class="day-flow"><b>今日動線：</b>恩納村（中部）→ 北谷町（中南部）→ 恩納村 ｜ 總拉車約 80 分</p>
+      <div class="map-box">
+        <svg viewBox="0 0 720 150" role="img" aria-label="Day3 路程時間比例地圖">
+          <line x1="60" y1="118" x2="650" y2="118" stroke="#cfe9e6" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
+            <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="135" text-anchor="middle">0分</text>
+            <line x1="270" y1="114" x2="270" y2="122" stroke="#cfe9e6"/><text x="270" y="135" text-anchor="middle">30</text>
+            <line x1="480" y1="114" x2="480" y2="122" stroke="#cfe9e6"/><text x="480" y="135" text-anchor="middle">60</text>
+            <line x1="620" y1="114" x2="620" y2="122" stroke="#cfe9e6"/><text x="620" y="135" text-anchor="middle">80分</text>
+          </g>
+          <line x1="60" y1="70" x2="620" y2="70" stroke="#7dd5e3" stroke-width="4" stroke-linecap="round"/>
+          <g font-family="'Noto Sans TC',sans-serif" font-size="10.5" fill="#5b6b71">
+            <text x="95" y="58" text-anchor="middle">10分</text>
+            <text x="252" y="58" text-anchor="middle">國道58·35分</text>
+            <text x="497" y="58" text-anchor="middle">回程·35分</text>
+          </g>
+          <g font-family="'Noto Sans TC',sans-serif">
+            <circle cx="60" cy="70" r="11" fill="#1f93ab"/><text x="60" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+            <text x="60" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">BEB5</text>
+            <circle cx="130" cy="70" r="11" fill="#f08a2e"/><text x="130" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">B</text>
+            <text x="130" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">萬座毛</text>
+            <circle cx="375" cy="70" r="11" fill="#f08a2e"/><text x="375" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">C</text>
+            <text x="375" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">美濱美國村</text>
+            <circle cx="620" cy="70" r="11" fill="#1f93ab"/><text x="620" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+            <text x="620" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">返回 BEB5</text>
+          </g>
+        </svg>
+        <div class="map-cap">路線長度＝實際拉車時間比例 · 7px／分</div>
+      </div>
+      <div class="stays">
+        <span class="stay"><span class="nm">萬座毛</span><span class="tm">40分</span></span>
+        <span class="stay"><span class="nm">美濱美國村</span><span class="tm">150分</span></span>
+      </div>
+      <div class="slot"><span class="tag am">上午</span><p>飯店出發，前往距離極近的國家級名勝「萬座毛」，漫步平坦步道觀賞象鼻岩、吹 11 月舒適海風。<span class="dur">停留 40 分</span></p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>前往北谷町「美濱美國村」散策，色彩繽紛的美式建築極受孩子歡迎，海景咖啡廳享受下午茶。<span class="dur">停留 150 分</span></p></div>
+      <div class="slot"><span class="tag eve">傍晚</span><p>漫步至日落海灘（Sunset Beach）觀賞沖繩絕美夕陽，隨後在美國村享用晚餐後回飯店。</p></div>
+      <div class="dine">
+        <div class="dh"><span class="meal">午餐 / 晚餐</span>美濱美國村周邊（7 大 2 小）</div>
+        <div class="rc"><span class="rn">FRANKEY TAVERN</span><span class="score">★4.6</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJmVXA1G0T5TQRlQ5QkiadDCw" target="_blank" rel="noopener">地圖</a><span class="rnote">美式漢堡・牛排・塔可 · 11:00–23:00 · 室內外座位多，適合大團體聚餐</span></div>
+        <div class="rc"><span class="rn">The Calif Kitchen</span><span class="score">★4.5</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJB4jO2Q8T5TQRC6iM4b_JJic" target="_blank" rel="noopener">地圖</a><span class="rnote">夏威夷鬆餅・Loco Moco · 8:00–22:00 · 兒童遊戲區、海景，親子早午餐首選</span></div>
+        <div class="rc"><span class="rn">美濱殿內 Mihama Dunchi</span><span class="score">★4.3</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJaXDU6h8T5TQR8oYiX563T8A" target="_blank" rel="noopener">地圖</a><span class="rnote">道地沖繩料理 · 17:00–23:00 · iPad 點餐、建議預約，想吃在地味選這間</span></div>
+      </div>
+      <div class="review"><b>★ 點評</b>　本日拉車時間極短，屬於定點深度放鬆行程。美國村與萬座毛對推車極為友善，11 月傍晚微涼，記得幫兩位寶寶多穿一件薄外套。</div>
+    </article>
+
+    <!-- DAY 4 -->
+    <article class="day">
+      <div class="day-hd"><div class="num"><small>DAY</small>4</div><div class="ttl">全沖繩最強親子雨備首選：永旺夢樂城來客夢</div></div>
+      <p class="day-flow"><b>今日動線：</b>恩納村（中部）→ 北中城村（中部）→ 恩納村 ｜ 總拉車約 60 分</p>
+      <div class="map-box">
+        <svg viewBox="0 0 720 150" role="img" aria-label="Day4 路程時間比例地圖">
+          <line x1="70" y1="118" x2="640" y2="118" stroke="#cfe9e6" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
+            <line x1="70" y1="114" x2="70" y2="122" stroke="#cfe9e6"/><text x="70" y="135" text-anchor="middle">0分</text>
+            <line x1="340" y1="114" x2="340" y2="122" stroke="#cfe9e6"/><text x="340" y="135" text-anchor="middle">30</text>
+            <line x1="610" y1="114" x2="610" y2="122" stroke="#cfe9e6"/><text x="610" y="135" text-anchor="middle">60分</text>
+          </g>
+          <line x1="70" y1="70" x2="610" y2="70" stroke="#7dd5e3" stroke-width="4" stroke-linecap="round"/>
+          <g font-family="'Noto Sans TC',sans-serif" font-size="10.5" fill="#5b6b71">
+            <text x="205" y="58" text-anchor="middle">沖繩自動車道·30分</text>
+            <text x="475" y="58" text-anchor="middle">回程·30分</text>
+          </g>
+          <g font-family="'Noto Sans TC',sans-serif">
+            <circle cx="70" cy="70" r="11" fill="#1f93ab"/><text x="70" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+            <text x="70" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">BEB5</text>
+            <circle cx="340" cy="70" r="11" fill="#a877d8"/><text x="340" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">B</text>
+            <text x="340" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">AEON MALL Rycom</text>
+            <circle cx="610" cy="70" r="11" fill="#1f93ab"/><text x="610" y="74" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">A</text>
+            <text x="610" y="98" text-anchor="middle" font-size="11" fill="#1f2d33" font-weight="700">返回 BEB5</text>
+          </g>
+        </svg>
+        <div class="map-cap">路線長度＝實際拉車時間比例 · 9px／分</div>
+      </div>
+      <div class="stays">
+        <span class="stay"><span class="nm">AEON MALL Rycom</span><span class="tm">全天（約 5–6 小時）</span></span>
+      </div>
+      <div class="slot"><span class="tag all">全天</span><p>前往沖繩最大巨型商場「AEON MALL Okinawa Rycom」（永旺夢樂城沖繩來客夢）。<span class="dur">停留全天</span></p></div>
+      <div class="slot"><span class="tag pm">亮點</span><p>入口即有大型室內巨型魚缸。商場內擁有全日本最頂級的育嬰室、親子洗手間，並提供免費兒童造型推車。</p></div>
+      <div class="slot"><span class="tag pm">購物</span><p>Toys"R"Us / Babies"R"Us、日系童裝、各類品牌服飾、美食街等，大人輕鬆吹冷氣逛街，小孩安全放電。</p></div>
+      <div class="dine">
+        <div class="dh"><span class="meal">午餐 / 晚餐</span>AEON Rycom 商場內</div>
+        <div class="rc"><span class="rnote">商場內有大型美食街與數十間餐廳（日式、洋食、兒童餐齊全），無需事先訂位，依寶寶當下狀況現場選擇最彈性。育嬰室、親子洗手間就在館內，吃完即可就近休息或換尿布。</span></div>
+      </div>
+      <div class="review"><b>★ 點評</b>　11 月天氣若遇突發陣雨，此處是完美的百分之百雨備。單一超大室內空間不需上下車折疊推車，是親子友善度最高的一天。</div>
+    </article>
+
+    <!-- DAY 5 -->
+    <article class="day">
+      <div class="day-hd"><div class="num"><small>DAY</small>5</div><div class="ttl">港川文青散策 ➔ PARCO CITY 血拼 ➔（首里城）➔ 那霸機場返家</div></div>
+      <p class="day-flow"><b>今日動線：</b>恩納村 → 浦添市（港川・PARCO CITY）→（首里城・條件式）→ 那霸機場 ｜ 總拉車約 70～90 分</p>
+      <div class="map-box">
+        <svg viewBox="0 0 720 152" role="img" aria-label="Day5 路程時間比例地圖">
+          <line x1="60" y1="120" x2="680" y2="120" stroke="#cfe9e6" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
+            <line x1="60" y1="116" x2="60" y2="124" stroke="#cfe9e6"/><text x="60" y="137" text-anchor="middle">0分</text>
+            <line x1="270" y1="116" x2="270" y2="124" stroke="#cfe9e6"/><text x="270" y="137" text-anchor="middle">30</text>
+            <line x1="480" y1="116" x2="480" y2="124" stroke="#cfe9e6"/><text x="480" y="137" text-anchor="middle">60</text>
+            <line x1="620" y1="116" x2="620" y2="124" stroke="#cfe9e6"/><text x="620" y="137" text-anchor="middle">80分</text>
+          </g>
+          <line x1="60" y1="68" x2="445" y2="68" stroke="#7dd5e3" stroke-width="4" stroke-linecap="round"/>
+          <line x1="445" y1="68" x2="550" y2="68" stroke="#f06a9a" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 6"/>
+          <line x1="550" y1="68" x2="655" y2="68" stroke="#7dd5e3" stroke-width="4" stroke-linecap="round"/>
+          <g font-family="'Noto Sans TC',sans-serif" font-size="9.5" fill="#5b6b71">
+            <text x="240" y="56" text-anchor="middle">國道58號·45分</text>
+            <text x="410" y="56" text-anchor="middle">10分</text>
+            <text x="497" y="44" text-anchor="middle" fill="#f06a9a">+15分</text>
+            <text x="602" y="56" text-anchor="middle">15分</text>
+          </g>
+          <g font-family="'Noto Sans TC',sans-serif">
+            <circle cx="60" cy="68" r="10" fill="#1f93ab"/><text x="60" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">A</text>
+            <text x="60" y="90" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">BEB5</text>
+            <circle cx="375" cy="68" r="10" fill="#f08a2e"/><text x="375" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">B</text>
+            <text x="375" y="90" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">港川</text>
+            <circle cx="445" cy="68" r="10" fill="#a877d8"/><text x="445" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">C</text>
+            <text x="445" y="106" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">PARCO CITY</text>
+            <circle cx="550" cy="68" r="10" fill="#f06a9a"/><text x="550" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">D</text>
+            <text x="550" y="90" text-anchor="middle" font-size="9.5" fill="#c43d6f" font-weight="700">首里城*</text>
+            <circle cx="655" cy="68" r="10" fill="#54bf8c"/><text x="655" y="72" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">E</text>
+            <text x="655" y="90" text-anchor="middle" font-size="10" fill="#1f2d33" font-weight="700">機場</text>
+          </g>
+        </svg>
+        <div class="map-cap">＊首里城為條件式（粉紅虛線）· 11/23 後開放才排入 · 約 7px／分</div>
+      </div>
+      <div class="stays">
+        <span class="stay"><span class="nm">港川外人住宅區</span><span class="tm">60分</span></span>
+        <span class="stay"><span class="nm">PARCO CITY</span><span class="tm">120分</span></span>
+        <span class="stay opt"><span class="nm">首里城＊</span><span class="tm">90分（條件式）</span></span>
+      </div>
+      <div class="slot"><span class="tag am">上午</span><p>飯店辦理退房，包車前往浦添市「港川外人住宅區」（特色彩繪平房、知名水果塔與麵包店散步）。<span class="dur">停留 60 分</span></p></div>
+      <div class="slot"><span class="tag pm">中午</span><p>鄰近「SAN-A 浦添西海岸 PARCO CITY」，縣內最大約 250 店、免稅服務，最後採買伴手禮並午餐。<span class="dur">停留 120 分</span></p></div>
+      <div class="slot optional"><span class="tag opt">條件</span><p><strong>（首里城・條件式）</strong>若出遊日在 <strong>2026/11/23 之後</strong>，可順道登首里城正殿（順路在往機場途中，需事前預約購票）。<span class="dur">停留 90 分</span>若在此日之前未開放則略過。</p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>專車送達那霸機場，司機協助卸載行李，搭機返回溫暖的家。</p></div>
+      <div class="dine">
+        <div class="dh"><span class="meal">午餐</span>PARCO CITY 周邊（7 大 2 小）</div>
+        <div class="rc"><span class="rn">和風亭 Wafutei（PARCO 3F）</span><span class="score">★3.9</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJIx6hSHpr5TQREcKeU0KIxPY" target="_blank" rel="noopener">地圖</a><span class="rnote">日式定食 · 11:00–22:00 · 座敷・機器人送餐・海景，菜色多、兒童友善，最適合大團體</span></div>
+        <div class="rc"><span class="rn">博多めんたい やまや食堂</span><span class="score">★4.1</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJ0TSGvlRr5TQRKqBRRnOb5FM" target="_blank" rel="noopener">地圖</a><span class="rnote">明太子定食（PARCO 2F）· 10:00–22:00 · 白飯明太子吃到飽、有兒童餐</span></div>
+        <div class="rc"><span class="rn">THE PLATINUM 自助餐（PARCO 3F）</span><span class="score">★3.4</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJGQ8vn4Br5TQRnw7wP8Ok7yg" target="_blank" rel="noopener">地圖</a><span class="rnote">吃到飽 buffet · 11:00–22:00 · 約 3,000 円划算、小孩選擇多（飲料另計，備選）</span></div>
+      </div>
+      <div class="review"><b>★ 點評</b>　港川、PARCO CITY、首里城、機場一線往南排列不回頭。PARCO 距機場僅 15 分；若加首里城也僅多約 15 分，皆在那霸範圍內，最後血拼／登城都不怕趕飛機。</div>
+    </article>
+
+  </section>
+
+  <section class="tips">
+    <div class="sec-label">隨行核心叮嚀</div>
+    <h2 class="sec-title">兩位 1–2 歲幼童包車提醒</h2>
+    <div class="tip">
+      <h3><span class="badge">1</span>安全座椅與包車確認</h3>
+      <p>日本法律強制規定 6 歲以下兒童必須乘坐安全座椅。此行程有 2 位幼童，請務必在向包車公司簽約時明確備註：<span class="hl">「需要提早安裝 2 張適合 1–2 歲（依體重與身高）的安全座椅」</span>，並確認車型後車廂有足夠空間裝載 3 間房成員的行李與 2 台嬰兒推車。</p>
+    </div>
+    <div class="tip">
+      <h3><span class="badge">2</span>靈活運用包車時段「車上補眠」</h3>
+      <p>1–2 歲寶寶通常有固定的午睡習慣。本行程設計的拉車路線（尤其是 <span class="hl">Day 2 古宇利返程</span>），其行車時間多落在 30–70 分鐘之間。可以刻意安排在寶寶準備午睡時讓包車開動，讓孩子在有冷氣的舒適汽座上安穩補眠，抵達景點時剛好精神飽滿。</p>
+    </div>
+    <div class="tip">
+      <h3><span class="badge">3</span>停留時間僅為建議、保留彈性</h3>
+      <p>各景點標示的停留時間<span class="hl">已含親子拍照、休息與餵食緩衝</span>，但仍以寶寶當天狀況為準。長車程日（Day 2）建議早出發避開人潮；古宇利島、美國村等可彈性增減，行程鬆緊隨時調整。</p>
+    </div>
+    <div class="tip">
+      <h3><span class="badge">4</span>首里城日期確認與訂票</h3>
+      <p>首里城正殿 <span class="hl">2026/11/23 起</span>才正式開放，正殿觀覽屆時採事前預約購票制。請於確定出遊日後上官網確認開放與購票方式；若日期在此之前，Day 5 直接略過首里城前往機場即可。</p>
+    </div>
+    <div class="tip">
+      <h3><span class="badge">5</span>9 人團體用餐務必先訂位</h3>
+      <p>本團 <span class="hl">7 大 2 小共 9 人</span>，沖繩熱門餐廳座位有限、且多需座敷（榻榻米）容納嬰幼兒。建議行前先以電話或官網預約，並備註<span class="hl">「2 位幼兒需兒童椅／座敷」</span>。恩納村的人氣涮涮鍋（如嘉福、碧）幾乎天天客滿，務必提早訂。Day4 Rycom 與 Day5 PARCO 因美食街選擇多，可現場彈性處理。</p>
+    </div>
+  </section>
+
+  <section class="links">
+    <div class="sec-label">附錄</div>
+    <h2 class="sec-title">所有景點 · 商場參考連結</h2>
+
+    <div class="lk-group">
+      <h4>🏨 住宿</h4>
+      <div class="lk"><span class="nm">星野 BEB5 沖繩瀨良垣</span><a href="https://hoshinoresorts.com/zh_tw/hotels/beb5okinawaseragaki/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/beb5okinawaseragaki</a></div>
+    </div>
+
+    <div class="lk-group">
+      <h4>⛩️ 那霸市區景點</h4>
+      <div class="lk"><span class="nm">波上宮</span><a href="https://naminouegu.jp/" target="_blank" rel="noopener">naminouegu.jp</a><span class="note">那霸市若狹 · 琉球八社之首 · 機場車程約 8 分 · 建議停留 30 分</span></div>
+      <div class="lk"><span class="nm">國際通</span><a href="https://www.kokusaidori.org/" target="_blank" rel="noopener">kokusaidori.org</a><span class="note">那霸最大繁華街約 1.6km · 機場約 10–15 分 · 建議停留 90 分 ※週日 12–18 時部分路段步行者天國</span></div>
+      <div class="lk"><span class="nm">首里城公園</span><a href="https://oki-park.jp/shurijo/tc/" target="_blank" rel="noopener">oki-park.jp/shurijo/tc</a><span class="note">那霸市首里 · 正殿 2026/11/23 起重新開放（事前預約購票）· 建議停留 90 分</span></div>
+    </div>
+
+    <div class="lk-group">
+      <h4>🏝️ 中北部景點</h4>
+      <div class="lk"><span class="nm">瀨長島 Umikaji Terrace</span><a href="https://www.umikajiterrace.com/" target="_blank" rel="noopener">umikajiterrace.com</a><span class="note">豐見城市 · 海景商店街 · 機場車程約 15 分 · 建議停留 60 分</span></div>
+      <div class="lk"><span class="nm">沖繩美麗海水族館</span><a href="https://churaumi.okinawa/tc/" target="_blank" rel="noopener">churaumi.okinawa/tc</a><span class="note">海洋博公園內 · 鯨鯊黑潮之海、戶外免費海豚秀 · 建議停留 150 分</span></div>
+      <div class="lk"><span class="nm">古宇利島・古宇利大橋</span><a href="https://www.kourijima.info/" target="_blank" rel="noopener">kourijima.info</a><span class="note">距水族館車程約 40 分 · 全長 1,960m 跨海大橋絕景 · 建議停留 90 分</span></div>
+      <div class="lk"><span class="nm">古宇利海洋塔</span><a href="https://www.kouri-oceantower.com/" target="_blank" rel="noopener">kouri-oceantower.com</a><span class="note">島上 360° 海景展望台、貝殼博物館</span></div>
+      <div class="lk"><span class="nm">萬座毛</span><a href="https://www.manzamo.jp/" target="_blank" rel="noopener">manzamo.jp</a><span class="note">恩納村 · 象鼻岩國家級名勝 · 平坦步道推車友善 · 建議停留 40 分</span></div>
+      <div class="lk"><span class="nm">港川外人住宅區</span><a href="https://www.okinawastory.jp/spot/600014653" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">浦添市 · 美軍住宅改建文青聚落 · 建議停留 60 分</span></div>
+    </div>
+
+    <div class="lk-group">
+      <h4>🛒 購物 · 商場</h4>
+      <div class="lk"><span class="nm">Ashibinaa Outlet</span><a href="https://www.ashibinaa.com/lang/tw/" target="_blank" rel="noopener">ashibinaa.com/lang/tw</a><span class="note">豐見城市 · 沖繩唯一大型 Outlet · 機場車程約 15 分 · 建議停留 90 分</span></div>
+      <div class="lk"><span class="nm">AEON MALL 沖繩來客夢 Rycom</span><a href="https://okinawarycom-aeonmall.com/" target="_blank" rel="noopener">okinawarycom-aeonmall.com</a><span class="note">北中城村 · 沖繩最大商場 · 巨型魚缸、頂級育嬰室 · 雨備首選 · 建議停留全天</span></div>
+      <div class="lk"><span class="nm">SAN-A 浦添西海岸 PARCO CITY</span><a href="https://www.parcocity.jp/" target="_blank" rel="noopener">parcocity.jp</a><span class="note">浦添市 · 縣內最大約 250 店 · 機場車程約 15 分 · 10:00–22:00 · 建議停留 120 分</span></div>
+    </div>
+
+    <div class="lk-group">
+      <h4>📍 住宿區域：恩納村</h4>
+      <div class="lk"><span class="nm">恩納村（おんなそん）</span><a href="https://www.vill.onna.okinawa.jp/" target="_blank" rel="noopener">vill.onna.okinawa.jp（村公所）</a><span class="note">沖繩本島中部西海岸的度假村帶，飯店 BEB5 瀨良垣所在地。沿國道 58 號聚集眾多海濱度假飯店與餐廳，是本行程 Day2–4 的中段據點：北上美麗海、南下美國村皆從這裡出發，地理位置適中、不需南北奔波。以阿古豬涮涮鍋、海景咖啡與夕陽聞名。</span></div>
+    </div>
+
+    <div class="lk-group">
+      <h4>🍴 各日餐廳建議（高分・適合 7 大 2 小）</h4>
+      <div class="lk"><span class="nm">Day1 國際通</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJgchlrG1p5TQRsjzGvZxJIy8" target="_blank" rel="noopener">海渡 KAITO ★4.9</a><span class="note">另推 Yunangi ★4.5（沖繩家庭料理）、琉球規樂 ★4.8（Agu 豬涮涮鍋）</span></div>
+      <div class="lk"><span class="nm">Day2 美麗海周邊</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJQbXsyeT55DQR10urERl_d8o" target="_blank" rel="noopener">J's Kitchen ★4.7</a><span class="note">另推 papaiya ★4.2（緊鄰水族館）、Kairo ★4.4（座敷兒童區）</span></div>
+      <div class="lk"><span class="nm">Day3 美國村</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJmVXA1G0T5TQRlQ5QkiadDCw" target="_blank" rel="noopener">FRANKEY TAVERN ★4.6</a><span class="note">另推 The Calif Kitchen ★4.5（兒童遊戲區）、美濱殿內 ★4.3（在地料理）</span></div>
+      <div class="lk"><span class="nm">Day4 Rycom</span><a href="https://okinawarycom-aeonmall.com/" target="_blank" rel="noopener">商場美食街・現場選擇</a><span class="note">數十間餐廳、兒童餐齊全，育嬰室就在館內，無需訂位最彈性</span></div>
+      <div class="lk"><span class="nm">Day5 PARCO CITY</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJIx6hSHpr5TQREcKeU0KIxPY" target="_blank" rel="noopener">和風亭 ★3.9</a><span class="note">另推 やまや食堂 ★4.1（明太子定食）、THE PLATINUM 自助餐 ★3.4（備選）</span></div>
+      <div class="lk"><span class="nm">恩納村晚餐</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJB-pLH34F5TQRm3lef8aivds" target="_blank" rel="noopener">Kafuku 嘉福 ★4.9</a><span class="note">飯店附近 Agu 豬涮涮鍋首選；另推 しゃぶしゃぶ恩納 ★4.6、碧~ao~ ★4.7（皆需事先預約 9 人）</span></div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 11 月秋季出遊安心版 <span class="star">🍁</span><br>
+  <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。首里城開放時間、各景點連結請於出發前再次確認。</span>
+</footer>
+
+</body>
+</html>
