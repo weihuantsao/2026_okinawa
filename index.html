@@ -47,11 +47,6 @@
   .info-row .v{font-size:.95rem;color:var(--ink-soft);}
   .info-row .v strong{color:var(--ink);}
 
-  .notice{margin-top:30px;background:linear-gradient(120deg,#fff6e6,#ffeef2);border:1px solid #ffe0c0;border-radius:16px;padding:18px 22px;}
-  .notice h4{font-family:"Noto Serif TC",serif;color:var(--sun-deep);font-size:1.02rem;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
-  .notice p{font-size:.9rem;color:var(--ink-soft);}
-  .notice .hl{background:rgba(240,106,154,.16);padding:1px 6px;border-radius:4px;color:#c43d6f;font-weight:700;}
-
   section.days{margin-top:54px;}
   .day{margin-bottom:24px;}
   .day-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;border-bottom:3px solid var(--sun);padding-bottom:10px;}
@@ -148,6 +143,24 @@
   footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-size:.82rem;border-top:1px solid var(--line);margin-top:30px;}
   footer .star{color:var(--sun-deep);}
 
+  /* booking / reservation tab */
+  .bk-h{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.02rem;color:var(--sky-deep);margin:26px 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:2px solid var(--sky);padding-bottom:7px;}
+  .bk-h:first-of-type{margin-top:8px;}
+  .bk-badge{font-family:"Zen Maru Gothic",sans-serif;font-size:.72rem;font-weight:700;border-radius:6px;padding:1px 8px;color:#fff;white-space:nowrap;}
+  .bk-badge.ok{background:var(--leaf);} .bk-badge.todo{background:var(--rose);} .bk-badge.hold{background:var(--sun-deep);}
+  .bk-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:10px 0;box-shadow:0 4px 12px rgba(31,147,171,.06);}
+  .bk-card .bk-nm{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--ink);font-size:1rem;margin-bottom:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:baseline;}
+  .bk-card .ord{font-family:"Zen Maru Gothic",sans-serif;font-size:.76rem;color:var(--sun-deep);font-weight:700;background:rgba(255,197,107,.24);border-radius:6px;padding:1px 8px;}
+  .bk-row{font-size:.88rem;color:var(--ink-soft);padding:3px 0;display:flex;gap:10px;}
+  .bk-row .bk-k{flex:0 0 64px;color:var(--sky-deep);font-weight:700;}
+  .bk-row .bk-v strong{color:var(--ink);}
+  .bk-note{font-size:.82rem;color:var(--ink-soft);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);}
+  .bk-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:560px;}
+  .bk-table th{background:var(--aqua-soft);color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;padding:9px 10px;text-align:left;border-bottom:2px solid var(--sky);white-space:nowrap;}
+  .bk-table td{padding:9px 10px;border-bottom:1px dotted var(--line);vertical-align:top;}
+  .bk-table tr:last-child td{border-bottom:none;}
+  .bk-table .d2{white-space:nowrap;font-weight:700;color:var(--sun-deep);}
+
   @media(max-width:680px){
     .wrap{padding:0 20px;}
     .day-hd{flex-wrap:wrap;}
@@ -183,20 +196,13 @@
   <section class="basic">
     <div class="sec-label">基本資訊與在意關鍵</div>
     <h2 class="sec-title">出發前的安心確認</h2>
-    <div class="info-row"><span class="k">住宿飯店</span><span class="v"><strong>前 2 晚：星野 BEB5 沖繩瀨良垣</strong>（恩納村·離中北部景點近，約 <strong>NT$5,000–6,000</strong>／晚）；<strong>後 2 晚：OMO5 沖繩那霸</strong>（鄰那霸市區與機場，約 <strong>NT$3,000–4,000</strong>／晚）。兩飯店秋季（10 月底–11 月初）皆可同訂 3 間房；BEB5 為公寓式設計附大客廳、微波爐、大冰箱，適合處理寶寶副食品。</span></div>
+    <div class="info-row"><span class="k">住宿飯店</span><span class="v"><strong>前 2 晚：星野 BEB5 沖繩瀨良垣</strong>（恩納村·離中北部景點近，約 <strong>NT$5,000–6,000</strong>／晚）；<strong>後 2 晚：OMO5 沖繩那霸</strong>（鄰那霸市區與機場，約 <strong>NT$3,000–4,000</strong>／晚）。BEB5 已訂 <strong>4 間房</strong>（1 Corner＋3 Triple、9 大 3 小，訂單 BOSTTA261730）、OMO5 後 2 晚待確認；BEB5 為公寓式設計附大客廳、微波爐、大冰箱，適合處理寶寶副食品。</span></div>
     <div class="info-row"><span class="k">交通方式</span><span class="v">全程<strong>包車 2 台 Alphard</strong>（每台 6＋1 司機），配備 <strong>3 張嬰兒安全座椅</strong>，免去搬運與趕電車的狼狽。費用約 <strong>NT$1,500／人／日</strong>。</span></div>
     <div class="info-row"><span class="k">同行成員</span><span class="v"><strong>大人 9 位</strong>、<strong>1–2 歲幼童 3 位</strong>（共 12 人）。含新加入的<strong>梓宣（楷婷姊）</strong>、<strong>巧倫妹</strong> 2 位大人，及幼童<strong>饅頭（2 歲）</strong>。</span></div>
     <div class="info-row"><span class="k">行程核心</span><span class="v">慢節奏、知名景點、離島絕景、市區參拜與血拼、<strong>無障礙</strong>與完美<strong>雨備</strong>。</span></div>
-    <div class="info-row"><span class="k">動線原則</span><span class="v"><strong>依地理大致由北而南分段、行李只搬一次</strong>：前段（Day1–2）住 BEB5 玩中北部（萬座毛、美麗海、古宇利），Day3 一路南下玩殘波岬、DMM 水族館，傍晚回北谷看美國村夕陽後入住 OMO5 那霸，後段（Day4–5）集中玩那霸·豐見城市區景點後直奔機場。</span></div>
+    <div class="info-row"><span class="k">動線原則</span><span class="v"><strong>依地理大致由北而南分段、行李只搬一次</strong>：前段（Day1–2）住 BEB5 玩中北部（萬座毛、美麗海、古宇利），Day3 一路南下玩殘波岬、DMM 水族館，傍晚回北谷玩美國村萬聖節＋夕陽後入住 OMO5 那霸，後段（Day4–5）集中玩那霸·豐見城市區景點後直奔機場。</span></div>
     <div class="info-row"><span class="k">停留時間</span><span class="v">各景點下方標示<strong>建議停留時間</strong>（已含親子拍照、休息、餵食緩衝），實際可依寶寶狀況彈性增減。</span></div>
   </section>
-
-  <div class="notice">
-    <h4>⛩️ 首里城正殿開放重要提醒</h4>
-    <p>首里城正殿歷經火災重建，確定於 <span class="hl">2026/11/23（一・假日）</span>才正式重新開放（前一日 11/22 舉行完成式）。<br>
-    👉 本次出遊為 <strong>2026/10/29–11/2</strong>，<span class="hl">早於 11/23 重新開放日</span>，屆時正殿仍在工事中、尚未開放登城，僅能從守禮門與參觀甲板遠看外觀與工事風景。<br>
-    👉 因此 Day 5 已把首里城改為「守禮門快拍・選配」：時間充裕可在往機場途中順路下車拍守禮門（免費區），趕時間則直接前往機場。</p>
-  </div>
 
   <section class="days">
     <div class="sec-label">每日詳細行程</div>
@@ -209,6 +215,7 @@
       <button class="tabbtn" data-tab="tab-d3"><span class="d">10/31 六</span>Day 3</button>
       <button class="tabbtn" data-tab="tab-d4"><span class="d">11/1 日</span>Day 4</button>
       <button class="tabbtn" data-tab="tab-d5"><span class="d">11/2 一</span>Day 5</button>
+      <button class="tabbtn" data-tab="tab-book"><span class="d">BOOKING</span>預約資訊</button>
     </div>
 
     <!-- TAB: OVERVIEW -->
@@ -223,17 +230,17 @@
           <tbody>
             <tr><td class="dn">Day 1</td><td>10/29（四）</td><td class="ht">BEB5</td><td>抵達北上、萬座毛海景暖身、入住恩納</td><td>象鼻岩斷崖、恩納阿古豬涮涮鍋</td></tr>
             <tr><td class="dn">Day 2</td><td>10/30（五）</td><td class="ht">BEB5</td><td>北部經典：美麗海水族館＋古宇利大橋</td><td>鯨鯊黑潮之海、古宇利蝦餐車、心形岩</td></tr>
-            <tr><td class="dn">Day 3</td><td>10/31（六）</td><td class="ht">→ OMO5</td><td>殘波岬拍照、DMM 水族館餵小豬、美國村夕陽快閃、南下入住那霸</td><td>親手餵迷你豬、美國村金黃夕陽、皮卡丘塗鴉</td></tr>
+            <tr><td class="dn">Day 3</td><td>10/31（六）</td><td class="ht">→ OMO5</td><td>殘波岬拍照、DMM 水族館餵小豬、美國村萬聖節＋夕陽、入住那霸</td><td>親手餵迷你豬、萬聖節變裝發糖、皮卡丘塗鴉夕陽</td></tr>
             <tr><td class="dn">Day 4</td><td>11/1（日）</td><td class="ht">OMO5</td><td>那霸市區一圈：參拜＋血拼</td><td>國際通紅芋塔/雪鹽、瀨長島幸福鬆餅、Outlet</td></tr>
-            <tr><td class="dn">Day 5</td><td>11/2（一）</td><td class="ht">—</td><td>港川文青、PARCO 血拼、（守禮門選配）、返程</td><td>oHacorté 水果塔、PARCO 免稅掃貨</td></tr>
+            <tr><td class="dn">Day 5</td><td>11/2（一）</td><td class="ht">—</td><td>港川文青、PARCO 血拼、返程</td><td>oHacorté 水果塔、PARCO 免稅掃貨</td></tr>
           </tbody>
         </table>
       </div>
 
       <h3 class="sec-label" style="margin-top:10px;">全程通用提醒（各日 tab 不再重複）</h3>
       <div class="ov-card"><b>🏨 住宿兩段</b><span>前 2 晚 <strong>BEB5 瀨良垣</strong>（恩納村·公寓式附廚房，約 NT$5,000–6,000/晚）；後 2 晚 <strong>OMO5 那霸</strong>（鄰國際通·距機場約 15 分，約 NT$3,000–4,000/晚）。僅 Day 3 退房南下時搬一次行李。</span></div>
-      <div class="ov-card"><b>🧭 動線原則</b><span>大致由北而南：Day1–2 待中北部玩萬座毛、美麗海、古宇利；Day3 退房後沿途玩殘波岬、南下 DMM 水族館，傍晚回北谷美國村看夕陽後入住那霸；Day4–5 集中市區景點，最後一線往機場。</span></div>
-      <div class="ov-card"><b>🚐 安全座椅</b><span>全程包車 <strong>2 台 Alphard</strong>（每台 6＋1 司機、共 12 座，恰好對應 9 大 3 小）。日本法律強制 6 歲以下須坐安全座椅，簽約時備註「提早安裝 3 張適合 1–2 歲（依體重身高）的安全座椅」，並確認兩台車後車廂可容 3 間房行李＋嬰兒推車。</span></div>
+      <div class="ov-card"><b>🧭 動線原則</b><span>大致由北而南：Day1–2 待中北部玩萬座毛、美麗海、古宇利；Day3 退房後沿途玩殘波岬、南下 DMM 水族館，傍晚回北谷玩美國村萬聖節＋夕陽後入住那霸；Day4–5 集中市區景點，最後一線往機場。</span></div>
+      <div class="ov-card"><b>🚐 安全座椅</b><span>全程包車 <strong>2 台 Alphard</strong>（每台 6＋1 司機、共 12 座，恰好對應 9 大 3 小）。日本法律強制 6 歲以下須坐安全座椅，簽約時備註「提早安裝 3 張適合 1–2 歲（依體重身高）的安全座椅」，並確認兩台車後車廂可容 4 間房行李＋嬰兒推車。</span></div>
       <div class="ov-card"><b>😴 車上補眠</b><span>長車程（Day1 機場北上 60 分、Day2 古宇利返程 70 分）刻意對齊寶寶午睡時間，讓孩子在有冷氣的汽座上安穩補眠，抵達景點剛好精神飽滿。</span></div>
       <div class="ov-card"><b>🍽️ 12 人訂位</b><span>9 大 3 小共 12 人，熱門餐廳座位有限且多需座敷。行前先以電話／官網預約，並備註「3 位幼兒需兒童椅／座敷」。商場美食街選擇多，可現場彈性處理。</span></div>
       <div class="ov-card"><b>☔ 雨備</b><span>若秋季遇陣雨，可將 Day 4 改為「AEON MALL 沖繩來客夢 Rycom」（巨型室內商場、頂級育嬰室、免費兒童造型推車），百分之百親子雨備。</span></div>
@@ -385,6 +392,7 @@
           <li>本日是全程<span class="hl">拉車最長的一天（約 170 分）</span>，建議早出發避開水族館人潮。</li>
           <li>古宇利返程約 70 分，正好讓三位寶寶在汽座上午睡；請司機放慢過橋讓大人拍照。</li>
           <li>水族館與古宇利皆推車友善，園區內有育嬰室、哺乳室，換尿布方便。</li>
+          <li><span class="hl">順遊備選</span>：北上路線可加名護鳳梨園／OKINAWA 水果樂園／Neo Park（小火車、餵動物），是 1–2 歲最愛的放電點；想更悠閒也可改排 Bios 之丘／東南植物樂園（餵水牛、遊船）。惟本日已滿，需與水族館或古宇利取捨時間。</li>
         </ul>
       </div>
       <div class="day-links">
@@ -400,10 +408,10 @@
     <!-- TAB: DAY 3 -->
     <div id="tab-d3" class="tab-panel">
     <article class="day">
-      <div class="day-hd"><div class="num"><small>DAY 3 ｜ 週六</small>10/31</div><div class="ttl">殘波岬拍照 ➔ 精緻琉球料理 ➔ DMM 水族館餵小豬 ➔ 美國村夕陽 ➔ 入住 OMO5 那霸</div></div>
-      <p class="day-flow"><b>今日動線：</b>恩納村·瀨良垣（BEB5）→<b>車 15 分</b>→ 讀谷・殘波岬（停 75 分）→<b>車 15 分</b>→ 榮料理店（午餐 90 分）→<b>車 45 分</b>→ 豐見城・DMM 水族館（停 120 分）→<b>車 30 分</b>→ 北谷・美國村（夕陽快閃 60 分）→<b>車 30 分</b>→ 那霸新都心（晚餐 120 分）→<b>車 15 分</b>→ OMO5 那霸（入住）｜ <b>總拉車約 150 分</b> ｜ <b>全日約 10:00–20:15</b></p>
+      <div class="day-hd"><div class="num"><small>DAY 3 ｜ 週六</small>10/31</div><div class="ttl">殘波岬拍照 ➔ 精緻琉球料理 ➔ DMM 水族館餵小豬 ➔ 美國村萬聖節夕陽 ➔ 入住 OMO5 那霸</div></div>
+      <p class="day-flow"><b>今日動線：</b>恩納村·瀨良垣（BEB5）→<b>車 15 分</b>→ 讀谷・殘波岬（停 75 分）→<b>車 15 分</b>→ 榮料理店（午餐 90 分）→<b>車 45 分</b>→ 豐見城・DMM 水族館（停 120 分）→<b>車 30 分</b>→ 北谷・美國村（萬聖節＋夕陽 100 分）→<b>徒步</b>→ 北谷晚餐（90 分）→<b>車 30 分</b>→ OMO5 那霸（入住）｜ <b>總拉車約 135 分</b> ｜ <b>全日約 10:00–20:20</b></p>
       <div class="map-box">
-        <svg viewBox="0 0 720 150" role="img" aria-label="Day3 當日時間軸 10:00–20:15">
+        <svg viewBox="0 0 720 150" role="img" aria-label="Day3 當日時間軸 10:00–20:20">
           <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
           <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
             <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">10:00</text>
@@ -423,7 +431,6 @@
             <line x1="153" y1="69" x2="169" y2="69"/>
             <line x1="262" y1="69" x2="308" y2="69"/>
             <line x1="432" y1="69" x2="463" y2="69"/>
-            <line x1="525" y1="69" x2="556" y2="69"/>
             <line x1="668" y1="69" x2="685" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
@@ -431,11 +438,10 @@
             <text x="161" y="50" fill="#1f93ab">15分</text>
             <text x="285" y="50" fill="#1f93ab">車45分</text>
             <text x="447" y="50" fill="#1f93ab">30分</text>
-            <text x="540" y="50" fill="#1f93ab">30分</text>
-            <text x="676" y="50" fill="#1f93ab">15分</text>
+            <text x="676" y="50" fill="#1f93ab">車30分</text>
             <text x="114" y="50" fill="#5b6b71">停75分</text>
             <text x="370" y="50" fill="#5b6b71">停120分</text>
-            <text x="494" y="50" fill="#5b6b71">停60分</text>
+            <text x="514" y="50" fill="#5b6b71">停100分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
             <circle cx="60" cy="69" r="9" fill="#1f93ab"/>
@@ -446,50 +452,53 @@
             <text x="215" y="73" text-anchor="middle" font-size="8.5" fill="#6b3f0e" font-weight="700">榮料理店・午餐</text>
             <rect x="308" y="56" width="124" height="26" rx="6" fill="#1f93ab"/>
             <text x="370" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">DMM・餵小豬</text>
-            <rect x="463" y="56" width="62" height="26" rx="6" fill="#ff8a78"/>
-            <text x="494" y="73" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">美國村夕陽</text>
-            <rect x="556" y="56" width="112" height="26" rx="6" fill="#f08a2e"/>
-            <text x="612" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">目利き銀次・晚餐</text>
+            <rect x="463" y="56" width="103" height="26" rx="6" fill="#ff8a78"/>
+            <text x="514" y="73" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">美國村萬聖節</text>
+            <rect x="578" y="56" width="90" height="26" rx="6" fill="#f08a2e"/>
+            <text x="623" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">北谷晚餐</text>
             <circle cx="685" cy="69" r="9" fill="#1f93ab"/>
             <text x="685" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">入住OMO5</text>
           </g>
         </svg>
-        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 10:00–20:15</div>
+        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 10:00–20:20（10/31 萬聖節）</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">殘波岬</span><span class="tm">75分</span></span>
         <span class="stay"><span class="nm">DMM 水族館</span><span class="tm">120分</span></span>
-        <span class="stay"><span class="nm">美國村（夕陽快閃）</span><span class="tm">60分</span></span>
+        <span class="stay"><span class="nm">美國村（萬聖節＋夕陽）</span><span class="tm">100分</span></span>
       </div>
       <div class="slot"><span class="tag am">上午</span><p>在 BEB5 悠閒吃完早餐、辦理退房，行李全部上車(今天只搬這一次)。包車前往鄰近讀谷村的「殘波岬」，這裡有沖繩最大的<strong>紅瓦巨大獅子(シーサー)</strong>與白色燈塔，非常適合全家拍第一張團體大合照。上午海風較小，沿平坦步道散步，長輩走起來很舒服。<span class="dur">停留 75 分</span></p></div>
       <div class="slot"><span class="tag pm">中午</span><p>午餐前往讀谷・宇流麻一帶順路的「榮料理店」——將沖繩傳統食材精緻化的現代琉球料理，主打<strong>阿古豬涮涮鍋</strong>與各式琉球手作料理。店內空間大、氣氛佳，有寬敞半開放式包廂或大桌，對 7 位長輩非常尊榮，對幼童也十分友善。<span class="dur">午餐約 90 分</span></p></div>
       <div class="slot"><span class="tag pm">下午</span><p>餐後請司機走高速公路直奔南部豐見城市的「DMM Kariyushi 水族館」<span class="dur">車程約 45 分</span>寶寶剛好在有冷氣的汽座上睡午覺。這是一座超高科技感的新型水族館，最棒的是<strong>動物觸摸互動區</strong>——養了溫馴親人的<strong>迷你豬</strong>，1–2 歲寶寶可拿飼料親手餵小豬(マイクロブタの餌やり)，還能近距離看樹懶、水獺與企鵝。全室內冷氣、完全不怕秋季不可控的海風；玩累了旁邊就是共構的 <strong>iias 沖繩豐崎</strong>商場，可立刻坐下喝杯咖啡或逛街。<span class="dur">停留 120 分</span></p></div>
-      <div class="slot"><span class="tag eve">傍晚</span><p>回程北上那霸時，順路快閃北谷「美國村 Depot Island」<span class="dur">車程約 30 分</span>這一小時目標明確——「拍網美照與看夕陽」。直接停在 Depot Island 旁，帶長輩與小孩走海濱步道，沿路找牆上的<strong>隱藏版皮卡丘塗鴉</strong>合照;秋日日落約 <strong>17:15–17:40</strong>，剛好站在堤防上看著名的美國村金黃夕陽，看完立刻上車，完全不拖泥帶水！<span class="dur">停留 60 分</span></p></div>
-      <div class="slot"><span class="tag eve">晚上</span><p>南下那霸新都心晚餐，餐後包車約 15 分送達「OMO5 沖繩那霸」<span class="dur">車程約 15 分</span>行李直接下車，約 20:15 完成入住，完美的移動日結束！</p></div>
+      <div class="slot"><span class="tag eve">傍晚</span><p>DMM 後北上北谷「美國村 Depot Island」<span class="dur">車程約 30 分</span>而 <strong>10/31 正是萬聖節</strong>——美國村是全沖繩最盛大的萬聖節據點，整區裝飾、大量變裝人潮，<strong>17:00–18:00 有 12 歲以下的變裝發糖（trick-or-treat／抓糖果）</strong>，1–2 歲寶寶穿上小裝扮玩得超開心。同時走海濱步道找<strong>隱藏版皮卡丘塗鴉</strong>合照，堤防看金黃夕陽（秋日日落約 <strong>17:45</strong>）。<span class="dur">停留約 100 分</span>提醒：當天有<strong>交通管制與停車限制</strong>，兩台 Alphard 請早點找好停車位。</p></div>
+      <div class="slot"><span class="tag eve">晚上</span><p>萬聖節傍晚北谷易塞、且有交通管制，晚餐<strong>就近在北谷／美國村</strong>解決（大桌友善店家先訂位），不硬闖車陣。待人潮與管制稍緩，再包車約 30 分送達「OMO5 沖繩那霸」<span class="dur">車程約 30 分</span>行李直接下車，約 20:20 完成入住，完美的移動日結束！<br>（若更想吃那霸新都心的目利きの銀次，建議把訂位延到 <strong>19:30 後</strong>、待管制解除再前往。）</p></div>
       <div class="dine">
         <div class="dh"><span class="meal">午餐</span>讀谷・宇流麻一帶（9 大 3 小）</div>
         <div class="rc"><span class="rn">榮料理店（さかえ）</span><a href="https://www.google.com/maps/search/?api=1&amp;query=%E6%A6%AE%E6%96%99%E7%90%86%E5%BA%97%20%E8%AE%80%E8%B0%B7" target="_blank" rel="noopener">地圖</a><span class="rnote">現代精緻琉球料理・阿古豬涮涮鍋 · 空間寬敞有包廂／大桌、對長輩尊榮、幼童友善，9 人務必先預約並備註兒童椅／座敷</span></div>
         <div class="rc"><span class="rn">琉球料理 ぬちがふ（Nuchigafu）</span><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%90%89%E7%90%83%E6%96%99%E7%90%86%20%E3%81%AC%E3%81%A1%E3%81%8C%E3%81%B5" target="_blank" rel="noopener">地圖</a><span class="rnote">古民家氛圍琉球宮廷料理（備選）· 環境典雅、適合帶長輩，套餐制建議提前預約</span></div>
       </div>
       <div class="dine">
-        <div class="dh"><span class="meal">晚餐</span>那霸新都心周邊（9 大 3 小）</div>
-        <div class="rc"><span class="rn">目利きの銀次 新都心店</span><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%9B%AE%E5%88%A9%E3%81%8D%E3%81%AE%E9%8A%80%E6%AC%A1%20%E6%96%B0%E9%83%BD%E5%BF%83" target="_blank" rel="noopener">地圖</a><span class="rnote">產地直送海鮮居酒屋 · 巨大木桶外觀視覺滿分、海鮮浮誇、CP 值極高 · 有大桌與榻榻米座、烤魚／飯糰／烏龍麵幼童好入口 · <strong>極熱門，務必提早約 1 個月預約</strong></span></div>
-        <div class="rc"><span class="rn">琉球新麵 通堂（小祿本店）</span><a href="https://www.google.com/maps/search/?api=1&amp;query=%E9%80%9A%E5%A0%82%20%E5%B0%8F%E7%A5%BF%E6%9C%AC%E5%BA%97" target="_blank" rel="noopener">地圖</a><span class="rnote">人氣沖繩拉麵（備選）· 男味／女味湯頭、附免費白飯，快速好吃，適合想吃簡單一點的一天</span></div>
+        <div class="dh"><span class="meal">晚餐</span>北谷・美濱美國村周邊（9 大 3 小）</div>
+        <div class="rc"><span class="rn">FRANKEY TAVERN</span><span class="score">★4.6</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJmVXA1G0T5TQRlQ5QkiadDCw" target="_blank" rel="noopener">地圖</a><span class="rnote">美式漢堡・牛排・塔可 · 11:00–23:00 · 室內外座位多、適合大團體，萬聖節夜就近用餐首選</span></div>
+        <div class="rc"><span class="rn">The Calif Kitchen</span><span class="score">★4.5</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJB4jO2Q8T5TQRC6iM4b_JJic" target="_blank" rel="noopener">地圖</a><span class="rnote">夏威夷鬆餅・Loco Moco · 8:00–22:00 · 兒童遊戲區、海景，親子友善</span></div>
+        <div class="rc"><span class="rn">美濱殿內 Mihama Dunchi</span><span class="score">★4.3</span><a href="https://www.google.com/maps/place/?q=place_id:ChIJaXDU6h8T5TQR8oYiX563T8A" target="_blank" rel="noopener">地圖</a><span class="rnote">道地沖繩料理 · 17:00–23:00 · iPad 點餐、建議預約，想吃在地味選這間</span></div>
+        <div class="rc"><span class="rn">目利きの銀次 新都心店（備選）</span><a href="https://www.google.com/maps/search/?api=1&amp;query=%E7%9B%AE%E5%88%A9%E3%81%8D%E3%81%AE%E9%8A%80%E6%AC%A1%20%E6%96%B0%E9%83%BD%E5%BF%83" target="_blank" rel="noopener">地圖</a><span class="rnote">產地直送海鮮居酒屋（那霸新都心）· 海鮮浮誇、大桌／榻榻米 · 若想吃這間，<strong>把訂位延到 19:30 後、待北谷管制解除再前往</strong>，並提早約 1 個月預約 12 人位</span></div>
       </div>
       <div class="picks">
         <div class="ph">⭐ 各景點必推必買・必吃</div>
         <div class="pk"><span class="pkn">殘波岬</span><span class="pkbody"><span class="lab see">必拍</span>沖繩最大紅瓦巨大獅子(シーサー)、白色燈塔與斷崖海景全家大合照;<span class="lab buy">必買</span>殘波岬公園周邊在地黑糖、鹽、泡盛。</span></div>
         <div class="pk"><span class="pkn">DMM 水族館</span><span class="pkbody"><span class="lab eat">必體驗</span>親手餵<strong>迷你豬</strong>(マイクロブタの餌やり)、動物觸摸互動區;<span class="lab see">必看</span>樹懶、水獺、企鵝與高科技投影水景;<span class="lab buy">必買</span>共構 iias 豐崎商場血拼、咖啡歇腳。</span></div>
-        <div class="pk"><span class="pkn">美國村（快閃）</span><span class="pkbody"><span class="lab see">必拍</span>隱藏版<strong>皮卡丘塗鴉</strong>、堤防金黃夕陽、海濱步道網美照;<span class="lab eat">必吃</span>沖繩起家的 Blue Seal 冰淇淋(邊走邊吃)。</span></div>
+        <div class="pk"><span class="pkn">美國村（萬聖節）</span><span class="pkbody"><span class="lab see">必玩</span>10/31 萬聖節變裝發糖、17:00–18:00 兒童抓糖果、整區裝飾與變裝人潮;<span class="lab see">必拍</span>隱藏版<strong>皮卡丘塗鴉</strong>、堤防金黃夕陽;<span class="lab eat">必吃</span>沖繩起家的 Blue Seal 冰淇淋(邊走邊吃)。</span></div>
       </div>
       <div class="daynote">
         <h4>📌 Day 3 當日小提醒</h4>
         <ul>
-          <li>今天是全程<span class="hl">唯一一次搬行李</span>：早上 BEB5 退房後行李全留車上，晚上約 20:15 才一次入住 OMO5。</li>
+          <li>今天是全程<span class="hl">唯一一次搬行李</span>：早上 BEB5 退房後行李全留車上，晚上約 20:20 才一次入住 OMO5。</li>
           <li>恩納→南部 DMM 為全日<span class="hl">最長車程(約 45 分)</span>，剛好對齊寶寶午睡，下車立刻有精神餵小豬。</li>
-          <li>DMM 全室內冷氣、不怕海風;<span class="hl">迷你豬餵食有場次與售票</span>，入館先確認時段與觸摸區規則(幼童需大人陪同)。</li>
-          <li>美國村只快閃 1 小時，鎖定<span class="hl">日落約 17:15–17:40</span>看夕陽＋皮卡丘打卡;傍晚微涼，記得幫三位寶寶多帶一件薄外套。</li>
-          <li>目利きの銀次<span class="hl">極熱門，務必提早約 1 個月預約</span> 12 人位，備註大桌／榻榻米與兒童椅。</li>
+          <li>DMM 迷你豬餵食<span class="hl">建議先上官網買「事前確約」票</span>(¥500、小三以下需大人陪同)；官方目前檔期標到 2026/9/30，<span class="hl">出發前務必再確認 10 月是否續辦</span>。</li>
+          <li><span class="hl">10/31 萬聖節</span>：美國村會實施<span class="hl">交通管制、停車場閉門時間調整</span>，人潮極多。兩台 Alphard 請提早卡位停車、幫寶寶準備小裝扮，17:00–18:00 玩變裝發糖；日落約 17:45，傍晚微涼記得帶薄外套。</li>
+          <li>晚餐<span class="hl">就近北谷／美國村</span>並先訂位（大桌／兒童椅），避免萬聖節車陣；想吃新都心目利きの銀次則延到 19:30 後、管制解除再去。</li>
+          <li><span class="hl">順遊備選</span>：早上人已在讀谷，時間有餘可順遊<strong>やちむんの里</strong>（陶藝村散步好拍）＋<strong>座喜味城跡</strong>（世界遺產、平緩好走、推車尚可），都離殘波岬僅數分鐘。惟本日行程偏滿，加點需相應縮短其他站。</li>
         </ul>
       </div>
       <div class="day-links">
@@ -497,10 +506,11 @@
         <div class="lk"><span class="nm">殘波岬・殘波岬燈塔</span><a href="https://www.okinawastory.jp/spot/600014624" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">讀谷村 · 巨大獅子與白色燈塔、平坦步道推車友善 · 距 BEB5 約 15 分 · 建議停留 75 分</span></div>
         <div class="lk"><span class="nm">DMM Kariyushi 水族館</span><a href="https://kariyushi-aquarium.com/" target="_blank" rel="noopener">kariyushi-aquarium.com</a><span class="note">豐見城市 iias 沖繩豐崎內 · 迷你豬餵食、觸摸互動、全室內 · 距讀谷約 45 分 · 建議停留 120 分</span></div>
         <div class="lk"><span class="nm">iias 沖繩豐崎</span><a href="https://iias.jp/okinawatoyosaki/" target="_blank" rel="noopener">iias.jp/okinawatoyosaki</a><span class="note">豐見城市 · 與水族館共構的大型商場、餐飲與育嬰室，雨天／歇腳好去處</span></div>
-        <div class="lk"><span class="nm">美國村 Depot Island</span><a href="https://www.depot-island.co.jp/" target="_blank" rel="noopener">depot-island.co.jp</a><span class="note">北谷町 · 海濱步道、皮卡丘塗鴉、金黃夕陽 · 距 DMM 約 30 分 · 快閃約 60 分</span></div>
+        <div class="lk"><span class="nm">美國村 Depot Island</span><a href="https://www.depot-island.co.jp/" target="_blank" rel="noopener">depot-island.co.jp</a><span class="note">北谷町 · 海濱步道、皮卡丘塗鴉、金黃夕陽 · 距 DMM 約 30 分 · 建議停留約 100 分</span></div>
+        <div class="lk"><span class="nm">美國村 萬聖節活動（10/31）</span><a href="https://www.okinawa-americanvillage.com/" target="_blank" rel="noopener">okinawa-americanvillage.com</a><span class="note">北谷町 · 萬聖節變裝發糖、兒童抓糖果、交通管制與停車資訊，出發前查當年公告</span></div>
         <div class="lk"><span class="nm">OMO5 沖繩那霸 by 星野集團</span><a href="https://hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha</a><span class="note">那霸市 · 鄰國際通商圈、距機場約 15 分 · 後 2 晚住宿 · 約 NT$3,000–4,000／晚</span></div>
       </div>
-      <div class="review"><b>★ 點評</b>　通盤優化後的移動日：上午殘波岬拍下全家第一張大合照，午餐升級為空間寬敞、有包廂／大桌的精緻琉球料理「榮料理店」，讓 7 位長輩用餐更舒適。恩納→南部 DMM 是全日最長車程，剛好讓三位寶寶在汽座徹底補眠，下車興奮餵小豬、全室內不怕海風;傍晚把單調的美國村濃縮成「夕陽＋皮卡丘打卡」的 1 小時精華快閃，既留下經典照片又不逛到無聊;晚餐再以浮誇海鮮居酒屋「目利きの銀次」收尾，大人小孩都吃得過癮，約 20:15 入住 OMO5。</div>
+      <div class="review"><b>★ 點評</b>　通盤優化後的移動日，剛好碰上 <strong>10/31 萬聖節</strong>：上午殘波岬拍全家大合照，午餐升級為有包廂／大桌的精緻琉球料理「榮料理店」，讓 7 位長輩用餐舒適。恩納→南部 DMM 是全日最長車程，剛好讓三位寶寶在汽座補眠，下車興奮餵小豬、全室內不怕海風;傍晚北上北谷，正好躬逢全沖繩最熱鬧的美國村萬聖節——讓寶寶穿小裝扮玩變裝發糖、拍皮卡丘與金黃夕陽。考量當晚交通管制與人潮，晚餐刻意<strong>就近北谷</strong>、待管制稍緩再約 30 分回到 OMO5（約 20:20 入住），把萬聖節的熱鬧留下、把趕路的狼狽避開。</div>
     </article>
     </div>
 
@@ -603,8 +613,8 @@
     <!-- TAB: DAY 5 -->
     <div id="tab-d5" class="tab-panel">
     <article class="day">
-      <div class="day-hd"><div class="num"><small>DAY 5 ｜ 週一</small>11/2</div><div class="ttl">港川文青散策 ➔ PARCO CITY 血拼 ➔（守禮門選配）➔ 那霸機場返家</div></div>
-      <p class="day-flow"><b>今日動線：</b>OMO5 那霸 →<b>車 15 分</b>→ 浦添・港川外人住宅區（停 60 分）→<b>車 10 分</b>→ PARCO CITY（午餐＋血拼 120 分）→<b>車 15 分</b>→ 那霸機場 ｜ <b>總拉車約 40 分</b> ｜ <b>全日約 9:30–14:00</b>（首里城正殿本次未開放，守禮門為選配）</p>
+      <div class="day-hd"><div class="num"><small>DAY 5 ｜ 週一</small>11/2</div><div class="ttl">港川文青散策 ➔ PARCO CITY 血拼 ➔ 那霸機場返家</div></div>
+      <p class="day-flow"><b>今日動線：</b>OMO5 那霸 →<b>車 15 分</b>→ 浦添・港川外人住宅區（停 60 分）→<b>車 10 分</b>→ PARCO CITY（午餐＋血拼 120 分）→<b>車 15 分</b>→ 那霸機場 ｜ <b>總拉車約 40 分</b> ｜ <b>全日約 9:30–14:00</b></p>
       <div class="map-box">
         <svg viewBox="0 0 720 150" role="img" aria-label="Day5 當日時間軸 9:30–14:00">
           <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
@@ -639,16 +649,14 @@
             <text x="623" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">那霸機場</text>
           </g>
         </svg>
-        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 9:30–14:00（首里城正殿本次未開放，守禮門為選配）</div>
+        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 9:30–14:00</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">港川外人住宅區</span><span class="tm">60分</span></span>
         <span class="stay"><span class="nm">PARCO CITY</span><span class="tm">120分</span></span>
-        <span class="stay opt"><span class="nm">首里城守禮門＊</span><span class="tm">40分（選配）</span></span>
       </div>
       <div class="slot"><span class="tag am">上午</span><p>OMO5 辦理退房，包車前往浦添市「港川外人住宅區」——美軍宿舍改建的文青聚落，一整片彩繪平房進駐特色甜點、麵包與咖啡小店，散步拍照超好逛。<span class="dur">停留 60 分</span></p></div>
       <div class="slot"><span class="tag pm">中午</span><p>鄰近「SAN-A 浦添西海岸 PARCO CITY」，縣內最大約 250 店、提供免稅服務，最後一波採買伴手禮並於館內午餐。<span class="dur">停留 120 分</span></p></div>
-      <div class="slot optional"><span class="tag opt">選配</span><p><strong>（首里城・選配）</strong>本次出遊 10/29–11/2 早於 <strong>11/23</strong> 正殿重新開放日，正殿尚未開放登城;若時間充裕，可在往機場途中順路到首里城公園<strong>守禮門快拍</strong>(免費區、遠觀工事中的正殿)。<span class="dur">停留 40 分</span>趕時間則直接前往機場。</p></div>
       <div class="slot"><span class="tag pm">下午</span><p>專車送達那霸機場，司機協助卸載行李，搭機返回溫暖的家。</p></div>
       <div class="dine">
         <div class="dh"><span class="meal">午餐</span>PARCO CITY 周邊（9 大 3 小）</div>
@@ -660,12 +668,10 @@
         <div class="ph">⭐ 各景點必推必買・必吃</div>
         <div class="pk"><span class="pkn">港川外人住宅區</span><span class="pkbody"><span class="lab eat">必吃</span><strong>oHacorté 水果塔</strong>、[ippe coppe] 司康/吐司、宗像堂天然酵母麵包;<span class="lab see">必拍</span>彩色美軍平房門牌牆。</span></div>
         <div class="pk"><span class="pkn">PARCO CITY</span><span class="pkbody"><span class="lab buy">必買</span>唐吉訶德、無印良品、UNIQLO、藥妝、沖繩伴手禮專區，可一次<strong>免稅</strong>掃齊;<span class="lab eat">必吃</span>3F 美食街沖繩麵與甜點。</span></div>
-        <div class="pk"><span class="pkn">首里城（選配）</span><span class="pkbody"><span class="lab see">必拍</span>守禮門、園區石垣與遠觀工事中的正殿（<strong>正殿本次未開放</strong>，2026/11/23 起才重新開放）;<span class="lab buy">必買</span>御城印、紅型/琉球玻璃紀念品。</span></div>
       </div>
       <div class="daynote">
         <h4>📌 Day 5 當日小提醒</h4>
         <ul>
-          <li>首里城正殿 <span class="hl">2026/11/23 才重新開放</span>，本次 10/29–11/2 尚未開放;可選守禮門快拍（約 40 分）或直接前往機場。</li>
           <li>PARCO CITY 可一次免稅採買最後伴手禮，記得<span class="hl">隨身帶護照</span>辦理退稅。</li>
           <li>PARCO→機場僅約 15 分，仍請預留辦理登機、退稅與帶幼童的緩衝時間。</li>
         </ul>
@@ -674,10 +680,95 @@
         <h4>🔗 Day 5 相關連結</h4>
         <div class="lk"><span class="nm">港川外人住宅區</span><a href="https://www.okinawastory.jp/spot/600014653" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">浦添市 · 美軍住宅改建文青聚落 · 建議停留 60 分</span></div>
         <div class="lk"><span class="nm">SAN-A 浦添西海岸 PARCO CITY</span><a href="https://www.parcocity.jp/" target="_blank" rel="noopener">parcocity.jp</a><span class="note">浦添市 · 縣內最大約 250 店 · 機場車程約 15 分 · 10:00–22:00 · 建議停留 120 分</span></div>
-        <div class="lk"><span class="nm">首里城公園（選配）</span><a href="https://oki-park.jp/shurijo/tc/" target="_blank" rel="noopener">oki-park.jp/shurijo/tc</a><span class="note">那霸市首里 · 正殿 2026/11/23 起才重新開放（本次未開放，僅守禮門可看）· 守禮門快拍約 40 分</span></div>
       </div>
-      <div class="review"><b>★ 點評</b>　從 OMO5 那霸出發，港川、PARCO CITY、（守禮門）、機場一線往南排列不回頭，且因已住在那霸、首段車程比住北部時更短。PARCO 距機場僅 15 分;正殿本次未開放，若想拍守禮門也僅多約 15 分，最後血拼／快拍都不怕趕飛機。</div>
+      <div class="review"><b>★ 點評</b>　從 OMO5 那霸出發，港川、PARCO CITY、機場一線往南排列不回頭，且因已住在那霸、首段車程比住北部時更短。PARCO 距機場僅 15 分，最後血拼完再從容前往機場，不怕趕飛機。</div>
     </article>
+    </div>
+
+    <!-- TAB: BOOKING -->
+    <div id="tab-book" class="tab-panel">
+      <p class="ov-intro">本頁彙整全程<strong>預約狀態</strong>，分成機票、飯店、餐廳、包車、門票・體驗五類逐項確認。狀態標示：<span class="bk-badge ok">已訂</span> 已完成／<span class="bk-badge hold">待確認</span> 已訂待補資料／<span class="bk-badge todo">待訂</span> 尚未預約。</p>
+
+      <div class="bk-h">✈️ 機票 <span class="bk-badge todo">待訂／待填</span></div>
+      <div class="ov-scroll">
+        <table class="bk-table">
+          <thead><tr><th>航段</th><th>日期</th><th>航班／時間</th><th>備註</th><th>狀態</th></tr></thead>
+          <tbody>
+            <tr><td class="d2">去程 台灣 → 沖繩 OKA</td><td>10/29（四）</td><td>＿＿＿＿</td><td>目前行程自 13:00 起算；若為早班機可於 Day 1 加排一站</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">回程 沖繩 OKA → 台灣</td><td>11/2（一）</td><td>＿＿＿＿</td><td>目前抓 14:00 到機場；請依實際航班回推 Day 5 時間與退稅緩衝</td><td><span class="bk-badge todo">待訂</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bk-h">🏨 飯店</div>
+      <div class="bk-card">
+        <div class="bk-nm">星野 BEB5 沖繩瀨良垣（前 2 晚） <span class="ord">訂單 BOSTTA261730</span></div>
+        <div class="bk-row"><span class="bk-k">入住</span><span class="bk-v">2026/<strong>10/29</strong>（四）→ <strong>10/31</strong>（六）· 共 <strong>2 晚</strong></span></div>
+        <div class="bk-row"><span class="bk-k">時間</span><span class="bk-v">入住 15:00～ ／ 退房 ～11:00</span></div>
+        <div class="bk-row"><span class="bk-k">專案</span><span class="bk-v">基本住宿專案・<strong>不含早晚餐</strong>（房型自炊＋超市補糧）</span></div>
+        <div class="bk-row"><span class="bk-k">房型</span><span class="bk-v"><strong>共 4 間房</strong>，合計成人 9・兒童 3＝12 人</span></div>
+        <div class="ov-scroll">
+          <table class="bk-table" style="min-width:420px;">
+            <thead><tr><th>房間</th><th>房型</th><th>人數</th><th>專案</th></tr></thead>
+            <tbody>
+              <tr><td class="d2">Room 1</td><td>Corner</td><td>成人 1・兒童 1</td><td>29 歲以下折扣</td></tr>
+              <tr><td class="d2">Room 2</td><td>Triple Room</td><td>成人 3</td><td>基本住宿專案</td></tr>
+              <tr><td class="d2">Room 3</td><td>Triple Room</td><td>成人 3・兒童 1</td><td>基本住宿專案</td></tr>
+              <tr><td class="d2">Room 4</td><td>Triple Room</td><td>成人 2・兒童 1</td><td>基本住宿專案</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bk-note"><span class="bk-badge ok">已訂</span> 12 人恰好對應包車 12 座。恩納村瀨良垣，公寓式附大客廳、微波爐、大冰箱，適合處理寶寶副食品。</div>
+      </div>
+      <div class="bk-card">
+        <div class="bk-nm">OMO5 沖繩那霸 by 星野集團（後 2 晚） <span class="bk-badge hold">待確認</span></div>
+        <div class="bk-row"><span class="bk-k">入住</span><span class="bk-v">2026/<strong>10/31</strong>（六）→ <strong>11/2</strong>（一）· 共 <strong>2 晚</strong></span></div>
+        <div class="bk-row"><span class="bk-k">房型</span><span class="bk-v">建議比照 4 間房／9 大 3 小；訂單號、房型、方案、入退房時間<strong>待補</strong></span></div>
+        <div class="bk-row"><span class="bk-k">參考</span><span class="bk-v">約 NT$3,000–4,000／晚 · 鄰國際通、距機場約 15 分</span></div>
+        <div class="bk-note">⚠️ 尚未提供訂房確認，請補上訂單資料，並確認同樣可容 4 間房、能安排相連或同層。</div>
+      </div>
+
+      <div class="bk-h">🍽️ 餐廳（12 人・建議提前預約） <span class="bk-badge todo">待訂</span></div>
+      <div class="ov-scroll">
+        <table class="bk-table">
+          <thead><tr><th>日期</th><th>餐別・區域</th><th>建議店家</th><th>狀態</th></tr></thead>
+          <tbody>
+            <tr><td class="d2">10/29 四</td><td>晚餐・恩納</td><td>嘉福 Kafuku ★4.9／碧 ~ao~ ★4.7／しゃぶしゃぶ恩納 ★4.6（阿古豬涮涮鍋）</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">10/30 五</td><td>午餐・本部</td><td>J's Kitchen ★4.7／papaiya ★4.2／Kairo ★4.4</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">10/30 五</td><td>晚餐・恩納</td><td><strong>尚未指定</strong>（避免與 Day1 重複，建議另挑海鮮／沖繩麵或飯店餐廳並預約）</td><td><span class="bk-badge todo">待指定</span></td></tr>
+            <tr><td class="d2">10/31 六</td><td>午餐・讀谷</td><td>榮料理店（精緻琉球料理・包廂／大桌）</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">10/31 六</td><td>晚餐・北谷</td><td>FRANKEY TAVERN ★4.6／The Calif Kitchen ★4.5／美濱殿內 ★4.3（備選：目利きの銀次 延 19:30 後）</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">11/1 日</td><td>午／晚餐・國際通</td><td>海渡 KAITO ★4.9／Yunangi ★4.5／琉球規樂 ★4.8</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">11/2 一</td><td>午餐・PARCO CITY</td><td>和風亭 3F／やまや食堂 2F／THE PLATINUM 自助餐（館內美食街可現場）</td><td><span class="bk-badge hold">現場可</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bk-note">預約時統一備註「<strong>12 人、3 位幼兒需兒童椅／座敷</strong>」。最熱門的<strong>目利きの銀次約提前 1 個月</strong>；榮料理店、恩納涮涮鍋建議提前 2–4 週。</div>
+
+      <div class="bk-h">🚐 包車交通 <span class="bk-badge hold">待確認</span></div>
+      <div class="bk-card">
+        <div class="bk-nm">全程包車 2 台 Alphard</div>
+        <div class="bk-row"><span class="bk-k">車輛</span><span class="bk-v">2 台 Alphard（每台 6＋1 司機、共 <strong>12 座</strong>）</span></div>
+        <div class="bk-row"><span class="bk-k">兒童</span><span class="bk-v"><strong>3 張嬰兒安全座椅</strong>（適合 1–2 歲，依體重身高）</span></div>
+        <div class="bk-row"><span class="bk-k">費用</span><span class="bk-v">約 <strong>NT$1,500／人／日</strong></span></div>
+        <div class="bk-row"><span class="bk-k">車行</span><span class="bk-v">車行名稱／訂單／司機聯絡方式<strong>待補</strong></span></div>
+        <div class="bk-note">簽約備註：提早安裝 3 張安全座椅、後車廂需容 4 間房行李＋嬰兒推車；Day 3（10/31）萬聖節北谷有交通管制與停車限制，請司機預留應變。</div>
+      </div>
+
+      <div class="bk-h">🎟️ 門票・體驗</div>
+      <div class="ov-scroll">
+        <table class="bk-table">
+          <thead><tr><th>項目</th><th>日期</th><th>說明</th><th>狀態</th></tr></thead>
+          <tbody>
+            <tr><td class="d2">DMM 迷你豬餵食（事前確約）</td><td>10/31 六</td><td>¥500／人次，官網先訂；小三以下需大人陪同。官方檔期目前標到 2026/9/30，<strong>務必再確認 10 月是否續辦</strong></td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">DMM 水族館 入館票</td><td>10/31 六</td><td>可線上或現場購買</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">美麗海水族館</td><td>10/30 五</td><td>建議買電子前售票，較便宜且免排隊</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">萬座毛／古宇利海洋塔</td><td>10/29–30</td><td>現場購票即可</td><td><span class="bk-badge hold">現場</span></td></tr>
+            <tr><td class="d2">美國村 萬聖節活動</td><td>10/31 六</td><td>免費，出發前查當年變裝發糖時段與交通管制／停車公告</td><td><span class="bk-badge hold">免費／查詢</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="bk-note">※ 以上為依現行行程整理的預約清單；機票、OMO5 訂房、餐廳與包車車行資料補齊後，可再更新各項狀態。</div>
     </div>
 
   </section>
@@ -686,7 +777,7 @@
 
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
-  <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。首里城開放時間、各景點與飯店連結請於出發前再次確認。</span>
+  <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span>
 </footer>
 
 <script>
