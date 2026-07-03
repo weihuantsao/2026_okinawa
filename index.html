@@ -79,6 +79,24 @@
   .geo-pop-meta{color:var(--sun-deep);font-weight:700;font-size:.8rem;margin-top:3px;font-family:"Zen Maru Gothic",sans-serif;}
   .geo-pop-note{color:var(--ink-soft);font-size:.82rem;margin-top:5px;line-height:1.6;}
 
+  /* flight card + collapsible */
+  .flt-row{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px dotted var(--line);}
+  .flt-row:last-of-type{border-bottom:none;}
+  .flt-tag{flex:0 0 auto;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.76rem;color:#fff;border-radius:999px;padding:2px 11px;}
+  .flt-tag.go{background:var(--leaf);}
+  .flt-tag.back{background:var(--sun-deep);}
+  .flt-body{font-size:.92rem;color:var(--ink);}
+  .fold{border:1px solid var(--line);border-radius:12px;margin-top:12px;background:var(--aqua);overflow:hidden;}
+  .fold>summary{cursor:pointer;list-style:none;padding:10px 14px;font-weight:700;font-size:.88rem;color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;display:flex;align-items:center;gap:8px;}
+  .fold>summary::-webkit-details-marker{display:none;}
+  .fold>summary::before{content:"▸";color:var(--sun-deep);transition:transform .18s;}
+  .fold[open]>summary::before{transform:rotate(90deg);}
+  .fold>summary:hover{background:var(--aqua-soft);}
+  .fold-body{padding:2px 14px 14px;}
+  .dep{display:inline-block;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.76rem;color:#fff;border-radius:8px;padding:2px 9px;margin-right:8px;}
+  .dep.tpe{background:var(--sky-deep);}
+  .dep.rmq{background:var(--grape);}
+
   /* stay-time summary chips */
   .stays{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px;}
   .stay{display:flex;align-items:center;gap:6px;background:var(--aqua-soft);border:1px solid #d4ede9;border-radius:999px;padding:4px 12px;font-size:.82rem;color:var(--ink);}
@@ -745,15 +763,58 @@
     <div id="tab-book" class="tab-panel">
       <p class="ov-intro">本頁彙整全程<strong>預約狀態</strong>，分成機票、飯店、餐廳、包車、門票・體驗五類逐項確認。狀態標示：<span class="bk-badge ok">已訂</span> 已完成／<span class="bk-badge hold">待確認</span> 已訂待補資料／<span class="bk-badge todo">待訂</span> 尚未預約。</p>
 
-      <div class="bk-h">✈️ 機票 <span class="bk-badge todo">待訂／待填</span></div>
-      <div class="ov-scroll">
-        <table class="bk-table">
-          <thead><tr><th>航段</th><th>日期</th><th>航班／時間</th><th>備註</th><th>狀態</th></tr></thead>
-          <tbody>
-            <tr><td class="d2">去程 台灣 → 沖繩 OKA</td><td>10/29（四）</td><td>＿＿＿＿</td><td>目前行程自 13:00 起算；若為早班機可於 Day 1 加排一站</td><td><span class="bk-badge todo">待訂</span></td></tr>
-            <tr><td class="d2">回程 沖繩 OKA → 台灣</td><td>11/2（一）</td><td>＿＿＿＿</td><td>目前抓 14:00 到機場；請依實際航班回推 Day 5 時間與退稅緩衝</td><td><span class="bk-badge todo">待訂</span></td></tr>
-          </tbody>
-        </table>
+      <div class="bk-h">✈️ 機票 <span class="bk-badge hold">部分已開票</span></div>
+      <div class="bk-note" style="margin:0 0 10px;">本團<strong>分兩地出發</strong>、機票分開訂與確認：<span class="dep tpe">桃園 TPE</span>瑋桓一家 3 人（已開票）／<span class="dep rmq">台中 RMQ</span>其餘成員 9 人（待補）。兩組實際去回時刻，將一併影響 Day 1 抵達後與 Day 5 離場的共同動線。</div>
+
+      <div class="bk-card">
+        <div class="bk-nm"><span class="dep tpe">桃園 TPE 出發</span>瑋桓一家 3 人 · 中華航空 CI120／CI121 <span class="bk-badge ok">已開票</span></div>
+        <div class="flt-row"><span class="flt-tag go">去程</span><span class="flt-body"><strong>CI120</strong> · <strong>10/29（四）</strong> 桃園 T2 <strong>08:10</strong> → 那霸 T1 <strong>10:45</strong> · 飛行 1:35</span></div>
+        <div class="flt-row"><span class="flt-tag back">回程</span><span class="flt-body"><strong>CI121</strong> · <strong>11/2（一）</strong> 那霸 T1 <strong>11:55</strong> → 桃園 T2 <strong>12:35</strong> · 飛行 1:40</span></div>
+        <div class="bk-note">⚠️ <strong>回程 CI121 11:55 起飛</strong>：國際線建議 <strong>09:45–10:00 前抵達那霸機場</strong>報到，此組 <strong>Day 5 早上無法排港川／PARCO</strong>，宜退房後直奔機場。去程 <strong>10:45 抵達</strong>，比原規劃 13:00 更早，Day 1 下午更充裕。</div>
+        <details class="fold">
+          <summary>展開：乘客・票號・訂位詳情（訂位代號 ES5IXS · 3 人）</summary>
+          <div class="fold-body">
+            <div class="ov-scroll">
+              <table class="bk-table" style="min-width:520px;">
+                <thead><tr><th>乘客（依機票）</th><th>身分</th><th>機票號碼</th><th>艙等／票價基礎（去·回）</th><th>常客編號</th></tr></thead>
+                <tbody>
+                  <tr><td class="d2">Tsao Weihuan Mr（曹瑋桓）</td><td>大人 ADT</td><td>297 2425909951</td><td>Q／QL · N／NL</td><td>—</td></tr>
+                  <tr><td class="d2">Hsu Kaiting Ms（徐楷婷）</td><td>大人 ADT</td><td>297 2425909950</td><td>Q／QL · N／NL</td><td>WF5742685</td></tr>
+                  <tr><td class="d2">Tsao Fangyu Miss（曹芳瑜）</td><td>兒童 CHD</td><td>297 2425909952</td><td>Q／QL·CH50 · N／NL·CH50</td><td>—</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="bk-row"><span class="bk-k">訂位代號</span><span class="bk-v"><strong>ES5IXS</strong> · 訂位狀態 <strong>OK</strong> · 行李每人 <strong>1 件</strong></span></div>
+            <div class="bk-row"><span class="bk-k">票價</span><span class="bk-v">PRMO 促銷票（TICKET PROMOTION - CONFIRMED）· 兒童 CH50</span></div>
+            <div class="bk-row"><span class="bk-k">開票</span><span class="bk-v">2026/07/03 · 華航電子商務（台北市南京東路三段 131 號）· ☎ 886-2-4129000</span></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="bk-card">
+        <div class="bk-nm"><span class="dep rmq">台中 RMQ 出發</span>其餘成員 9 人 <span class="bk-badge todo">待補</span></div>
+        <div class="flt-row"><span class="flt-tag go">去程</span><span class="flt-body"><strong>10/29（四）</strong> 台中 RMQ ＿＿:＿＿ → 那霸 OKA ＿＿:＿＿ · 航空／航班 ＿＿＿＿</span></div>
+        <div class="flt-row"><span class="flt-tag back">回程</span><span class="flt-body"><strong>11/2（一）</strong> 那霸 OKA ＿＿:＿＿ → 台中 RMQ ＿＿:＿＿ · 航空／航班 ＿＿＿＿</span></div>
+        <div class="bk-note">📝 <strong>待補必要資訊</strong>：航空公司／航班號、去回程確切時刻、訂位代號、各乘客英文全名與機票號碼、行李與票價。（台中—那霸常見為台灣虎航 IT 航線，實際以訂位為準）</div>
+        <details class="fold">
+          <summary>展開：乘客名單・票號（9 人 · 依 BEB5 房間分組 · 待補）</summary>
+          <div class="fold-body">
+            <div class="ov-scroll">
+              <table class="bk-table" style="min-width:480px;">
+                <thead><tr><th>成員</th><th>身分</th><th>英文全名（待補）</th><th>機票號碼（待補）</th></tr></thead>
+                <tbody>
+                  <tr><td class="d2">爸、媽</td><td>大人 ×2</td><td>＿＿＿＿</td><td>＿＿＿＿</td></tr>
+                  <tr><td class="d2">宸菲</td><td>兒童</td><td>＿＿＿＿</td><td>＿＿＿＿</td></tr>
+                  <tr><td class="d2">哥哥一家三口</td><td>大人 ×2＋兒童 ×1</td><td>＿＿＿＿</td><td>＿＿＿＿</td></tr>
+                  <tr><td class="d2">妹妹</td><td>大人</td><td>＿＿＿＿</td><td>＿＿＿＿</td></tr>
+                  <tr><td class="d2">梓瑄、阿秉</td><td>大人 ×2</td><td>＿＿＿＿</td><td>＿＿＿＿</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="bk-row"><span class="bk-k">訂位代號</span><span class="bk-v">＿＿＿＿（待補）</span></div>
+            <div class="bk-row"><span class="bk-k">開票</span><span class="bk-v">＿＿＿＿（待補）</span></div>
+          </div>
+        </details>
       </div>
 
       <div class="bk-h">🏨 飯店</div>
