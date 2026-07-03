@@ -10,6 +10,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root{
     /* brighter palette */
@@ -59,6 +61,23 @@
   .map-box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px 16px 10px;margin:18px 0 22px;box-shadow:0 6px 18px rgba(31,147,171,.10);}
   .map-box .map-cap{font-size:.74rem;color:var(--ink-soft);text-align:right;margin-top:2px;font-family:"Zen Maru Gothic",sans-serif;letter-spacing:.05em;}
   .map-box svg{width:100%;height:auto;display:block;}
+
+  /* geo route map (Leaflet) */
+  .geo-map{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:18px 0 22px;box-shadow:0 6px 18px rgba(31,147,171,.10);}
+  .geo-map .lmap{width:100%;height:410px;background:var(--aqua);}
+  .geo-map .geo-cap{font-size:.74rem;color:var(--ink-soft);padding:8px 14px;font-family:"Zen Maru Gothic",sans-serif;background:var(--paper);border-top:1px solid var(--line);}
+  .geo-leg{position:absolute;top:10px;right:10px;z-index:500;max-width:64%;line-height:1.35;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:10px;padding:6px 11px;font-size:.78rem;font-weight:700;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.14);font-family:"Zen Maru Gothic",sans-serif;}
+  .geo-toggle{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;background:var(--paper);border-bottom:1px solid var(--line);}
+  .geo-tbtn{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.8rem;border:1px solid #d4ede9;background:#fff;color:var(--ink-soft);padding:4px 13px;border-radius:999px;cursor:pointer;transition:all .15s;}
+  .geo-tbtn:hover{border-color:var(--sky);color:var(--ink);}
+  .geo-tbtn.active{background:var(--c,var(--sun-deep));color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(0,0,0,.2);}
+  .geo-pin{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35);border:2px solid #fff;}
+  .geo-pin span{transform:rotate(45deg);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.9rem;line-height:1;}
+  .geo-drive{background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.15);border-radius:999px;padding:1px 8px;font-size:.72rem;font-weight:700;color:var(--sun-deep);white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.2);font-family:"Zen Maru Gothic",sans-serif;}
+  .leaflet-popup-content{font-family:"Noto Sans TC",sans-serif;margin:12px 14px;}
+  .geo-pop-nm{font-weight:700;color:var(--ink);font-size:.96rem;}
+  .geo-pop-meta{color:var(--sun-deep);font-weight:700;font-size:.8rem;margin-top:3px;font-family:"Zen Maru Gothic",sans-serif;}
+  .geo-pop-note{color:var(--ink-soft);font-size:.82rem;margin-top:5px;line-height:1.6;}
 
   /* stay-time summary chips */
   .stays{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px;}
@@ -200,7 +219,7 @@
     <div class="info-row"><span class="k">交通方式</span><span class="v">全程<strong>包車 2 台（7 座＋10 座、日文與中文司機各一）</strong>，配備 <strong>3 張嬰兒安全座椅</strong>；行李集中第二台、第一台純載客更寬敞，免去搬運與趕電車的狼狽。費用 <strong>NT$1,650／人／日</strong>，全程合計 <strong>NT$79,200</strong>。</span></div>
     <div class="info-row"><span class="k">同行成員</span><span class="v"><strong>大人 9 位</strong>、<strong>1–2 歲幼童 3 位</strong>（共 12 人）。含新加入的<strong>梓宣（楷婷姊）</strong>、<strong>巧倫妹</strong> 2 位大人，及幼童<strong>饅頭（2 歲）</strong>。</span></div>
     <div class="info-row"><span class="k">行程核心</span><span class="v">慢節奏、知名景點、離島絕景、市區參拜與血拼、<strong>無障礙</strong>與完美<strong>雨備</strong>。</span></div>
-    <div class="info-row"><span class="k">動線原則</span><span class="v"><strong>依地理大致由北而南分段、行李只搬一次</strong>：前段（Day1–2）住 BEB5 玩中北部（萬座毛、美麗海、古宇利），Day3 一路南下玩殘波岬、DMM 水族館，傍晚回北谷玩美國村萬聖節＋夕陽後入住 OMO5 那霸，後段（Day4–5）集中玩那霸·豐見城市區景點後直奔機場。</span></div>
+    <div class="info-row"><span class="k">動線原則</span><span class="v"><strong>依地理大致由北而南分段、行李只搬一次</strong>：前段（Day1–2）住 BEB5 玩中北部（萬座毛、美麗海、古宇利），Day3 玩殘波岬後一路南下、傍晚在北谷玩美國村萬聖節＋夕陽後入住 OMO5 那霸，後段（Day4–5）集中玩那霸·豐見城市區景點（含 DMM 水族館餵小豬）後直奔機場。</span></div>
     <div class="info-row"><span class="k">停留時間</span><span class="v">各景點下方標示<strong>建議停留時間</strong>（已含親子拍照、休息、餵食緩衝），實際可依寶寶狀況彈性增減。</span></div>
   </section>
 
@@ -222,6 +241,12 @@
     <div id="tab-ov" class="tab-panel active">
       <p class="ov-intro">本行程為 <strong>10/29–11/2 五天四夜（週四～週一）</strong>、9 大 3 小（3 位 1–2 歲幼童）的沖繩親子包車旅遊。住宿採<strong>兩段式</strong>：前 2 晚住中北部 BEB5 瀨良垣，把握中北部的無敵海景與秋高氣爽；後 2 晚南下住那霸 OMO5，玩遍市區並就近機場。動線依地理大致由北而南推進，全程<strong>只搬一次行李</strong>（Day3 退房後行李全程留車，晚上才入住那霸）。各日 tab 內附詳細時間、美食、每個景點的「必推必買」與當天專屬小提醒、連結。</p>
 
+      <div class="geo-map">
+        <div class="geo-toggle" id="geo-toggle-all"></div>
+        <div id="geo-map-all" class="lmap" style="height:460px"></div>
+        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · 線上為路段車程</div>
+      </div>
+
       <div class="ov-scroll">
         <table class="ov-table">
           <thead>
@@ -230,8 +255,8 @@
           <tbody>
             <tr><td class="dn">Day 1</td><td>10/29（四）</td><td class="ht">BEB5</td><td>抵達北上、萬座毛海景暖身、入住恩納</td><td>象鼻岩斷崖、恩納阿古豬涮涮鍋</td></tr>
             <tr><td class="dn">Day 2</td><td>10/30（五）</td><td class="ht">BEB5</td><td>北部經典：美麗海水族館＋古宇利大橋</td><td>鯨鯊黑潮之海、古宇利蝦餐車、心形岩</td></tr>
-            <tr><td class="dn">Day 3</td><td>10/31（六）</td><td class="ht">→ OMO5</td><td>殘波岬拍照、DMM 水族館餵小豬、美國村萬聖節＋夕陽、入住那霸</td><td>親手餵迷你豬、萬聖節變裝發糖、皮卡丘塗鴉夕陽</td></tr>
-            <tr><td class="dn">Day 4</td><td>11/1（日）</td><td class="ht">OMO5</td><td>那霸市區一圈：參拜＋血拼</td><td>國際通紅芋塔/雪鹽、瀨長島幸福鬆餅、Outlet</td></tr>
+            <tr><td class="dn">Day 3</td><td>10/31（六）</td><td class="ht">→ OMO5</td><td>殘波岬拍照、美國村萬聖節＋夕陽、入住那霸</td><td>殘波岬大合照、萬聖節變裝發糖、皮卡丘塗鴉夕陽</td></tr>
+            <tr><td class="dn">Day 4</td><td>11/1（日）</td><td class="ht">OMO5</td><td>那霸市區＋南部豐見城：參拜、DMM 餵小豬、血拼</td><td>親手餵迷你豬、瀨長島幸福鬆餅、Outlet 掃貨</td></tr>
             <tr><td class="dn">Day 5</td><td>11/2（一）</td><td class="ht">—</td><td>港川文青、PARCO 血拼、返程</td><td>oHacorté 水果塔、PARCO 免稅掃貨</td></tr>
           </tbody>
         </table>
@@ -239,7 +264,7 @@
 
       <h3 class="sec-label" style="margin-top:10px;">全程通用提醒（各日 tab 不再重複）</h3>
       <div class="ov-card"><b>🏨 住宿兩段</b><span>前 2 晚 <strong>BEB5 瀨良垣</strong>（恩納村·公寓式附廚房，約 NT$5,000–6,000/晚）；後 2 晚 <strong>OMO5 那霸</strong>（鄰國際通·距機場約 15 分，約 NT$3,000–4,000/晚）。僅 Day 3 退房南下時搬一次行李。</span></div>
-      <div class="ov-card"><b>🧭 動線原則</b><span>大致由北而南：Day1–2 待中北部玩萬座毛、美麗海、古宇利；Day3 退房後沿途玩殘波岬、南下 DMM 水族館，傍晚回北谷玩美國村萬聖節＋夕陽後入住那霸；Day4–5 集中市區景點，最後一線往機場。</span></div>
+      <div class="ov-card"><b>🧭 動線原則</b><span>大致由北而南：Day1–2 待中北部玩萬座毛、美麗海、古宇利；Day3 退房後玩殘波岬、一路南下傍晚玩美國村萬聖節＋夕陽後入住那霸；Day4–5 集中那霸·豐見城景點（DMM 餵小豬、瀨長島、Outlet），最後一線往機場。</span></div>
       <div class="ov-card"><b>🚐 包車配置</b><span>全程包車 <strong>2 台（7 座＋10 座，共載 9 大 3 小）</strong>：第一台 <strong>7 座（日文司機）</strong>載 4 大 2 小、不放行李；第二台 <strong>10 座（中文司機）</strong>載 5 大 1 小並集中放 9 個大行李箱。日本法律強制 6 歲以下須坐安全座椅，簽約時備註「提早安裝 3 張適合 1–2 歲（依體重身高）的安全座椅：第一台 2 張、第二台 1 張」，並確認第二台後車廂可容 9 個大行李箱＋嬰兒推車。費用 NT$1,650／人／日，全程合計 NT$79,200。</span></div>
       <div class="ov-card"><b>😴 車上補眠</b><span>長車程（Day1 機場北上 60 分、Day2 古宇利返程 70 分）刻意對齊寶寶午睡時間，讓孩子在有冷氣的汽座上安穩補眠，抵達景點剛好精神飽滿。</span></div>
       <div class="ov-card"><b>🍽️ 12 人訂位</b><span>9 大 3 小共 12 人，熱門餐廳座位有限且多需座敷。行前先以電話／官網預約，並備註「3 位幼兒需兒童椅／座敷」。商場美食街選擇多，可現場彈性處理。</span></div>
@@ -284,6 +309,11 @@
           </g>
         </svg>
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 13:00–19:00</div>
+      </div>
+      <div class="geo-map">
+        <div class="geo-leg">Day 1 動線 · ①機場 → ②萬座毛 → ③BEB5</div>
+        <div id="geo-map-d1" class="lmap"></div>
+        <div class="geo-cap">🗺️ Day 1 路線動線圖（示範）· 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">萬座毛</span><span class="tm">40分</span></span>
@@ -367,6 +397,11 @@
         </svg>
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 9:00–17:00</div>
       </div>
+      <div class="geo-map">
+        <div class="geo-leg">Day 2 · BEB5→美麗海→古宇利</div>
+        <div id="geo-map-d2" class="lmap"></div>
+        <div class="geo-cap">🗺️ Day 2 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
+      </div>
       <div class="stays">
         <span class="stay"><span class="nm">美麗海水族館</span><span class="tm">150分</span></span>
         <span class="stay"><span class="nm">古宇利島</span><span class="tm">90分</span></span>
@@ -408,10 +443,10 @@
     <!-- TAB: DAY 3 -->
     <div id="tab-d3" class="tab-panel">
     <article class="day">
-      <div class="day-hd"><div class="num"><small>DAY 3 ｜ 週六</small>10/31</div><div class="ttl">殘波岬拍照 ➔ 精緻琉球料理 ➔ DMM 水族館餵小豬 ➔ 美國村萬聖節夕陽 ➔ 入住 OMO5 那霸</div></div>
-      <p class="day-flow"><b>今日動線：</b>恩納村·瀨良垣（BEB5）→<b>車 15 分</b>→ 讀谷・殘波岬（停 75 分）→<b>車 15 分</b>→ 榮料理店（午餐 90 分）→<b>車 45 分</b>→ 豐見城・DMM 水族館（停 120 分）→<b>車 30 分</b>→ 北谷・美國村（萬聖節＋夕陽 100 分）→<b>徒步</b>→ 北谷晚餐（90 分）→<b>車 30 分</b>→ OMO5 那霸（入住）｜ <b>總拉車約 135 分</b> ｜ <b>全日約 10:00–20:20</b></p>
+      <div class="day-hd"><div class="num"><small>DAY 3 ｜ 週六</small>10/31</div><div class="ttl">殘波岬拍照 ➔ 精緻琉球料理 ➔ 美國村萬聖節＋夕陽 ➔ 入住 OMO5 那霸</div></div>
+      <p class="day-flow"><b>今日動線：</b>恩納村·瀨良垣（BEB5）→<b>車 15 分</b>→ 讀谷・殘波岬（停 75 分）→<b>車 15 分</b>→ 榮料理店（午餐 90 分）→<b>車 20 分</b>→ 北谷・美國村（下午逛街＋萬聖節＋夕陽）→<b>徒步</b>→ 北谷晚餐（90 分）→<b>車 30 分</b>→ OMO5 那霸（入住）｜ <b>總拉車約 80 分</b> ｜ <b>全日約 10:00–20:00</b>（DMM 水族館已移至 Day 4）</p>
       <div class="map-box">
-        <svg viewBox="0 0 720 150" role="img" aria-label="Day3 當日時間軸 10:00–20:20">
+        <svg viewBox="0 0 720 150" role="img" aria-label="Day3 當日時間軸 10:00–20:00">
           <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
           <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
             <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">10:00</text>
@@ -429,19 +464,18 @@
           <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
             <line x1="60" y1="69" x2="76" y2="69"/>
             <line x1="153" y1="69" x2="169" y2="69"/>
-            <line x1="262" y1="69" x2="308" y2="69"/>
-            <line x1="432" y1="69" x2="463" y2="69"/>
-            <line x1="668" y1="69" x2="685" y2="69"/>
+            <line x1="262" y1="69" x2="282" y2="69"/>
+            <line x1="649" y1="69" x2="680" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
             <text x="68" y="50" fill="#1f93ab">車15分</text>
             <text x="161" y="50" fill="#1f93ab">15分</text>
-            <text x="285" y="50" fill="#1f93ab">車45分</text>
-            <text x="447" y="50" fill="#1f93ab">30分</text>
-            <text x="676" y="50" fill="#1f93ab">車30分</text>
+            <text x="272" y="50" fill="#1f93ab">車20分</text>
+            <text x="665" y="50" fill="#1f93ab">車30分</text>
             <text x="114" y="50" fill="#5b6b71">停75分</text>
-            <text x="370" y="50" fill="#5b6b71">停120分</text>
-            <text x="514" y="50" fill="#5b6b71">停100分</text>
+            <text x="215" y="50" fill="#5b6b71">午餐90分</text>
+            <text x="419" y="50" fill="#5b6b71">下午～夕陽</text>
+            <text x="602" y="50" fill="#5b6b71">晚餐90分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
             <circle cx="60" cy="69" r="9" fill="#1f93ab"/>
@@ -450,28 +484,31 @@
             <text x="114" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">殘波岬</text>
             <rect x="169" y="56" width="93" height="26" rx="6" fill="#ffc56b"/>
             <text x="215" y="73" text-anchor="middle" font-size="8.5" fill="#6b3f0e" font-weight="700">榮料理店・午餐</text>
-            <rect x="308" y="56" width="124" height="26" rx="6" fill="#1f93ab"/>
-            <text x="370" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">DMM・餵小豬</text>
-            <rect x="463" y="56" width="103" height="26" rx="6" fill="#ff8a78"/>
-            <text x="514" y="73" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">美國村萬聖節</text>
-            <rect x="578" y="56" width="90" height="26" rx="6" fill="#f08a2e"/>
-            <text x="623" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">北谷晚餐</text>
-            <circle cx="685" cy="69" r="9" fill="#1f93ab"/>
-            <text x="685" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">入住OMO5</text>
+            <rect x="282" y="56" width="274" height="26" rx="6" fill="#ff8a78"/>
+            <text x="419" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">美國村（下午逛街＋萬聖節＋夕陽）</text>
+            <rect x="556" y="56" width="93" height="26" rx="6" fill="#f08a2e"/>
+            <text x="602" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">北谷晚餐</text>
+            <circle cx="680" cy="69" r="9" fill="#1f93ab"/>
+            <text x="680" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">入住OMO5</text>
           </g>
         </svg>
-        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 10:00–20:20（10/31 萬聖節）</div>
+        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 10:00–20:00（10/31 萬聖節）</div>
+      </div>
+      <div class="geo-map">
+        <div class="geo-leg">Day 3 · 殘波岬→美國村→OMO5</div>
+        <div id="geo-map-d3" class="lmap"></div>
+        <div class="geo-cap">🗺️ Day 3 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">殘波岬</span><span class="tm">75分</span></span>
-        <span class="stay"><span class="nm">DMM 水族館</span><span class="tm">120分</span></span>
-        <span class="stay"><span class="nm">美國村（萬聖節＋夕陽）</span><span class="tm">100分</span></span>
+        <span class="stay"><span class="nm">榮料理店（午餐）</span><span class="tm">90分</span></span>
+        <span class="stay"><span class="nm">美國村（下午＋萬聖節＋夕陽）</span><span class="tm">下午～傍晚</span></span>
       </div>
       <div class="slot"><span class="tag am">上午</span><p>在 BEB5 悠閒吃完早餐、辦理退房，行李全部上車(今天只搬這一次)。包車前往鄰近讀谷村的「殘波岬」，這裡有沖繩最大的<strong>紅瓦巨大獅子(シーサー)</strong>與白色燈塔，非常適合全家拍第一張團體大合照。上午海風較小，沿平坦步道散步，長輩走起來很舒服。<span class="dur">停留 75 分</span></p></div>
       <div class="slot"><span class="tag pm">中午</span><p>午餐前往讀谷・宇流麻一帶順路的「榮料理店」——將沖繩傳統食材精緻化的現代琉球料理，主打<strong>阿古豬涮涮鍋</strong>與各式琉球手作料理。店內空間大、氣氛佳，有寬敞半開放式包廂或大桌，對 7 位長輩非常尊榮，對幼童也十分友善。<span class="dur">午餐約 90 分</span></p></div>
-      <div class="slot"><span class="tag pm">下午</span><p>餐後請司機走高速公路直奔南部豐見城市的「DMM Kariyushi 水族館」<span class="dur">車程約 45 分</span>寶寶剛好在有冷氣的汽座上睡午覺。這是一座超高科技感的新型水族館，最棒的是<strong>動物觸摸互動區</strong>——養了溫馴親人的<strong>迷你豬</strong>，1–2 歲寶寶可拿飼料親手餵小豬(マイクロブタの餌やり)，還能近距離看樹懶、水獺與企鵝。全室內冷氣、完全不怕秋季不可控的海風；玩累了旁邊就是共構的 <strong>iias 沖繩豐崎</strong>商場，可立刻坐下喝杯咖啡或逛街。<span class="dur">停留 120 分</span></p></div>
-      <div class="slot"><span class="tag eve">傍晚</span><p>DMM 後北上北谷「美國村 Depot Island」<span class="dur">車程約 30 分</span>而 <strong>10/31 正是萬聖節</strong>——美國村是全沖繩最盛大的萬聖節據點，整區裝飾、大量變裝人潮，<strong>17:00–18:00 有 12 歲以下的變裝發糖（trick-or-treat／抓糖果）</strong>，1–2 歲寶寶穿上小裝扮玩得超開心。同時走海濱步道找<strong>隱藏版皮卡丘塗鴉</strong>合照，堤防看金黃夕陽（秋日日落約 <strong>17:45</strong>）。<span class="dur">停留約 100 分</span>提醒：當天有<strong>交通管制與停車限制</strong>，兩台 Alphard 請早點找好停車位。</p></div>
-      <div class="slot"><span class="tag eve">晚上</span><p>萬聖節傍晚北谷易塞、且有交通管制，晚餐<strong>就近在北谷／美國村</strong>解決（大桌友善店家先訂位），不硬闖車陣。待人潮與管制稍緩，再包車約 30 分送達「OMO5 沖繩那霸」<span class="dur">車程約 30 分</span>行李直接下車，約 20:20 完成入住，完美的移動日結束！<br>（若更想吃那霸新都心的目利きの銀次，建議把訂位延到 <strong>19:30 後</strong>、待管制解除再前往。）</p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>午餐後直接前往北谷「美國村 Depot Island」<span class="dur">車程約 20 分</span>寶寶剛好在有冷氣的汽座上補眠。今天<strong>不再繞去最南端</strong>，午後把時間留給美國村：先在海濱商圈悠閒逛街、吃沖繩起家的 <strong>Blue Seal 冰淇淋</strong>、找<strong>隱藏版皮卡丘塗鴉</strong>、看摩天輪與海灘，讓寶寶盡情放電。</p></div>
+      <div class="slot"><span class="tag eve">傍晚</span><p>而 <strong>10/31 正是萬聖節</strong>——美國村是全沖繩最盛大的萬聖節據點，整區裝飾、大量變裝人潮，<strong>17:00–18:00 有 12 歲以下的變裝發糖（trick-or-treat／抓糖果）</strong>，1–2 歲寶寶穿上小裝扮玩得超開心；堤防看金黃夕陽（秋日日落約 <strong>17:45</strong>）。<span class="dur">停留下午～傍晚</span>提醒：當天有<strong>交通管制與停車限制</strong>，兩台 Alphard 請早點找好停車位。</p></div>
+      <div class="slot"><span class="tag eve">晚上</span><p>萬聖節傍晚北谷易塞、且有交通管制，晚餐<strong>就近在北谷／美國村</strong>解決（大桌友善店家先訂位），不硬闖車陣。待人潮與管制稍緩，再包車約 30 分送達「OMO5 沖繩那霸」<span class="dur">車程約 30 分</span>行李直接下車，約 20:00 完成入住，完美的移動日結束！<br>（若更想吃那霸新都心的目利きの銀次，建議把訂位延到 <strong>19:30 後</strong>、待管制解除再前往。）</p></div>
       <div class="dine">
         <div class="dh"><span class="meal">午餐</span>讀谷・宇流麻一帶（9 大 3 小）</div>
         <div class="rc"><span class="rn">榮料理店（さかえ）</span><a href="https://www.google.com/maps/search/?api=1&amp;query=%E6%A6%AE%E6%96%99%E7%90%86%E5%BA%97%20%E8%AE%80%E8%B0%B7" target="_blank" rel="noopener">地圖</a><span class="rnote">現代精緻琉球料理・阿古豬涮涮鍋 · 空間寬敞有包廂／大桌、對長輩尊榮、幼童友善，9 人務必先預約並備註兒童椅／座敷</span></div>
@@ -487,15 +524,13 @@
       <div class="picks">
         <div class="ph">⭐ 各景點必推必買・必吃</div>
         <div class="pk"><span class="pkn">殘波岬</span><span class="pkbody"><span class="lab see">必拍</span>沖繩最大紅瓦巨大獅子(シーサー)、白色燈塔與斷崖海景全家大合照;<span class="lab buy">必買</span>殘波岬公園周邊在地黑糖、鹽、泡盛。</span></div>
-        <div class="pk"><span class="pkn">DMM 水族館</span><span class="pkbody"><span class="lab eat">必體驗</span>親手餵<strong>迷你豬</strong>(マイクロブタの餌やり)、動物觸摸互動區;<span class="lab see">必看</span>樹懶、水獺、企鵝與高科技投影水景;<span class="lab buy">必買</span>共構 iias 豐崎商場血拼、咖啡歇腳。</span></div>
         <div class="pk"><span class="pkn">美國村（萬聖節）</span><span class="pkbody"><span class="lab see">必玩</span>10/31 萬聖節變裝發糖、17:00–18:00 兒童抓糖果、整區裝飾與變裝人潮;<span class="lab see">必拍</span>隱藏版<strong>皮卡丘塗鴉</strong>、堤防金黃夕陽;<span class="lab eat">必吃</span>沖繩起家的 Blue Seal 冰淇淋(邊走邊吃)。</span></div>
       </div>
       <div class="daynote">
         <h4>📌 Day 3 當日小提醒</h4>
         <ul>
-          <li>今天是全程<span class="hl">唯一一次搬行李</span>：早上 BEB5 退房後行李全留車上，晚上約 20:20 才一次入住 OMO5。</li>
-          <li>恩納→南部 DMM 為全日<span class="hl">最長車程(約 45 分)</span>，剛好對齊寶寶午睡，下車立刻有精神餵小豬。</li>
-          <li>DMM 迷你豬餵食<span class="hl">建議先上官網買「事前確約」票</span>(¥500、小三以下需大人陪同)；官方目前檔期標到 2026/9/30，<span class="hl">出發前務必再確認 10 月是否續辦</span>。</li>
+          <li>今天是全程<span class="hl">唯一一次搬行李</span>：早上 BEB5 退房後行李全留車上，晚上約 20:00 才一次入住 OMO5。</li>
+          <li>通盤優化後<span class="hl">不再繞去最南端的 DMM</span>（已移到 Day 4 與豐見城景點一起玩），午後一路南下北谷不回頭，車程更省、也更適合幼童午睡節奏。</li>
           <li><span class="hl">10/31 萬聖節</span>：美國村會實施<span class="hl">交通管制、停車場閉門時間調整</span>，人潮極多。兩台包車請提早卡位停車、幫寶寶準備小裝扮，17:00–18:00 玩變裝發糖；日落約 17:45，傍晚微涼記得帶薄外套。</li>
           <li>晚餐<span class="hl">就近北谷／美國村</span>並先訂位（大桌／兒童椅），避免萬聖節車陣；想吃新都心目利きの銀次則延到 19:30 後、管制解除再去。</li>
           <li><span class="hl">順遊備選</span>：早上人已在讀谷，時間有餘可順遊<strong>やちむんの里</strong>（陶藝村散步好拍）＋<strong>座喜味城跡</strong>（世界遺產、平緩好走、推車尚可），都離殘波岬僅數分鐘。惟本日行程偏滿，加點需相應縮短其他站。</li>
@@ -503,77 +538,89 @@
       </div>
       <div class="day-links">
         <h4>🔗 Day 3 相關連結</h4>
-        <div class="lk"><span class="nm">殘波岬・殘波岬燈塔</span><a href="https://www.okinawastory.jp/spot/600014624" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">讀谷村 · 巨大獅子與白色燈塔、平坦步道推車友善 · 距 BEB5 約 15 分 · 建議停留 75 分</span></div>
-        <div class="lk"><span class="nm">DMM Kariyushi 水族館</span><a href="https://kariyushi-aquarium.com/" target="_blank" rel="noopener">kariyushi-aquarium.com</a><span class="note">豐見城市 iias 沖繩豐崎內 · 迷你豬餵食、觸摸互動、全室內 · 距讀谷約 45 分 · 建議停留 120 分</span></div>
-        <div class="lk"><span class="nm">iias 沖繩豐崎</span><a href="https://iias.jp/okinawatoyosaki/" target="_blank" rel="noopener">iias.jp/okinawatoyosaki</a><span class="note">豐見城市 · 與水族館共構的大型商場、餐飲與育嬰室，雨天／歇腳好去處</span></div>
-        <div class="lk"><span class="nm">美國村 Depot Island</span><a href="https://www.depot-island.co.jp/" target="_blank" rel="noopener">depot-island.co.jp</a><span class="note">北谷町 · 海濱步道、皮卡丘塗鴉、金黃夕陽 · 距 DMM 約 30 分 · 建議停留約 100 分</span></div>
+        <div class="lk"><span class="nm">殘波岬・殘波岬燈塔</span><a href="https://www.okinawastory.jp/spot/600014624" target="_blank" rel="noopener">okinawastory.jp（沖繩觀光官網）</a><span class="note">讀谷村 · 巨大獅子與白色燈塔、平坦步道推車友善 · 距 BEB5 約 15 分 · 建議停留 75 分 ·（DMM 水族館已移至 Day 4）</span></div>
+        <div class="lk"><span class="nm">美國村 Depot Island</span><a href="https://www.depot-island.co.jp/" target="_blank" rel="noopener">depot-island.co.jp</a><span class="note">北谷町 · 海濱步道、皮卡丘塗鴉、金黃夕陽 · 距榮料理店約 20 分 · 下午～傍晚</span></div>
         <div class="lk"><span class="nm">美國村 萬聖節活動（10/31）</span><a href="https://www.okinawa-americanvillage.com/" target="_blank" rel="noopener">okinawa-americanvillage.com</a><span class="note">北谷町 · 萬聖節變裝發糖、兒童抓糖果、交通管制與停車資訊，出發前查當年公告</span></div>
         <div class="lk"><span class="nm">OMO5 沖繩那霸 by 星野集團</span><a href="https://hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha/" target="_blank" rel="noopener">hoshinoresorts.com/zh_tw/hotels/omo5okinawanaha</a><span class="note">那霸市 · 鄰國際通商圈、距機場約 15 分 · 後 2 晚住宿 · 約 NT$3,000–4,000／晚</span></div>
       </div>
-      <div class="review"><b>★ 點評</b>　通盤優化後的移動日，剛好碰上 <strong>10/31 萬聖節</strong>：上午殘波岬拍全家大合照，午餐升級為有包廂／大桌的精緻琉球料理「榮料理店」，讓 7 位長輩用餐舒適。恩納→南部 DMM 是全日最長車程，剛好讓三位寶寶在汽座補眠，下車興奮餵小豬、全室內不怕海風;傍晚北上北谷，正好躬逢全沖繩最熱鬧的美國村萬聖節——讓寶寶穿小裝扮玩變裝發糖、拍皮卡丘與金黃夕陽。考量當晚交通管制與人潮，晚餐刻意<strong>就近北谷</strong>、待管制稍緩再約 30 分回到 OMO5（約 20:20 入住），把萬聖節的熱鬧留下、把趕路的狼狽避開。</div>
+      <div class="review"><b>★ 點評</b>　通盤優化後的移動日，剛好碰上 <strong>10/31 萬聖節</strong>：上午殘波岬拍全家大合照，午餐升級為有包廂／大桌的精緻琉球料理「榮料理店」，讓 7 位長輩用餐舒適。<strong>本版把原本殺到最南端的 DMM 水族館移到 Day 4</strong>（與瀨長島、Ashibinaa 同在豐見城一起玩），午後便一路南下、不再折返，把整個下午與傍晚都留給北谷美國村——讓寶寶穿小裝扮玩變裝發糖、拍皮卡丘與金黃夕陽。晚餐刻意<strong>就近北谷</strong>，待管制稍緩再約 30 分回到 OMO5（約 20:00 入住），把萬聖節的熱鬧留下、把趕路與繞路都避開，<strong>全日拉車從約 135 分降到約 80 分</strong>。</div>
     </article>
     </div>
 
     <!-- TAB: DAY 4 -->
     <div id="tab-d4" class="tab-panel">
     <article class="day">
-      <div class="day-hd"><div class="num"><small>DAY 4 ｜ 週日</small>11/1</div><div class="ttl">那霸市區巡禮：波上宮 ➔ 國際通 ➔ 瀨長島 ➔ Ashibinaa</div></div>
-      <p class="day-flow"><b>今日動線：</b>OMO5 那霸 →<b>車 10 分</b>→ 波上宮（停 30 分）→<b>車 10 分</b>→ 國際通（午餐＋逛街 90 分）→<b>車 15 分</b>→ 瀨長島（停 60 分）→<b>車 5 分</b>→ Ashibinaa Outlet（停 90 分）→<b>車 20 分</b>→ OMO5 那霸 ｜ <b>總拉車約 60 分（市區短程）</b> ｜ <b>全日約 9:30–15:00（晚餐國際通另計）</b></p>
+      <div class="day-hd"><div class="num"><small>DAY 4 ｜ 週日</small>11/1</div><div class="ttl">那霸市區＋南部：波上宮 ➔ 國際通 ➔ DMM 水族館餵小豬 ➔ 瀨長島 ➔ Ashibinaa</div></div>
+      <p class="day-flow"><b>今日動線：</b>OMO5 那霸 →<b>車 10 分</b>→ 波上宮（停 30 分）→<b>車 10 分</b>→ 國際通（午餐＋逛街 90 分）→<b>車 20 分</b>→ 豐見城・DMM 水族館（餵小豬 120 分）→<b>車 5 分</b>→ 瀨長島（停 60 分）→<b>車 5 分</b>→ Ashibinaa Outlet（停 90 分）→<b>車 20 分</b>→ OMO5 那霸 ｜ <b>總拉車約 70 分</b> ｜ <b>全日約 9:30–17:10（晚餐國際通另計）</b></p>
       <div class="map-box">
-        <svg viewBox="0 0 720 150" role="img" aria-label="Day4 當日時間軸 9:30–15:30">
+        <svg viewBox="0 0 720 150" role="img" aria-label="Day4 當日時間軸 9:30–17:10">
           <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
           <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
             <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">9:30</text>
-            <line x1="112" y1="114" x2="112" y2="122" stroke="#cfe9e6"/><text x="112" y="134" text-anchor="middle">10:00</text>
-            <line x1="215" y1="114" x2="215" y2="122" stroke="#cfe9e6"/><text x="215" y="134" text-anchor="middle">11:00</text>
-            <line x1="318" y1="114" x2="318" y2="122" stroke="#cfe9e6"/><text x="318" y="134" text-anchor="middle">12:00</text>
-            <line x1="422" y1="114" x2="422" y2="122" stroke="#cfe9e6"/><text x="422" y="134" text-anchor="middle">13:00</text>
-            <line x1="525" y1="114" x2="525" y2="122" stroke="#cfe9e6"/><text x="525" y="134" text-anchor="middle">14:00</text>
-            <line x1="628" y1="114" x2="628" y2="122" stroke="#cfe9e6"/><text x="628" y="134" text-anchor="middle">15:00</text>
+            <line x1="99" y1="114" x2="99" y2="122" stroke="#cfe9e6"/><text x="99" y="134" text-anchor="middle">10:00</text>
+            <line x1="176" y1="114" x2="176" y2="122" stroke="#cfe9e6"/><text x="176" y="134" text-anchor="middle">11:00</text>
+            <line x1="254" y1="114" x2="254" y2="122" stroke="#cfe9e6"/><text x="254" y="134" text-anchor="middle">12:00</text>
+            <line x1="331" y1="114" x2="331" y2="122" stroke="#cfe9e6"/><text x="331" y="134" text-anchor="middle">13:00</text>
+            <line x1="409" y1="114" x2="409" y2="122" stroke="#cfe9e6"/><text x="409" y="134" text-anchor="middle">14:00</text>
+            <line x1="486" y1="114" x2="486" y2="122" stroke="#cfe9e6"/><text x="486" y="134" text-anchor="middle">15:00</text>
+            <line x1="564" y1="114" x2="564" y2="122" stroke="#cfe9e6"/><text x="564" y="134" text-anchor="middle">16:00</text>
+            <line x1="641" y1="114" x2="641" y2="122" stroke="#cfe9e6"/><text x="641" y="134" text-anchor="middle">17:00</text>
           </g>
           <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
-            <line x1="60" y1="69" x2="77" y2="69"/>
-            <line x1="129" y1="69" x2="146" y2="69"/>
-            <line x1="301" y1="69" x2="327" y2="69"/>
-            <line x1="430" y1="69" x2="439" y2="69"/>
-            <line x1="594" y1="69" x2="628" y2="69"/>
+            <line x1="60" y1="69" x2="73" y2="69"/>
+            <line x1="112" y1="69" x2="125" y2="69"/>
+            <line x1="241" y1="69" x2="267" y2="69"/>
+            <line x1="422" y1="69" x2="428" y2="69"/>
+            <line x1="506" y1="69" x2="512" y2="69"/>
+            <line x1="628" y1="69" x2="654" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
-            <text x="68" y="50" fill="#1f93ab">10分</text>
-            <text x="137" y="50" fill="#1f93ab">10分</text>
-            <text x="314" y="50" fill="#1f93ab">15分</text>
-            <text x="434" y="50" fill="#1f93ab">5分</text>
-            <text x="611" y="50" fill="#1f93ab">20分</text>
-            <text x="103" y="50" fill="#5b6b71">30分</text>
-            <text x="223" y="50" fill="#5b6b71">90分</text>
-            <text x="378" y="50" fill="#5b6b71">60分</text>
-            <text x="516" y="50" fill="#5b6b71">90分</text>
+            <text x="66" y="50" fill="#1f93ab">10分</text>
+            <text x="118" y="50" fill="#1f93ab">10分</text>
+            <text x="254" y="50" fill="#1f93ab">車20分</text>
+            <text x="425" y="50" fill="#1f93ab">5分</text>
+            <text x="509" y="50" fill="#1f93ab">5分</text>
+            <text x="641" y="50" fill="#1f93ab">車20分</text>
+            <text x="92" y="50" fill="#5b6b71">30分</text>
+            <text x="183" y="50" fill="#5b6b71">90分</text>
+            <text x="344" y="50" fill="#5b6b71">120分</text>
+            <text x="467" y="50" fill="#5b6b71">60分</text>
+            <text x="570" y="50" fill="#5b6b71">90分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
             <circle cx="60" cy="69" r="9" fill="#1f93ab"/>
             <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">OMO5</text>
-            <rect x="77" y="56" width="52" height="26" rx="6" fill="#f06a9a"/>
-            <text x="103" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">波上宮</text>
-            <rect x="146" y="56" width="155" height="26" rx="6" fill="#a877d8"/>
-            <text x="223" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">國際通・午餐</text>
-            <rect x="327" y="56" width="103" height="26" rx="6" fill="#ff8a78"/>
-            <text x="378" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">瀨長島</text>
-            <rect x="439" y="56" width="155" height="26" rx="6" fill="#f08a2e"/>
-            <text x="516" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">Ashibinaa</text>
-            <circle cx="628" cy="69" r="9" fill="#1f93ab"/>
-            <text x="628" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">回OMO5</text>
+            <rect x="73" y="56" width="39" height="26" rx="6" fill="#f06a9a"/>
+            <text x="92" y="73" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">波上宮</text>
+            <rect x="125" y="56" width="116" height="26" rx="6" fill="#a877d8"/>
+            <text x="183" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">國際通・午餐</text>
+            <rect x="267" y="56" width="155" height="26" rx="6" fill="#1f93ab"/>
+            <text x="344" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">DMM・餵小豬</text>
+            <rect x="428" y="56" width="78" height="26" rx="6" fill="#ff8a78"/>
+            <text x="467" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">瀨長島</text>
+            <rect x="512" y="56" width="116" height="26" rx="6" fill="#f08a2e"/>
+            <text x="570" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">Ashibinaa</text>
+            <circle cx="654" cy="69" r="9" fill="#1f93ab"/>
+            <text x="654" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">回OMO5</text>
           </g>
         </svg>
-        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 9:30–15:00（晚餐國際通另計）</div>
+        <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 9:30–17:10（晚餐國際通另計）</div>
+      </div>
+      <div class="geo-map">
+        <div class="geo-leg">Day 4 · 波上宮→國際通→DMM→瀨長島→Outlet</div>
+        <div id="geo-map-d4" class="lmap"></div>
+        <div class="geo-cap">🗺️ Day 4 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">波上宮</span><span class="tm">30分</span></span>
         <span class="stay"><span class="nm">國際通</span><span class="tm">90分</span></span>
+        <span class="stay"><span class="nm">DMM 水族館</span><span class="tm">120分</span></span>
         <span class="stay"><span class="nm">瀨長島</span><span class="tm">60分</span></span>
         <span class="stay"><span class="nm">Ashibinaa</span><span class="tm">90分</span></span>
       </div>
       <div class="slot"><span class="tag am">上午</span><p>從 OMO5 出發，先到車程約 10 分鐘的「波上宮」——琉球八社之首、建於海崖上的朱紅神社，市區巡禮開端參拜祈福，旁邊即波之上海灘。<span class="dur">停留 30 分</span></p></div>
       <div class="slot"><span class="tag pm">中午</span><p>前往「國際通」(奇蹟的一英里)，全長約 1.6km 的那霸最大繁華街，午餐、逛街、採買伴手禮，並有 24 小時唐吉訶德與第一牧志公設市場可逛。<span class="dur">停留 90 分</span></p></div>
+      <div class="slot"><span class="tag pm">下午</span><p>午餐後南下豐見城市的「DMM Kariyushi 水族館」<span class="dur">車程約 20 分</span>寶寶剛好在有冷氣的汽座上睡午覺。這是一座超高科技感的新型水族館，重頭戲是<strong>動物觸摸互動區</strong>——養了溫馴親人的<strong>迷你豬</strong>，1–2 歲寶寶可拿飼料親手餵小豬(マイクロブタの餌やり)，還能近距離看樹懶、水獺與企鵝。全室內冷氣、完全不怕海風；旁邊就是共構的 <strong>iias 沖繩豐崎</strong>商場，可歇腳喝咖啡。<span class="dur">停留 120 分</span></p></div>
       <div class="slot"><span class="tag pm">下午</span><p>轉往「瀨長島 Umikaji Terrace」，白牆地中海風的海景商店街，緊鄰那霸機場跑道可<strong>近距離看飛機起降</strong>，吃甜點、悠閒散步。<span class="dur">停留 60 分</span></p></div>
       <div class="slot"><span class="tag eve">傍晚</span><p>鄰近「Ashibinaa Outlet」(沖繩唯一大型 Outlet)採購寶寶防風衣物與名牌折扣品，結束後返回 OMO5。<span class="dur">停留 90 分</span></p></div>
       <div class="slot optional"><span class="tag opt">雨備</span><p><strong>（雨天替代方案）</strong>若遇秋季突發陣雨，可改去「AEON MALL 沖繩來客夢 Rycom」(北中城村，車程約 25 分)——巨型室內商場、入口巨型魚缸、全日本最頂級育嬰室與免費兒童造型推車，是完美的百分之百雨備。</p></div>
@@ -587,26 +634,30 @@
         <div class="ph">⭐ 各景點必推必買・必吃</div>
         <div class="pk"><span class="pkn">波上宮</span><span class="pkbody"><span class="lab see">必做</span>參拜祈福、求<strong>御守</strong>與限定御朱印;旁波之上海灘可遠眺海景。</span></div>
         <div class="pk"><span class="pkn">國際通</span><span class="pkbody"><span class="lab buy">必買</span>御菓子御殿<strong>紅芋塔</strong>、雪鹽製品、石垣島辣油、泡盛、藍染雜貨、藥妝;<span class="lab eat">必吃</span>第一牧志公設市場現買海鮮代客料理、Blue Seal、沖繩善哉(ぜんざい)。</span></div>
+        <div class="pk"><span class="pkn">DMM 水族館</span><span class="pkbody"><span class="lab eat">必體驗</span>親手餵<strong>迷你豬</strong>(マイクロブタの餌やり)、動物觸摸互動區;<span class="lab see">必看</span>樹懶、水獺、企鵝與高科技投影水景;<span class="lab buy">必買</span>共構 iias 豐崎商場血拼、咖啡歇腳。</span></div>
         <div class="pk"><span class="pkn">瀨長島</span><span class="pkbody"><span class="lab eat">必吃</span><strong>幸福鬆餅(幸せのパンケーキ)</strong>、龍蝦堡、沖繩甜甜圈沙翁;<span class="lab see">必拍</span>白牆海景＋低空飛機。</span></div>
         <div class="pk"><span class="pkn">Ashibinaa</span><span class="pkbody"><span class="lab buy">必買</span>名牌 Outlet 折扣(Coach、adidas、Le Creuset、日系童裝);可現場辦免稅。</span></div>
       </div>
       <div class="daynote">
         <h4>📌 Day 4 當日小提醒</h4>
         <ul>
-          <li>市區段段只要 5–20 分超短程，可<span class="hl">依寶寶狀況彈性增減景點</span>，不趕路。</li>
+          <li><span class="hl">DMM 迷你豬餵食</span>建議先上官網買「事前確約」票(¥500、小三以下需大人陪同)；官方檔期目前標到 2026/9/30，<span class="hl">出發前務必再確認 11/1 是否可預約</span>。</li>
+          <li>那霸→豐見城最長約 20 分、其餘段段 5–15 分超短程，可<span class="hl">依寶寶狀況彈性增減景點</span>；DMM 全室內冷氣，正好對齊午睡、下車有精神餵小豬。</li>
           <li>國際通晚餐（海渡、規樂）熱門，建議事先訂位、備註兒童椅／座敷。</li>
-          <li>若遇陣雨，整天可改為 <span class="hl">AEON Rycom</span>（巨型室內商場、頂級育嬰室）當完美雨備。</li>
+          <li>若遇陣雨，戶外的瀨長島可換成 <span class="hl">AEON Rycom</span>（巨型室內商場、頂級育嬰室）當完美雨備。</li>
         </ul>
       </div>
       <div class="day-links">
         <h4>🔗 Day 4 相關連結</h4>
         <div class="lk"><span class="nm">波上宮</span><a href="https://naminouegu.jp/" target="_blank" rel="noopener">naminouegu.jp</a><span class="note">那霸市若狹 · 琉球八社之首 · OMO5 車程約 10 分 · 建議停留 30 分</span></div>
         <div class="lk"><span class="nm">國際通</span><a href="https://www.kokusaidori.org/" target="_blank" rel="noopener">kokusaidori.org</a><span class="note">那霸最大繁華街約 1.6km · 建議停留 90 分 ※週日 12–18 時部分路段步行者天國</span></div>
+        <div class="lk"><span class="nm">DMM Kariyushi 水族館</span><a href="https://kariyushi-aquarium.com/" target="_blank" rel="noopener">kariyushi-aquarium.com</a><span class="note">豐見城市 iias 沖繩豐崎內 · 迷你豬餵食、觸摸互動、全室內 · 距國際通約 20 分 · 建議停留 120 分</span></div>
+        <div class="lk"><span class="nm">iias 沖繩豐崎</span><a href="https://iias.jp/okinawatoyosaki/" target="_blank" rel="noopener">iias.jp/okinawatoyosaki</a><span class="note">豐見城市 · 與水族館共構的大型商場、餐飲與育嬰室，雨天／歇腳好去處</span></div>
         <div class="lk"><span class="nm">瀨長島 Umikaji Terrace</span><a href="https://www.umikajiterrace.com/" target="_blank" rel="noopener">umikajiterrace.com</a><span class="note">豐見城市 · 海景商店街、近機場看飛機 · 建議停留 60 分</span></div>
         <div class="lk"><span class="nm">Ashibinaa Outlet</span><a href="https://www.ashibinaa.com/lang/tw/" target="_blank" rel="noopener">ashibinaa.com/lang/tw</a><span class="note">豐見城市 · 沖繩唯一大型 Outlet · 機場車程約 15 分 · 建議停留 90 分</span></div>
         <div class="lk"><span class="nm">AEON MALL 來客夢 Rycom（雨備）</span><a href="https://okinawarycom-aeonmall.com/" target="_blank" rel="noopener">okinawarycom-aeonmall.com</a><span class="note">北中城村 · 沖繩最大商場 · 巨型魚缸、頂級育嬰室 · 距 OMO5 約 25 分</span></div>
       </div>
-      <div class="review"><b>★ 點評</b>　所有市區景點集中在住 OMO5 的這天，波上宮→國際通→瀨長島→Ashibinaa 繞那霸・豐見城南部一小圈，段段只要 5–20 分超短程，可依寶寶狀況彈性增減。若遇雨改去 AEON Rycom 當完美雨備，毫不浪費行程。</div>
+      <div class="review"><b>★ 點評</b>　把原 Day 3 繞遠的 DMM 水族館收進這天，剛好與瀨長島、Ashibinaa 同在<strong>豐見城</strong>（彼此僅約 5 分），一次玩完南部。動線：上午那霸（波上宮→國際通午餐），午後南下豐見城（DMM 餵小豬→瀨長島看飛機／夕陽→Ashibinaa Outlet），再約 20 分回 OMO5，全程順順往南、不折返。段段多為 5–20 分短程，可依寶寶狀況彈性增減；戶外行程遇雨可改 AEON Rycom 當雨備。</div>
     </article>
     </div>
 
@@ -650,6 +701,11 @@
           </g>
         </svg>
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 9:30–14:00</div>
+      </div>
+      <div class="geo-map">
+        <div class="geo-leg">Day 5 · 港川→PARCO→機場</div>
+        <div id="geo-map-d5" class="lmap"></div>
+        <div class="geo-cap">🗺️ Day 5 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">港川外人住宅區</span><span class="tm">60分</span></span>
@@ -762,8 +818,8 @@
         <table class="bk-table">
           <thead><tr><th>項目</th><th>日期</th><th>說明</th><th>狀態</th></tr></thead>
           <tbody>
-            <tr><td class="d2">DMM 迷你豬餵食（事前確約）</td><td>10/31 六</td><td>¥500／人次，官網先訂；小三以下需大人陪同。官方檔期目前標到 2026/9/30，<strong>務必再確認 10 月是否續辦</strong></td><td><span class="bk-badge todo">待訂</span></td></tr>
-            <tr><td class="d2">DMM 水族館 入館票</td><td>10/31 六</td><td>可線上或現場購買</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">DMM 迷你豬餵食（事前確約）</td><td>11/1 日</td><td>¥500／人次，官網先訂；小三以下需大人陪同。官方檔期目前標到 2026/9/30，<strong>務必再確認 11 月是否續辦</strong>（已由 Day3 改到 Day4）</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">DMM 水族館 入館票</td><td>11/1 日</td><td>可線上或現場購買</td><td><span class="bk-badge todo">待訂</span></td></tr>
             <tr><td class="d2">美麗海水族館</td><td>10/30 五</td><td>建議買電子前售票，較便宜且免排隊</td><td><span class="bk-badge todo">待訂</span></td></tr>
             <tr><td class="d2">萬座毛／古宇利海洋塔</td><td>10/29–30</td><td>現場購票即可</td><td><span class="bk-badge hold">現場</span></td></tr>
             <tr><td class="d2">美國村 萬聖節活動</td><td>10/31 六</td><td>免費，出發前查當年變裝發糖時段與交通管制／停車公告</td><td><span class="bk-badge hold">免費／查詢</span></td></tr>
@@ -803,6 +859,105 @@
       });
     });
   })();
+</script>
+
+<script>
+  // Route maps: Day 1–5 per-tab + combined overview. Leaflet loaded via <head> (defer).
+  document.addEventListener('DOMContentLoaded', function(){
+    if (typeof L === 'undefined') return;
+
+    var COLORS = { 1:'#f08a2e', 2:'#54bf8c', 3:'#1f93ab', 4:'#a877d8', 5:'#f06a9a' };
+    var DAYS = {
+      1:{color:COLORS[1],stops:[
+        {n:1,name:'那覇空港（接機）',lat:26.2063,lng:127.6517,meta:'下午抵達 · 出發點',note:'接機、上兩台包車、裝 3 張嬰兒安全座椅後走沖繩自動車道高速北上。'},
+        {n:2,name:'萬座毛',lat:26.5052,lng:127.8505,drive:'約 60 分',meta:'停留 40 分',note:'象鼻岩＋斷崖海景；必買黑糖、海鹽、紅芋塔。平坦步道推車友善。'},
+        {n:3,name:'星野 BEB5 沖繩瀨良垣（入住）',lat:26.5019,lng:127.8767,drive:'約 15 分',meta:'前 2 晚住宿',note:'公寓式附廚房大冰箱；先到附近 MaxValu 補副食品、鮮乳。'}
+      ]},
+      2:{color:COLORS[2],stops:[
+        {n:1,name:'星野 BEB5 沖繩瀨良垣',lat:26.5019,lng:127.8767,meta:'出發點',note:'走自動車道北上前往本部。'},
+        {n:2,name:'沖繩美麗海水族館',lat:26.6943,lng:127.8779,drive:'約 60 分',meta:'停留 150 分（含午餐）',note:'鯨鯊黑潮之海、戶外免費海豚秀；建議買電子前售票免排隊。'},
+        {n:3,name:'古宇利島・古宇利大橋',lat:26.6889,lng:128.0178,drive:'約 40 分',meta:'停留 90 分',note:'全長 1960m 跨海大橋絕景；心形岩、古宇利蝦餐車。'},
+        {n:4,name:'古宇利海洋塔',lat:26.7024,lng:128.0206,drive:'約 5 分',meta:'島上順遊 · 之後約 70 分返回 BEB5',note:'360° 海景展望台、貝殼博物館。'}
+      ]},
+      3:{color:COLORS[3],stops:[
+        {n:1,name:'星野 BEB5 沖繩瀨良垣（退房）',lat:26.5019,lng:127.8767,meta:'出發點 · 行李全程留車',note:'退房後行李上車，今天只搬這一次。'},
+        {n:2,name:'殘波岬・殘波岬燈塔',lat:26.4432,lng:127.7127,drive:'約 15 分',meta:'停留 75 分',note:'巨大獅子與白色燈塔、平坦步道推車友善。'},
+        {n:3,name:'榮料理店（午餐）',lat:26.3960,lng:127.7440,drive:'約 15 分',meta:'午餐 90 分',note:'精緻琉球料理・阿古豬涮涮鍋；9 人先訂位。位置為讀谷一帶概略。'},
+        {n:4,name:'美國村 Depot Island',lat:26.3157,lng:127.7556,drive:'約 20 分',meta:'下午逛街＋萬聖節＋夕陽',note:'萬聖節變裝發糖(17:00–18:00)、皮卡丘塗鴉、金黃夕陽。注意交通管制與停車。'},
+        {n:5,name:'OMO5 沖繩那霸（入住）',lat:26.2159,lng:127.6726,drive:'約 30 分',meta:'後 2 晚住宿',note:'鄰國際通、距機場約 15 分。'}
+      ]},
+      4:{color:COLORS[4],stops:[
+        {n:1,name:'OMO5 沖繩那霸',lat:26.2159,lng:127.6726,meta:'出發點',note:'那霸市區＋南部豐見城一圈。'},
+        {n:2,name:'波上宮',lat:26.2201,lng:127.6672,drive:'約 10 分',meta:'停留 30 分',note:'琉球八社之首、海崖上的神社。'},
+        {n:3,name:'國際通',lat:26.2140,lng:127.6870,drive:'約 10 分',meta:'午餐＋逛街 90 分',note:'那霸最大繁華街約 1.6km；紅芋塔、雪鹽。週日部分路段步行者天國。'},
+        {n:4,name:'DMM Kariyushi 水族館',lat:26.1668,lng:127.6448,drive:'約 20 分',meta:'停留 120 分',note:'迷你豬餵食、觸摸互動、全室內；共構 iias 豐崎商場。'},
+        {n:5,name:'瀨長島 Umikaji Terrace',lat:26.1772,lng:127.6452,drive:'約 5 分',meta:'停留 60 分',note:'海景商店街、近機場看飛機、幸福鬆餅。'},
+        {n:6,name:'Ashibinaa Outlet',lat:26.1717,lng:127.6640,drive:'約 5 分',meta:'停留 90 分 · 之後約 20 分返回 OMO5',note:'沖繩唯一大型 Outlet。'}
+      ]},
+      5:{color:COLORS[5],stops:[
+        {n:1,name:'OMO5 沖繩那霸（退房）',lat:26.2159,lng:127.6726,meta:'出發點',note:'退房後西海岸文青＋血拼再返程。'},
+        {n:2,name:'港川外人住宅區',lat:26.2555,lng:127.7185,drive:'約 15 分',meta:'停留 60 分',note:'美軍住宅改建文青聚落；oHacorté 水果塔。'},
+        {n:3,name:'SAN-A 浦添西海岸 PARCO CITY',lat:26.2628,lng:127.7045,drive:'約 10 分',meta:'午餐＋血拼 120 分',note:'縣內最大約 250 店、免稅掃貨。'},
+        {n:4,name:'那覇空港（返家）',lat:26.2063,lng:127.6517,drive:'約 15 分',meta:'返程',note:'機場還車／辦理登機。'}
+      ]}
+    };
+
+    var TILE='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
+    var TILE_OPT={attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19};
+
+    function pinIcon(n,color){ return L.divIcon({className:'',html:'<div class="geo-pin" style="background:'+color+'"><span>'+n+'</span></div>',iconSize:[30,30],iconAnchor:[15,28],popupAnchor:[0,-28]}); }
+    function popupHtml(p){ var meta=(p.drive?'🚗 '+p.drive+' · ':'')+p.meta; return '<div class="geo-pop-nm">'+p.n+'. '+p.name+'</div><div class="geo-pop-meta">'+meta+'</div><div class="geo-pop-note">'+p.note+'</div>'; }
+    function dayLatLngs(k){ return DAYS[k].stops.map(function(p){return [p.lat,p.lng];}); }
+    function drawDay(map,k){
+      var color=DAYS[k].color, stops=DAYS[k].stops, pts=dayLatLngs(k), grp=L.layerGroup().addTo(map);
+      L.polyline(pts,{color:color,weight:4,opacity:.9,dashArray:'1,9',lineCap:'round'}).addTo(grp);
+      stops.forEach(function(p){ L.marker([p.lat,p.lng],{icon:pinIcon(p.n,color)}).addTo(grp).bindPopup(popupHtml(p)); });
+      for(var i=1;i<stops.length;i++){ var a=stops[i-1],b=stops[i],mid=[(a.lat+b.lat)/2,(a.lng+b.lng)/2];
+        L.marker(mid,{interactive:false,icon:L.divIcon({className:'',html:'<div class="geo-drive" style="color:'+color+'">🚗 '+b.drive+'</div>',iconSize:[0,0]})}).addTo(grp); }
+      return grp;
+    }
+
+    // per-day maps
+    var dayMaps={};
+    Object.keys(DAYS).forEach(function(k){
+      var el=document.getElementById('geo-map-d'+k); if(!el) return;
+      var m=L.map(el,{scrollWheelZoom:false,zoomControl:true}); L.tileLayer(TILE,TILE_OPT).addTo(m);
+      drawDay(m,k); var b=L.latLngBounds(dayLatLngs(k)).pad(0.28); m.fitBounds(b);
+      dayMaps['tab-d'+k]={map:m,bounds:b};
+    });
+
+    // combined overview map
+    var allMap=null, allBounds=null, allGroups={};
+    var allEl=document.getElementById('geo-map-all');
+    if(allEl){
+      allMap=L.map(allEl,{scrollWheelZoom:false,zoomControl:true}); L.tileLayer(TILE,TILE_OPT).addTo(allMap);
+      var allPts=[];
+      Object.keys(DAYS).forEach(function(k){ allGroups[k]=drawDay(allMap,k); allPts=allPts.concat(dayLatLngs(k)); });
+      allBounds=L.latLngBounds(allPts).pad(0.12); allMap.fitBounds(allBounds);
+      var bar=document.getElementById('geo-toggle-all');
+      if(bar){
+        var mk=function(label,key){
+          var btn=document.createElement('button'); btn.className='geo-tbtn'+(key==='all'?' active':''); btn.textContent=label;
+          if(key!=='all'){ btn.style.setProperty('--c',COLORS[key]); }
+          btn.addEventListener('click',function(){
+            Array.prototype.forEach.call(bar.children,function(c){c.classList.remove('active');}); btn.classList.add('active');
+            if(key==='all'){ Object.keys(allGroups).forEach(function(kk){allMap.addLayer(allGroups[kk]);}); allMap.fitBounds(allBounds); }
+            else { Object.keys(allGroups).forEach(function(kk){ if(kk===String(key)) allMap.addLayer(allGroups[kk]); else allMap.removeLayer(allGroups[kk]); }); allMap.fitBounds(L.latLngBounds(dayLatLngs(key)).pad(0.28)); }
+          });
+          return btn;
+        };
+        bar.appendChild(mk('全部','all'));
+        Object.keys(DAYS).forEach(function(k){ bar.appendChild(mk('Day'+k,k)); });
+      }
+    }
+
+    // panels are display:none until active — refresh Leaflet size when a tab is shown
+    function refresh(map,bounds){ if(!map) return; setTimeout(function(){ map.invalidateSize(); if(bounds) map.fitBounds(bounds); },260); }
+    document.querySelectorAll('.tabbtn').forEach(function(btn){
+      btn.addEventListener('click',function(){ var id=btn.getAttribute('data-tab'); if(dayMaps[id]) refresh(dayMaps[id].map,dayMaps[id].bounds); if(id==='tab-ov') refresh(allMap,allBounds); });
+    });
+    refresh(allMap,allBounds);
+  });
 </script>
 
 </body>
