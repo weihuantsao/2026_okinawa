@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>慈霖幼兒園 · 115 學年度第一學期行事曆</title>
+<!--
+  資料來源：新北市私立慈霖幼兒園 115 學年度第一學期行事曆（2026/08 – 2027/01）
+  互動：月曆式 · 點日期看當天「行政／教保活動」；可依類別篩選；假日紅字、重點活動標星；
+        右欄固定顯示本月主題、每週五固定事項與未指定日期的月度事項。
+  視覺：乾淨資訊卡（dashboard 風）· 單一 accent（行政=靛藍 / 教保=青綠 / 假日=紅 / 重點=琥珀）。
+  自包含單檔，離線可用（系統字型，無外部相依）。
+-->
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --ink:#1f2933; --ink-soft:#6b7683; --line:#e6e9ee;
+    --admin:#4f6df5; --admin-soft:#eef1ff;
+    --edu:#0f9d8f;   --edu-soft:#e5f6f3;
+    --holi:#e5484d;  --holi-soft:#fdecec;
+    --star:#e8952b;  --star-soft:#fdf2e2;
+    --sat:#3a7bd5;
+    --radius:14px; --shadow:0 1px 2px rgba(16,24,40,.04),0 4px 16px rgba(16,24,40,.06);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:"PingFang TC","Microsoft JhengHei","Noto Sans TC",system-ui,-apple-system,"Segoe UI",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.6;
+    -webkit-font-smoothing:antialiased; padding:24px 20px 48px;
+  }
+  .wrap{max-width:1120px;margin:0 auto;}
+
+  /* Header */
+  header.top{margin-bottom:20px;}
+  .eyebrow{font-size:.78rem;letter-spacing:.14em;color:var(--ink-soft);font-weight:600;}
+  h1{font-size:1.5rem;margin:.2rem 0 .15rem;font-weight:800;letter-spacing:.01em;}
+  .sub{color:var(--ink-soft);font-size:.9rem;}
+
+  /* Toolbar */
+  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:18px 0 14px;}
+  .month-nav{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+  .nav-btn{width:34px;height:34px;border:1px solid var(--line);background:var(--card);border-radius:10px;
+    cursor:pointer;font-size:1.1rem;color:var(--ink);display:grid;place-items:center;transition:.15s;}
+  .nav-btn:hover{border-color:var(--admin);color:var(--admin);}
+  .pill{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 13px;
+    cursor:pointer;font-size:.85rem;color:var(--ink-soft);transition:.15s;white-space:nowrap;font-weight:600;}
+  .pill:hover{border-color:var(--admin);color:var(--admin);}
+  .pill.active{background:var(--ink);border-color:var(--ink);color:#fff;}
+  .filters{display:flex;gap:8px;align-items:center;}
+  .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:6px 13px;cursor:pointer;
+    font-size:.82rem;color:var(--ink-soft);display:inline-flex;align-items:center;gap:7px;transition:.15s;font-weight:600;}
+  .chip .dot{width:9px;height:9px;border-radius:50%;}
+  .chip:hover{border-color:#c9cfd8;}
+  .chip.active{color:var(--ink);border-color:currentColor;}
+  .chip[data-f="all"].active{background:var(--ink);color:#fff;border-color:var(--ink);}
+  .chip[data-f="admin"].active{background:var(--admin-soft);border-color:var(--admin);color:var(--admin);}
+  .chip[data-f="edu"].active{background:var(--edu-soft);border-color:var(--edu);color:var(--edu);}
+
+  /* Layout */
+  .grid{display:grid;grid-template-columns:1.45fr 1fr;gap:20px;align-items:start;}
+  @media(max-width:860px){.grid{grid-template-columns:1fr;}}
+
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);}
+  .panel-hd{display:flex;align-items:baseline;justify-content:space-between;padding:16px 18px 6px;}
+  .panel-hd .big{font-size:1.15rem;font-weight:800;}
+  .panel-hd .mini{color:var(--ink-soft);font-size:.82rem;}
+
+  /* Calendar */
+  .cal{padding:6px 14px 16px;}
+  .weekdays,.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+  .weekdays{margin-bottom:6px;}
+  .weekdays div{text-align:center;font-size:.76rem;color:var(--ink-soft);font-weight:700;padding:4px 0;}
+  .weekdays div.wknd{color:var(--sat);}
+  .weekdays div.sun{color:var(--holi);}
+  .cell{min-height:74px;border:1px solid var(--line);border-radius:10px;padding:6px 7px;position:relative;
+    cursor:pointer;background:#fff;transition:.12s;display:flex;flex-direction:column;gap:4px;}
+  .cell.empty{background:transparent;border:none;cursor:default;}
+  .cell:not(.empty):hover{border-color:var(--admin);box-shadow:0 0 0 2px var(--admin-soft);}
+  .cell.sel{border-color:var(--ink);box-shadow:0 0 0 2px rgba(31,41,51,.12);}
+  .cell .num{font-size:.86rem;font-weight:700;color:var(--ink);line-height:1;}
+  .cell.sun .num{color:var(--holi);}
+  .cell.sat .num{color:var(--sat);}
+  .cell.holiday .num{color:var(--holi);}
+  .cell .hname{font-size:.62rem;color:var(--holi);font-weight:700;line-height:1.15;}
+  .cell .dots{display:flex;gap:3px;flex-wrap:wrap;margin-top:auto;}
+  .cell .d{width:7px;height:7px;border-radius:50%;}
+  .d.admin{background:var(--admin);} .d.edu{background:var(--edu);}
+  .cell .star{position:absolute;top:5px;right:6px;font-size:.7rem;color:var(--star);}
+  .cell.dim .d{opacity:.15;}
+
+  /* Detail */
+  .detail{padding:6px 18px 20px;}
+  .det-date{display:flex;align-items:baseline;gap:10px;padding:10px 0 4px;border-bottom:1px solid var(--line);margin-bottom:12px;}
+  .det-date .dnum{font-size:2rem;font-weight:800;line-height:1;}
+  .det-date .dmeta{color:var(--ink-soft);font-size:.85rem;}
+  .det-date .dholi{color:var(--holi);font-weight:800;font-size:.9rem;margin-left:auto;background:var(--holi-soft);
+    padding:3px 10px;border-radius:999px;}
+  .evt{display:flex;gap:10px;padding:9px 11px;border-radius:10px;margin-bottom:8px;background:#fbfcfd;border:1px solid var(--line);}
+  .evt .tag{flex:0 0 auto;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:6px;height:fit-content;margin-top:2px;}
+  .evt.admin .tag{background:var(--admin-soft);color:var(--admin);}
+  .evt.edu .tag{background:var(--edu-soft);color:var(--edu);}
+  .evt .txt{font-size:.92rem;}
+  .evt.hl{border-color:var(--star);background:var(--star-soft);}
+  .evt.hl .txt::after{content:"★ 重點";font-size:.66rem;color:var(--star);font-weight:800;margin-left:8px;
+    background:#fff;padding:1px 6px;border-radius:5px;border:1px solid var(--star);}
+  .empty-note{color:var(--ink-soft);font-size:.9rem;padding:16px 4px;text-align:center;
+    background:#fbfcfd;border:1px dashed var(--line);border-radius:10px;}
+
+  /* Month overview cards */
+  .ov{margin-top:14px;}
+  .ov h3{font-size:.8rem;letter-spacing:.05em;color:var(--ink-soft);margin:0 0 8px;font-weight:700;
+    text-transform:uppercase;}
+  .ov-card{border:1px solid var(--line);border-radius:10px;padding:11px 13px;margin-bottom:9px;background:#fff;}
+  .ov-card .lab{font-size:.72rem;font-weight:800;letter-spacing:.03em;margin-bottom:4px;}
+  .ov-card.theme{background:linear-gradient(180deg,#fbfcff,#fff);border-color:#dbe1f7;}
+  .ov-card.theme .lab{color:var(--admin);}
+  .ov-card .theme-name{font-weight:800;font-size:.98rem;}
+  .ov-card .theme-book{color:var(--ink-soft);font-size:.85rem;}
+  .ov-card .theme-range{color:var(--ink-soft);font-size:.75rem;margin-top:2px;}
+  .ov-card.fri .lab{color:var(--edu);}
+  .ov-list{list-style:none;margin:2px 0 0;padding:0;}
+  .ov-list li{font-size:.86rem;padding:3px 0 3px 16px;position:relative;color:var(--ink);}
+  .ov-list li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;}
+  .ov-list li.admin::before{background:var(--admin);}
+  .ov-list li.edu::before{background:var(--edu);}
+
+  /* Legend + note */
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:16px 2px 0;font-size:.78rem;color:var(--ink-soft);}
+  .legend span{display:inline-flex;align-items:center;gap:6px;}
+  .legend .sw{width:11px;height:11px;border-radius:50%;}
+  .note{margin-top:16px;font-size:.8rem;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);
+    border-radius:var(--radius);padding:12px 16px;line-height:1.7;}
+  .note b{color:var(--ink);}
+  footer{margin-top:22px;text-align:center;color:var(--ink-soft);font-size:.74rem;}
+  .hidden{display:none!important;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">115 學年度 · 第一學期</div>
+    <h1>新北市私立慈霖幼兒園 · 行事曆</h1>
+    <div class="sub">2026 年 8 月 – 2027 年 1 月 ｜ 點日期看當天行政與教保活動</div>
+  </header>
+
+  <div class="toolbar">
+    <div class="month-nav">
+      <button class="nav-btn" id="prev" aria-label="上個月">‹</button>
+      <div id="pills" class="month-nav"></div>
+      <button class="nav-btn" id="next" aria-label="下個月">›</button>
+    </div>
+    <div class="filters">
+      <div class="chip active" data-f="all">全部</div>
+      <div class="chip" data-f="admin"><span class="dot" style="background:var(--admin)"></span>行政</div>
+      <div class="chip" data-f="edu"><span class="dot" style="background:var(--edu)"></span>教保活動</div>
+    </div>
+  </div>
+
+  <div class="grid">
+    <!-- Calendar -->
+    <section class="panel">
+      <div class="panel-hd">
+        <div class="big" id="cal-title">—</div>
+        <div class="mini" id="cal-count">—</div>
+      </div>
+      <div class="cal">
+        <div class="weekdays">
+          <div class="sun">日</div><div>一</div><div>二</div><div>三</div><div>四</div><div>五</div><div class="wknd">六</div>
+        </div>
+        <div class="days" id="days"></div>
+      </div>
+    </section>
+
+    <!-- Detail + overview -->
+    <section class="panel">
+      <div class="panel-hd"><div class="big">當日事項</div><div class="mini" id="det-hint">點左側日期</div></div>
+      <div class="detail">
+        <div id="detail-body"></div>
+        <div class="ov" id="overview"></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="legend">
+    <span><i class="sw" style="background:var(--admin)"></i>行政</span>
+    <span><i class="sw" style="background:var(--edu)"></i>教保活動</span>
+    <span><i class="sw" style="background:var(--holi)"></i>假日</span>
+    <span style="color:var(--star)">★ 重點活動</span>
+  </div>
+
+  <div class="note">
+    <b>備註：</b>教學活動將依幼生學習興趣、時令季節變化及園內外特殊活動安排，適時進行調整與彈性規劃，以符合幼生學習需求與發展。
+  </div>
+
+  <footer>依園方 115 學年度第一學期行事曆整理製作 · 互動版（暫定 TL_day）· 實際以園方公告為準</footer>
+</div>
+
+<script>
+/* ---------- 資料 ---------- */
+// 月份（依序）
+const MONTHS = [
+  {y:2026,m:8}, {y:2026,m:9}, {y:2026,m:10}, {y:2026,m:11}, {y:2026,m:12}, {y:2027,m:1}
+];
+
+// 學期主題（跨月）
+const THEMES = [
+  {name:"第一主題", book:"烏龜慢慢找工作", from:[2026,8,17], to:[2026,10,30]},
+  {name:"第二主題", book:"洋洋的紙箱子",   from:[2026,11,2], to:[2027,1,29]},
+];
+
+// 事件：dated = 有明確日期；month = 該月未指定日期。cat: admin/edu。flags: holiday, hl(重點)
+// d 可為單日數字，或 [起,迄] 表示連續日
+const EVENTS = [
+  /* ===== 八月 2026 ===== */
+  {y:2026,m:8,d:3,cat:"admin",t:"開學日"},
+  {y:2026,m:8,d:21,cat:"admin",t:"晚上舉辦親師懇談會",hl:true},
+  {y:2026,m:8,d:28,cat:"admin",t:"公告次月餐點表"},
+  {y:2026,m:8,cat:"admin",t:"公告餐點表、發作息表等資料"},
+  {y:2026,m:8,cat:"admin",t:"辦理平安保險"},
+  {y:2026,m:8,cat:"admin",t:"8 月照度器測量"},
+  {y:2026,m:8,d:7,cat:"edu",t:"DIY－父親節禮物"},
+  {y:2026,m:8,d:13,cat:"edu",t:"慶生暨迎新會"},
+  {y:2026,m:8,d:17,cat:"edu",t:"發下主題情報站"},
+  {y:2026,m:8,d:14,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:8,d:28,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:8,cat:"edu",t:"量身高體重"},
+
+  /* ===== 九月 2026 ===== */
+  {y:2026,m:9,d:25,cat:"admin",t:"中秋節放假",holiday:true},
+  {y:2026,m:9,d:28,cat:"admin",t:"教師節放假",holiday:true},
+  {y:2026,m:9,d:30,cat:"admin",t:"公告次月餐點表"},
+  {y:2026,m:9,cat:"admin",t:"9 月照度器測量"},
+  {y:2026,m:9,cat:"admin",t:"幼童專用車定期檢驗與保養"},
+  {y:2026,m:9,d:4,cat:"edu",t:"慶生會"},
+  {y:2026,m:9,d:21,cat:"edu",t:"安全教育－地震逃生演練"},
+  {y:2026,m:9,d:11,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:9,d:24,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:9,cat:"edu",t:"中秋團圓活動"},
+  {y:2026,m:9,cat:"edu",t:"幼兒發展篩檢"},
+
+  /* ===== 十月 2026 ===== */
+  {y:2026,m:10,d:9,cat:"admin",t:"國慶日補假",holiday:true},
+  {y:2026,m:10,d:26,cat:"admin",t:"臺灣光復節補假",holiday:true},
+  {y:2026,m:10,d:28,cat:"admin",t:"公告次月餐點表"},
+  {y:2026,m:10,cat:"admin",t:"10 月照度器測量"},
+  {y:2026,m:10,d:2,cat:"edu",t:"慶生會"},
+  {y:2026,m:10,d:16,cat:"edu",t:"健康教育－小小院長體驗營"},
+  {y:2026,m:10,d:8,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:10,d:23,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:10,cat:"edu",t:"大中小班主題戶外教學"},
+
+  /* ===== 十一月 2026 ===== */
+  {y:2026,m:11,d:6,cat:"admin",t:"教學會議"},
+  {y:2026,m:11,d:21,cat:"admin",t:"舉辦親子旅遊",hl:true},
+  {y:2026,m:11,d:30,cat:"admin",t:"公告次月餐點表"},
+  {y:2026,m:11,d:30,cat:"admin",t:"全園室內、外設施設備檢核"},
+  {y:2026,m:11,cat:"admin",t:"11 月照度器測量"},
+  {y:2026,m:11,d:2,cat:"edu",t:"發下主題情報站"},
+  {y:2026,m:11,d:[4,6],cat:"edu",t:"中小班發展篩檢（11/4–6）"},
+  {y:2026,m:11,d:6,cat:"edu",t:"慶生會"},
+  {y:2026,m:11,d:13,cat:"edu",t:"口腔塗氟與檢查"},
+  {y:2026,m:11,d:6,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:11,d:20,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:11,cat:"edu",t:"發回第一主題幼生檔案"},
+
+  /* ===== 十二月 2026 ===== */
+  {y:2026,m:12,d:25,cat:"admin",t:"行憲紀念日放假",holiday:true},
+  {y:2026,m:12,d:28,cat:"admin",t:"公告下學期收退費基準"},
+  {y:2026,m:12,d:30,cat:"admin",t:"公告次月餐點表"},
+  {y:2026,m:12,cat:"admin",t:"公消安申報、消防自衛編組"},
+  {y:2026,m:12,cat:"admin",t:"12 月照度器測量"},
+  {y:2026,m:12,d:4,cat:"edu",t:"慶生會"},
+  {y:2026,m:12,d:4,cat:"edu",t:"安全教育－娃娃車逃生演練"},
+  {y:2026,m:12,d:4,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:12,d:18,cat:"edu",t:"清潔睡袋、室內鞋"},
+  {y:2026,m:12,d:31,cat:"edu",t:"清潔睡袋、室內鞋"},
+
+  /* ===== 一月 2027 ===== */
+  {y:2027,m:1,d:1,cat:"admin",t:"開國紀念日放假",holiday:true},
+  {y:2027,m:1,d:8,cat:"admin",t:"全園性教保活動課程發展會議"},
+  {y:2027,m:1,d:16,cat:"admin",t:"全園環境消毒日（委外）"},
+  {y:2027,m:1,d:22,cat:"admin",t:"全園室內、外設施設備檢核"},
+  {y:2027,m:1,d:29,cat:"admin",t:"本學期結業式",hl:true},
+  {y:2027,m:1,cat:"admin",t:"1 月照度器測量"},
+  {y:2027,m:1,d:8,cat:"edu",t:"慶生會"},
+  {y:2027,m:1,d:15,cat:"edu",t:"清潔睡袋／室內鞋"},
+  {y:2027,m:1,d:29,cat:"edu",t:"清潔睡袋／室內鞋"},
+  {y:2027,m:1,cat:"edu",t:"大中小班主題戶外教學"},
+  {y:2027,m:1,cat:"edu",t:"發回第二主題幼生檔案"},
+  {y:2027,m:1,cat:"edu",t:"財產設備盤點"},
+  {y:2027,m:1,cat:"edu",t:"期末大掃除"},
+];
+
+const RECURRING = "每週五：櫃子、玩具、教具清潔消毒";
+const CN_MONTH = {8:"八月",9:"九月",10:"十月",11:"十一月",12:"十二月",1:"一月"};
+const WK = ["日","一","二","三","四","五","六"];
+
+/* ---------- 狀態 ---------- */
+let state = { idx:0, sel:null, filter:"all" };
+
+/* ---------- 工具 ---------- */
+function evtsForMonth(y,m){ return EVENTS.filter(e=>e.y===y&&e.m===m); }
+function passFilter(e){ return state.filter==="all" || e.cat===state.filter; }
+function daysHas(e,day){
+  if(e.d==null) return false;
+  if(Array.isArray(e.d)) return day>=e.d[0] && day<=e.d[1];
+  return e.d===day;
+}
+function eventsOnDay(y,m,day){
+  return EVENTS.filter(e=>e.y===y&&e.m===m&&daysHas(e,day));
+}
+function holidayName(y,m,day){
+  const h = EVENTS.find(e=>e.y===y&&e.m===m&&e.holiday&&daysHas(e,day));
+  return h?h.t:null;
+}
+
+/* ---------- 月份切換 pill ---------- */
+function renderPills(){
+  const box=document.getElementById("pills"); box.innerHTML="";
+  MONTHS.forEach((mo,i)=>{
+    const el=document.createElement("div");
+    el.className="pill"+(i===state.idx?" active":"");
+    el.textContent=CN_MONTH[mo.m];
+    el.onclick=()=>{ state.idx=i; state.sel=null; render(); };
+    box.appendChild(el);
+  });
+}
+
+/* ---------- 月曆 ---------- */
+function renderCalendar(){
+  const {y,m}=MONTHS[state.idx];
+  document.getElementById("cal-title").textContent = `${y} 年 ${CN_MONTH[m]}`;
+  const monthEvts = evtsForMonth(y,m).filter(passFilter);
+  const datedCount = monthEvts.filter(e=>e.d!=null).length;
+  document.getElementById("cal-count").textContent = `本月 ${monthEvts.length} 項事項`;
+
+  const days=document.getElementById("days"); days.innerHTML="";
+  const first=new Date(y,m-1,1).getDay();          // 0=Sun
+  const total=new Date(y,m,0).getDate();           // days in month
+  for(let i=0;i<first;i++){ const b=document.createElement("div"); b.className="cell empty"; days.appendChild(b); }
+  for(let day=1;day<=total;day++){
+    const dow=new Date(y,m-1,day).getDay();
+    const evs=eventsOnDay(y,m,day);
+    const evsF=evs.filter(passFilter);
+    const holi=holidayName(y,m,day);
+    const hasHl=evsF.some(e=>e.hl);
+    const cell=document.createElement("div");
+    cell.className="cell"
+      + (dow===0?" sun":"") + (dow===6?" sat":"")
+      + (holi?" holiday":"")
+      + (state.sel===day?" sel":"");
+    let html=`<div class="num">${day}</div>`;
+    if(holi) html+=`<div class="hname">${holi}</div>`;
+    // dots
+    const cats=[...new Set(evsF.filter(e=>!e.holiday).map(e=>e.cat))];
+    if(cats.length||evsF.length){
+      html+=`<div class="dots">`;
+      // 顯示每類一顆點（避免過多）
+      if(evsF.some(e=>e.cat==="admin")) html+=`<span class="d admin"></span>`;
+      if(evsF.some(e=>e.cat==="edu")) html+=`<span class="d edu"></span>`;
+      html+=`</div>`;
+    }
+    if(hasHl) html+=`<div class="star">★</div>`;
+    cell.innerHTML=html;
+    cell.onclick=()=>{ state.sel=day; render(); };
+    days.appendChild(cell);
+  }
+}
+
+/* ---------- 當日詳情 ---------- */
+function renderDetail(){
+  const {y,m}=MONTHS[state.idx];
+  const body=document.getElementById("detail-body");
+  const hint=document.getElementById("det-hint");
+  if(state.sel==null){
+    hint.textContent="點左側日期";
+    body.innerHTML=`<div class="empty-note">請點選左側任一日期，查看當天的行政與教保活動。</div>`;
+    return;
+  }
+  const day=state.sel;
+  const dow=new Date(y,m-1,day).getDay();
+  const holi=holidayName(y,m,day);
+  hint.textContent=`${CN_MONTH[m]} ${day} 日`;
+  const evs=eventsOnDay(y,m,day).filter(passFilter);
+  let html=`<div class="det-date">
+      <div class="dnum">${day}</div>
+      <div class="dmeta">${y} / ${m} · 星期${WK[dow]}</div>
+      ${holi?`<div class="dholi">${holi}</div>`:``}
+    </div>`;
+  // 排序：行政在前
+  const order={admin:0,edu:1};
+  evs.sort((a,b)=>order[a.cat]-order[b.cat]);
+  const shown=evs.filter(e=>!e.holiday); // 假日名稱已在上方顯示
+  if(shown.length===0){
+    html+=`<div class="empty-note">${holi?"當天為假日":"這天沒有排定活動"}${state.filter!=="all"?"（目前篩選："+(state.filter==="admin"?"行政":"教保活動")+"）":""}</div>`;
+  }else{
+    shown.forEach(e=>{
+      html+=`<div class="evt ${e.cat}${e.hl?" hl":""}">
+        <span class="tag">${e.cat==="admin"?"行政":"教保"}</span>
+        <span class="txt">${e.t}</span></div>`;
+    });
+  }
+  body.innerHTML=html;
+}
+
+/* ---------- 本月概覽（主題 / 每週固定 / 未指定日期）---------- */
+function activeThemes(y,m){
+  const key=y*100+m;
+  const val=(a)=>a[0]*100+a[1];
+  return THEMES.filter(t=> key>=val(t.from) && key<=val(t.to));
+}
+function renderOverview(){
+  const {y,m}=MONTHS[state.idx];
+  const ov=document.getElementById("overview");
+  let html=`<h3>本月固定 · 主題</h3>`;
+  // 主題
+  activeThemes(y,m).forEach(t=>{
+    html+=`<div class="ov-card theme">
+      <div class="lab">學期主題</div>
+      <div class="theme-name">${t.name}</div>
+      <div class="theme-book">繪本：${t.book}</div>
+      <div class="theme-range">${t.from[0]}/${t.from[1]}/${t.from[2]} – ${t.to[0]}/${t.to[1]}/${t.to[2]}</div>
+    </div>`;
+  });
+  // 每週五固定
+  if(state.filter!=="admin"){
+    html+=`<div class="ov-card fri"><div class="lab">每週固定</div>
+      <ul class="ov-list"><li class="edu">${RECURRING}</li></ul></div>`;
+  }
+  // 未指定日期的月度事項
+  const monthly=evtsForMonth(y,m).filter(e=>e.d==null).filter(passFilter);
+  if(monthly.length){
+    html+=`<div class="ov-card"><div class="lab" style="color:var(--ink-soft)">本月其他（未指定日期）</div>
+      <ul class="ov-list">`;
+    monthly.sort((a,b)=>(a.cat==="admin"?0:1)-(b.cat==="admin"?0:1));
+    monthly.forEach(e=>{ html+=`<li class="${e.cat}">${e.t}</li>`; });
+    html+=`</ul></div>`;
+  }
+  ov.innerHTML=html;
+}
+
+/* ---------- 篩選 ---------- */
+function bindFilters(){
+  document.querySelectorAll(".chip").forEach(c=>{
+    c.onclick=()=>{
+      document.querySelectorAll(".chip").forEach(x=>x.classList.remove("active"));
+      c.classList.add("active");
+      state.filter=c.dataset.f; render();
+    };
+  });
+}
+document.getElementById("prev").onclick=()=>{ if(state.idx>0){state.idx--;state.sel=null;render();} };
+document.getElementById("next").onclick=()=>{ if(state.idx<MONTHS.length-1){state.idx++;state.sel=null;render();} };
+
+/* ---------- 總渲染 ---------- */
+function render(){
+  renderPills();
+  renderCalendar();
+  renderDetail();
+  renderOverview();
+}
+bindFilters();
+render();
+</script>
+</body>
+</html>
