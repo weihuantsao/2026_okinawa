@@ -51,10 +51,32 @@
   .hero-toggle:hover{background:#fff;border-color:var(--sky-deep);}
   .hero-toggle:focus-visible{outline:2px solid var(--sun-deep);outline-offset:2px;}
   .hero-toggle .ht-ico{color:var(--sun-deep);font-size:.9rem;line-height:1;}
-  .hero.map-only{padding:0;border-bottom:1px solid var(--line);}
-  .hero.map-only .hero-scrim,.hero.map-only .wrap{display:none;}
-  .hero.map-only .hero-bg{position:static;}
-  .hero.map-only .hero-bg img{height:auto;object-fit:contain;}
+  /* 全螢幕地圖檢視器：雙指縮放／拖曳／點兩下放大 */
+  .mv{position:fixed;inset:0;z-index:9999;background:#101819;overscroll-behavior:contain;}
+  .mv[hidden]{display:none;}
+  body.mv-open{overflow:hidden;}
+  .mv-stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;}
+  .mv-stage.dragging{cursor:grabbing;}
+  .mv-stage img{position:absolute;top:0;left:0;transform-origin:0 0;max-width:none;display:block;
+    user-select:none;-webkit-user-select:none;-webkit-user-drag:none;will-change:transform;}
+  .mv-close{position:absolute;z-index:2;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));
+    width:44px;height:44px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;line-height:1;
+    color:var(--ink);background:rgba(255,255,255,.94);border:1px solid rgba(255,255,255,.5);border-radius:50%;
+    cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4);}
+  .mv-close:hover{background:#fff;}
+  .mv-close:focus-visible,.mv-btn:focus-visible{outline:2px solid var(--sun);outline-offset:2px;}
+  .mv-bar{position:absolute;z-index:2;left:50%;transform:translateX(-50%);
+    bottom:calc(16px + env(safe-area-inset-bottom,0px));display:flex;gap:6px;
+    background:rgba(255,255,255,.94);border-radius:999px;padding:5px;box-shadow:0 2px 12px rgba(0,0,0,.4);}
+  .mv-btn{min-width:44px;height:36px;padding:0 14px;border:none;background:transparent;cursor:pointer;
+    font-family:var(--gothic);font-weight:700;font-size:.86rem;color:var(--ink);border-radius:999px;line-height:1;}
+  .mv-btn:hover{background:var(--aqua-soft);}
+  .mv-btn[disabled]{opacity:.35;cursor:default;}
+  .mv-hint{position:absolute;z-index:2;left:50%;transform:translateX(-50%);
+    top:calc(16px + env(safe-area-inset-top,0px));color:rgba(255,255,255,.9);font-family:var(--gothic);
+    font-size:.74rem;letter-spacing:.06em;background:rgba(16,24,25,.6);border-radius:999px;padding:5px 14px;
+    pointer-events:none;transition:opacity .4s;max-width:calc(100vw - 130px);text-align:center;}
+  .mv-hint.gone{opacity:0;}
   @media(min-width:820px){
     /* 寬螢幕：左側壓白放文字，右側讓地圖露出來 */
     .hero-scrim{background:linear-gradient(100deg,rgba(250,248,244,.97) 0%,rgba(250,248,244,.95) 38%,rgba(250,248,244,.74) 62%,rgba(250,248,244,.42) 100%);}
@@ -286,14 +308,9 @@
     @page{margin:14mm 12mm;}
     html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.7;}
     .wrap{max-width:none;padding:0;}
-    .tabnav,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle{display:none!important;}
-    /* 封面：列印時一律顯示文字，地圖縮成合理高度，不吃掉整頁 */
-    .hero.map-only .wrap{display:block!important;}
-    .hero.map-only{padding:0 0 18px!important;}
-    .hero-bg,.hero.map-only .hero-bg{position:absolute!important;inset:0;}
-    .hero-bg img,.hero.map-only .hero-bg img{height:100%!important;object-fit:cover!important;}
+    .tabnav,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle,.mv{display:none!important;}
     header.hero{min-height:150px;}
-    .hero-scrim{display:block!important;background:rgba(255,255,255,.9)!important;}
+    .hero-scrim{background:rgba(255,255,255,.9)!important;}
     .tab-panel{display:block!important;animation:none!important;}
     .tab-panel+.tab-panel{page-break-before:always;}
     .geo-map::after{content:"（路線地圖為互動內容，請於網頁版檢視）";display:block;padding:10px 14px;font-size:9pt;color:#666;}
@@ -319,11 +336,26 @@
     <img src="assets/cover-2200.jpg" alt="沖繩行程手繪地圖：標示那霸機場、波上宮、國際通、糸滿漁市場、DMM 水族館、Ashibinaa、美國村、古宇利島、美麗海水族館、萬座毛與 BEB5／OMO5 兩間住宿" width="2200" height="1228" fetchpriority="high" decoding="async">
   </picture>
   <div class="hero-scrim" aria-hidden="true"></div>
-  <button type="button" class="hero-toggle" id="heroToggle" aria-pressed="false" aria-controls="hero">
-    <span class="ht-ico" aria-hidden="true">◑</span><span class="ht-txt">只看地圖</span>
+  <div class="mv" id="mapViewer" role="dialog" aria-modal="true" aria-label="沖繩行程手繪地圖（可縮放）" hidden>
+    <div class="mv-stage" id="mvStage">
+      <picture>
+        <source id="mvSrc" type="image/webp" data-srcset="assets/cover-2200.webp">
+        <img id="mvImg" data-src="assets/cover-2200.jpg" width="2200" height="1228" alt="沖繩行程手繪地圖：那霸機場、波上宮、國際通、糸滿漁市場、DMM 水族館、Ashibinaa、美國村、古宇利島、美麗海水族館、萬座毛與 BEB5／OMO5 兩間住宿">
+      </picture>
+    </div>
+    <p class="mv-hint" id="mvHint">雙指縮放 · 拖曳移動 · 點兩下放大</p>
+    <div class="mv-bar">
+      <button type="button" class="mv-btn" id="mvOut" aria-label="縮小">−</button>
+      <button type="button" class="mv-btn" id="mvFit">貼合</button>
+      <button type="button" class="mv-btn" id="mvIn" aria-label="放大">＋</button>
+    </div>
+    <button type="button" class="mv-close" id="mvClose" aria-label="關閉地圖">✕</button>
+  </div>
+  <button type="button" class="hero-toggle" id="heroOpenMap" aria-haspopup="dialog">
+    <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.2 · 更新 2026/07/27</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.3 · 更新 2026/07/27</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -1233,7 +1265,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.2</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.3</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1258,26 +1290,149 @@
     });
   })();
 
-  // 封面「只看地圖」切換：隱藏標題文字與罩色，讓手繪地圖完整呈現。選擇記在本機。
+  // 「只看地圖」全螢幕檢視器：滿版顯示手繪地圖，支援雙指縮放、拖曳、點兩下放大。
   (function(){
-    var hero = document.getElementById('hero'), btn = document.getElementById('heroToggle');
-    if(!hero || !btn) return;
-    var txt = btn.querySelector('.ht-txt'), ico = btn.querySelector('.ht-ico'), KEY = 'okinawa.heroMapOnly';
-    function apply(on){
-      hero.classList.toggle('map-only', on);
-      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-      txt.textContent = on ? '顯示文字' : '只看地圖';
-      ico.textContent = on ? '◐' : '◑';
-      btn.title = on ? '顯示封面標題與說明' : '隱藏封面文字，只呈現手繪地圖';
+    var open = document.getElementById('heroOpenMap'), mv = document.getElementById('mapViewer');
+    if(!open || !mv) return;
+    var stage = document.getElementById('mvStage'), img = document.getElementById('mvImg'),
+        src = document.getElementById('mvSrc'), hint = document.getElementById('mvHint'),
+        bIn = document.getElementById('mvIn'), bOut = document.getElementById('mvOut'),
+        bFit = document.getElementById('mvFit'), bClose = document.getElementById('mvClose');
+
+    var scale = 1, tx = 0, ty = 0, fit = 1, maxS = 8, iw = 0, ih = 0, loaded = false;
+    var pointers = new Map(), pinch = null;
+    // 點兩下偵測：必須是「沒有位移的短促點擊」，否則連續快速拖曳會被誤判成雙擊
+    var TAP_MS = 250, TAP_SLOP = 10, DBL_MS = 300, DBL_SLOP = 40;
+    var down = null, lastTap = null, touched = false;
+
+    function viewport(){ var r = stage.getBoundingClientRect(); return {w:r.width, h:r.height}; }
+    function computeFit(){
+      var v = viewport();
+      if(!iw || !ih || !v.w) return;
+      fit = Math.min(v.w/iw, v.h/ih);
+      maxS = Math.max(fit*8, 2);
     }
-    var saved;
-    try{ saved = localStorage.getItem(KEY) === '1'; }catch(e){ saved = false; }
-    apply(saved);
-    btn.addEventListener('click', function(){
-      var on = !hero.classList.contains('map-only');
-      apply(on);
-      try{ localStorage.setItem(KEY, on ? '1' : '0'); }catch(e){}
+    function clamp(){
+      var v = viewport(), dw = iw*scale, dh = ih*scale;
+      tx = dw <= v.w ? (v.w-dw)/2 : Math.min(0, Math.max(v.w-dw, tx));
+      ty = dh <= v.h ? (v.h-dh)/2 : Math.min(0, Math.max(v.h-dh, ty));
+    }
+    function render(){
+      clamp();
+      img.style.transform = 'translate('+tx+'px,'+ty+'px) scale('+scale+')';
+      bOut.disabled = scale <= fit*1.001;
+      bIn.disabled  = scale >= maxS*0.999;
+    }
+    function setFit(){ computeFit(); scale = fit; render(); }
+    // 以畫面上的某一點為中心縮放，讓該點下方的圖不動
+    function zoomAt(cx, cy, next){
+      next = Math.min(maxS, Math.max(fit, next));
+      if(next === scale) return;
+      touched = true;
+      tx = cx - (cx-tx)*next/scale;
+      ty = cy - (cy-ty)*next/scale;
+      scale = next; render();
+    }
+    function centerZoom(f){ var v = viewport(); zoomAt(v.w/2, v.h/2, scale*f); }
+
+    function load(){
+      if(loaded) return Promise.resolve();
+      loaded = true;
+      if(src && src.dataset.srcset) src.srcset = src.dataset.srcset;
+      img.src = img.dataset.src;
+      return img.decode ? img.decode().catch(function(){}) : Promise.resolve();
+    }
+    // 尺寸取自 width/height 屬性，開啟當下就能算出貼合比例，
+    // 不必等 decode() —— 否則使用者在解碼完成前操作會拿到 iw=0 的壞狀態
+    function measure(){
+      iw = img.naturalWidth || +img.getAttribute('width') || 2200;
+      ih = img.naturalHeight || +img.getAttribute('height') || 1228;
+    }
+    function show(){
+      document.body.classList.add('mv-open');
+      mv.hidden = false;
+      touched = false;
+      measure(); setFit();
+      // 載入完成後用真實尺寸校正，但別覆蓋使用者這段期間已做的縮放／位移
+      load().then(function(){ measure(); if(!touched) setFit(); else render(); });
+      hint.classList.remove('gone');
+      setTimeout(function(){ hint.classList.add('gone'); }, 2600);
+      bClose.focus();
+    }
+    function hide(){
+      mv.hidden = true;
+      document.body.classList.remove('mv-open');
+      open.focus();
+    }
+
+    img.addEventListener('load', function(){ if(!mv.hidden){ measure(); setFit(); } });
+    open.addEventListener('click', show);
+    bClose.addEventListener('click', hide);
+    bFit.addEventListener('click', setFit);
+    bIn.addEventListener('click', function(){ centerZoom(1.6); });
+    bOut.addEventListener('click', function(){ centerZoom(1/1.6); });
+    document.addEventListener('keydown', function(e){
+      if(mv.hidden) return;
+      if(e.key === 'Escape'){ hide(); }
+      else if(e.key === '+' || e.key === '='){ centerZoom(1.6); }
+      else if(e.key === '-'){ centerZoom(1/1.6); }
+      else if(e.key === '0'){ setFit(); }
     });
+    window.addEventListener('resize', function(){ if(!mv.hidden){ var was = scale/fit; computeFit(); scale = Math.min(maxS, fit*was); render(); } });
+
+    function rel(e){ var r = stage.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
+    stage.addEventListener('pointerdown', function(e){
+      // 指標可能在事件派送與此處之間就離開，捕捉失敗不該中斷後續的縮放／拖曳登記
+      try{ stage.setPointerCapture(e.pointerId); }catch(err){}
+      pointers.set(e.pointerId, rel(e));
+      if(pointers.size === 2){
+        var p = Array.from(pointers.values());
+        pinch = {d:Math.hypot(p[0].x-p[1].x, p[0].y-p[1].y), s:scale};
+      } else {
+        stage.classList.add('dragging');
+        var c = rel(e);
+        down = {t:Date.now(), x:c.x, y:c.y, moved:false};
+      }
+    });
+    stage.addEventListener('pointermove', function(e){
+      if(!pointers.has(e.pointerId)) return;
+      var prev = pointers.get(e.pointerId), cur = rel(e);
+      pointers.set(e.pointerId, cur);
+      if(pointers.size === 2 && pinch){
+        var p = Array.from(pointers.values());
+        var d = Math.hypot(p[0].x-p[1].x, p[0].y-p[1].y);
+        if(pinch.d > 0) zoomAt((p[0].x+p[1].x)/2, (p[0].y+p[1].y)/2, pinch.s*(d/pinch.d));
+      } else if(pointers.size === 1){
+        if(down && Math.hypot(cur.x-down.x, cur.y-down.y) > TAP_SLOP){ down.moved = true; touched = true; }
+        tx += cur.x-prev.x; ty += cur.y-prev.y; render();
+      }
+    });
+    function up(e){
+      pointers.delete(e.pointerId);
+      if(pointers.size < 2) pinch = null;
+      if(pointers.size === 0){
+        stage.classList.remove('dragging');
+        var now = Date.now();
+        // 只有「沒位移的短促點擊」才算一次 tap；拖曳與雙指縮放都不算
+        if(down && !down.moved && now-down.t < TAP_MS){
+          if(lastTap && now-lastTap.t < DBL_MS && Math.hypot(down.x-lastTap.x, down.y-lastTap.y) < DBL_SLOP){
+            if(scale > fit*1.05) setFit(); else zoomAt(down.x, down.y, fit*3);
+            lastTap = null;
+          } else {
+            lastTap = {t:now, x:down.x, y:down.y};
+          }
+        } else { lastTap = null; }
+        down = null;
+      }
+    }
+    stage.addEventListener('pointerup', up);
+    stage.addEventListener('pointercancel', up);
+    stage.addEventListener('wheel', function(e){
+      e.preventDefault();
+      var c = rel(e);
+      zoomAt(c.x, c.y, scale*(e.deltaY < 0 ? 1.12 : 1/1.12));
+    }, {passive:false});
+    stage.addEventListener('dragstart', function(e){ e.preventDefault(); });
   })();
 
   // 列印時攤平所有摺疊區塊（CSS 無法展開 <details>），印完還原
