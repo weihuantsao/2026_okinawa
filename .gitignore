@@ -1,0 +1,4 @@
+# 封面原圖（8.5 MB）。網頁實際載入的是 assets/cover-*.webp|jpg，
+# 由它壓縮而來；原圖留在本機備用，不進版控以免撐大 repo。
+# 若確定要一併保存，刪掉這行再 git add background.png 即可。
+background.png

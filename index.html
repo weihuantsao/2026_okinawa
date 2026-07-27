@@ -35,15 +35,37 @@
   strong{font-weight:700;color:var(--ink);}
 
   /* ── 表紙 ───────────────────────────────── */
-  header.hero{background:var(--paper);color:var(--ink);padding:76px 0 58px;position:relative;border-bottom:1px solid var(--line);}
-  header.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--sky-deep);}
+  header.hero{background:var(--paper);color:var(--ink);padding:76px 0 58px;position:relative;border-bottom:1px solid var(--line);overflow:hidden;isolation:isolate;}
+  header.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--sky-deep);z-index:3;}
   .hero .wrap{position:relative;z-index:2;}
+
+  /* 封面手繪地圖：文字態＝滿版裁切＋和紙罩色；只看地圖態＝原比例完整呈現 */
+  .hero-bg{position:absolute;inset:0;z-index:0;display:block;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:58% 50%;display:block;}
+  .hero-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(180deg,rgba(250,248,244,.95) 0%,rgba(250,248,244,.9) 62%,rgba(250,248,244,.82) 100%);}
+  .hero-toggle{position:absolute;top:14px;right:14px;z-index:4;display:inline-flex;align-items:center;gap:7px;
+    font-family:var(--gothic);font-weight:700;font-size:.76rem;letter-spacing:.06em;cursor:pointer;
+    color:var(--ink);background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:2px;
+    padding:7px 13px;transition:background .15s,border-color .15s;backdrop-filter:blur(3px);}
+  .hero-toggle:hover{background:#fff;border-color:var(--sky-deep);}
+  .hero-toggle:focus-visible{outline:2px solid var(--sun-deep);outline-offset:2px;}
+  .hero-toggle .ht-ico{color:var(--sun-deep);font-size:.9rem;line-height:1;}
+  .hero.map-only{padding:0;border-bottom:1px solid var(--line);}
+  .hero.map-only .hero-scrim,.hero.map-only .wrap{display:none;}
+  .hero.map-only .hero-bg{position:static;}
+  .hero.map-only .hero-bg img{height:auto;object-fit:contain;}
+  @media(min-width:820px){
+    /* 寬螢幕：左側壓白放文字，右側讓地圖露出來 */
+    .hero-scrim{background:linear-gradient(100deg,rgba(250,248,244,.97) 0%,rgba(250,248,244,.95) 38%,rgba(250,248,244,.74) 62%,rgba(250,248,244,.42) 100%);}
+    .hero .sub,.hero h1{max-width:620px;}
+  }
   .hero .eyebrow{font-family:var(--gothic);letter-spacing:.34em;font-size:.7rem;color:var(--sun-deep);font-weight:700;margin-bottom:22px;}
   .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.9rem,5.4vw,2.85rem);line-height:1.34;margin-bottom:20px;color:var(--ink);letter-spacing:.02em;}
   .hero h1::after{content:"";display:block;width:46px;height:2px;background:var(--sun-deep);margin-top:22px;}
   .hero .sub{font-size:.97rem;color:var(--ink-soft);max-width:660px;line-height:1.95;}
   .hero .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;}
-  .hero .pill{background:transparent;border:1px solid var(--line);padding:6px 14px;border-radius:2px;font-size:.8rem;color:var(--ink-soft);font-weight:500;letter-spacing:.02em;}
+  .hero .pill{background:rgba(255,255,255,.84);border:1px solid var(--line);padding:6px 14px;border-radius:2px;font-size:.8rem;color:var(--ink-soft);font-weight:500;letter-spacing:.02em;}
 
   /* ── 見出し ─────────────────────────────── */
   .sec-label{font-family:var(--gothic);font-weight:700;color:var(--sun-deep);letter-spacing:.22em;font-size:.7rem;margin-bottom:10px;}
@@ -264,7 +286,14 @@
     @page{margin:14mm 12mm;}
     html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.7;}
     .wrap{max-width:none;padding:0;}
-    .tabnav,.geo-toggle,.geo-map .lmap,.geo-leg{display:none!important;}
+    .tabnav,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle{display:none!important;}
+    /* 封面：列印時一律顯示文字，地圖縮成合理高度，不吃掉整頁 */
+    .hero.map-only .wrap{display:block!important;}
+    .hero.map-only{padding:0 0 18px!important;}
+    .hero-bg,.hero.map-only .hero-bg{position:absolute!important;inset:0;}
+    .hero-bg img,.hero.map-only .hero-bg img{height:100%!important;object-fit:cover!important;}
+    header.hero{min-height:150px;}
+    .hero-scrim{display:block!important;background:rgba(255,255,255,.9)!important;}
     .tab-panel{display:block!important;animation:none!important;}
     .tab-panel+.tab-panel{page-break-before:always;}
     .geo-map::after{content:"（路線地圖為互動內容，請於網頁版檢視）";display:block;padding:10px 14px;font-size:9pt;color:#666;}
@@ -284,9 +313,17 @@
 </head>
 <body>
 
-<header class="hero">
+<header class="hero" id="hero">
+  <picture class="hero-bg">
+    <source type="image/webp" srcset="assets/cover-1200.webp 1200w, assets/cover-2200.webp 2200w" sizes="100vw">
+    <img src="assets/cover-2200.jpg" alt="沖繩行程手繪地圖：標示那霸機場、波上宮、國際通、糸滿漁市場、DMM 水族館、Ashibinaa、美國村、古宇利島、美麗海水族館、萬座毛與 BEB5／OMO5 兩間住宿" width="2200" height="1228" fetchpriority="high" decoding="async">
+  </picture>
+  <div class="hero-scrim" aria-hidden="true"></div>
+  <button type="button" class="hero-toggle" id="heroToggle" aria-pressed="false" aria-controls="hero">
+    <span class="ht-ico" aria-hidden="true">◑</span><span class="ht-txt">只看地圖</span>
+  </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.1 · 更新 2026/07/27</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.2 · 更新 2026/07/27</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -1196,7 +1233,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.1</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.2</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1218,6 +1255,28 @@
           if(window.pageYOffset > y){ window.scrollTo({ top: y, behavior: 'smooth' }); }
         }
       });
+    });
+  })();
+
+  // 封面「只看地圖」切換：隱藏標題文字與罩色，讓手繪地圖完整呈現。選擇記在本機。
+  (function(){
+    var hero = document.getElementById('hero'), btn = document.getElementById('heroToggle');
+    if(!hero || !btn) return;
+    var txt = btn.querySelector('.ht-txt'), ico = btn.querySelector('.ht-ico'), KEY = 'okinawa.heroMapOnly';
+    function apply(on){
+      hero.classList.toggle('map-only', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      txt.textContent = on ? '顯示文字' : '只看地圖';
+      ico.textContent = on ? '◐' : '◑';
+      btn.title = on ? '顯示封面標題與說明' : '隱藏封面文字，只呈現手繪地圖';
+    }
+    var saved;
+    try{ saved = localStorage.getItem(KEY) === '1'; }catch(e){ saved = false; }
+    apply(saved);
+    btn.addEventListener('click', function(){
+      var on = !hero.classList.contains('map-only');
+      apply(on);
+      try{ localStorage.setItem(KEY, on ? '1' : '0'); }catch(e){}
     });
   })();
 
