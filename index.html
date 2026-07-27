@@ -73,6 +73,9 @@
   .geo-tbtn.active{background:var(--c,var(--sun-deep));color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(0,0,0,.2);}
   .geo-pin{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35);border:2px solid #fff;}
   .geo-pin span{transform:rotate(45deg);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.9rem;line-height:1;}
+  .geo-pin{position:relative;}
+  .geo-pin-hotel{border-color:#ffd66b;box-shadow:0 0 0 3px rgba(255,183,3,.5),0 2px 6px rgba(0,0,0,.35);}
+  .geo-pin-tag{position:absolute;top:-8px;right:-8px;transform:rotate(45deg);font-style:normal;font-size:.6rem;line-height:1;background:#fff;border-radius:50%;padding:2px 2.5px;box-shadow:0 1px 3px rgba(0,0,0,.3);}
   .geo-drive{background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.15);border-radius:999px;padding:1px 8px;font-size:.72rem;font-weight:700;color:var(--sun-deep);white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.2);font-family:"Zen Maru Gothic",sans-serif;}
   .leaflet-popup-content{font-family:"Noto Sans TC",sans-serif;margin:12px 14px;}
   .geo-pop-nm{font-weight:700;color:var(--ink);font-size:.96rem;}
@@ -221,7 +224,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v3.2 · 更新 2026/07/27</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v3.3 · 更新 2026/07/27</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -271,7 +274,7 @@
       <div class="geo-map">
         <div class="geo-toggle" id="geo-toggle-all"></div>
         <div id="geo-map-all" class="lmap" style="height:460px"></div>
-        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · 線上為路段車程</div>
+        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · 線上為路段車程 · <strong>🏨＝住宿旅館</strong>（BEB5 瀨良垣／OMO5 那霸）· 🚶＝步行路段</div>
       </div>
 
       <div class="ov-scroll">
@@ -732,9 +735,9 @@
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程、虛線＝步行）· 約 9:00–19:30 ｜ 18:00 回 OMO5 放戰利品休整，18:30 步行到國際通吃晚餐（60 分），之後自由逛街不限時</div>
       </div>
       <div class="geo-map">
-        <div class="geo-leg">Day 4 · 波上宮→糸滿魚市場→DMM 水族館→Outlet→瀨長島</div>
+        <div class="geo-leg">Day 4 · 🏨OMO5→波上宮→糸滿魚市場→DMM 水族館→Outlet→瀨長島→🏨OMO5→國際通</div>
         <div id="geo-map-d4" class="lmap"></div>
-        <div class="geo-cap">🗺️ Day 4 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
+        <div class="geo-cap">🗺️ Day 4 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · <strong>🏨＝住宿旅館（OMO5 沖繩那霸）</strong> · 🚗＝包車路段、<strong>🚶＝步行路段</strong>（傍晚先回旅館放戰利品，再走去國際通吃晚餐）</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">波上宮</span><span class="tm">30分</span></span>
@@ -1110,7 +1113,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v3.2</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v3.3</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1147,30 +1150,31 @@
         {n:1,name:'那覇空港（接機）',lat:26.2063,lng:127.6517,meta:'下午集合 · 出發點',note:'桃園組 CI120 10:45 先到、台中組 CI310 12:25 抵達，通關後約 13:00 於機場集合上包車。'},
         {n:2,name:'SAN-A 浦添西海岸 PARCO CITY',lat:26.2628,lng:127.7045,drive:'約 15 分',meta:'敘敘苑午餐＋血拼 約180分',note:'縣內最大約 250 店、免稅；飛行後歇腳、育嬰室、美食街。'},
         {n:3,name:'萬座毛',lat:26.5052,lng:127.8505,drive:'約 50 分',meta:'停留 30 分',note:'象鼻岩＋斷崖海景；必買黑糖、海鹽、紅芋塔。平坦步道推車友善。'},
-        {n:4,name:'星野 BEB5 沖繩瀨良垣（入住）',lat:26.5019,lng:127.8767,drive:'約 15 分',meta:'前 2 晚住宿',note:'公寓式附廚房大冰箱；先到附近 MaxValu 補副食品、鮮乳。'}
+        {n:4,name:'星野 BEB5 沖繩瀨良垣（入住）',lat:26.5019,lng:127.8767,kind:'hotel',drive:'約 15 分',meta:'🏨 前 2 晚住宿',note:'公寓式附廚房大冰箱；先到附近 MaxValu 補副食品、鮮乳。'}
       ]},
       2:{color:COLORS[2],stops:[
-        {n:1,name:'星野 BEB5 沖繩瀨良垣',lat:26.5019,lng:127.8767,meta:'出發點',note:'走自動車道北上前往本部。'},
+        {n:1,name:'星野 BEB5 沖繩瀨良垣（旅館）',lat:26.5019,lng:127.8767,kind:'hotel',meta:'🏨 前 2 晚住宿 · 出發點',note:'走自動車道北上前往本部；今晚仍住這裡。'},
         {n:2,name:'沖繩美麗海水族館',lat:26.6943,lng:127.8779,drive:'約 60 分',meta:'停留 150 分（含午餐）',note:'鯨鯊黑潮之海、戶外免費海豚秀；建議買電子前售票免排隊。'},
         {n:3,name:'古宇利島・古宇利大橋',lat:26.6889,lng:128.0178,drive:'約 40 分',meta:'停留 90 分',note:'全長 1960m 跨海大橋絕景；心形岩、古宇利蝦餐車。'},
         {n:4,name:'古宇利海洋塔',lat:26.7024,lng:128.0206,drive:'約 5 分',meta:'島上順遊 · 之後約 70 分返回 BEB5',note:'360° 海景展望台、貝殼博物館。'}
       ]},
       3:{color:COLORS[3],stops:[
-        {n:1,name:'星野 BEB5 沖繩瀨良垣（悠閒早晨→退房）',lat:26.5019,lng:127.8767,meta:'早餐·泳池 · 約 11:00 退房 · 行李全程留車',note:'早上悠閒享受飯店，退房後行李上車，今天只搬這一次。'},
+        {n:1,name:'星野 BEB5 沖繩瀨良垣（悠閒早晨→退房）',lat:26.5019,lng:127.8767,kind:'hotel',meta:'🏨 早餐·泳池 · 約 11:00 退房 · 行李全程留車',note:'早上悠閒享受飯店，退房後行李上車，今天只搬這一次。'},
         {n:2,name:'おんなの駅 なかゆくい市場',lat:26.4577,lng:127.8447,drive:'約 15 分',meta:'快閃 40 分',note:'現榨甘蔗汁／果汁、海葡萄、B級美食小吃、島蔬果與伴手禮補給。'},
         {n:3,name:'美國村 Depot Island',lat:26.3157,lng:127.7556,drive:'約 30 分',meta:'午餐＋下午逛街＋萬聖節＋夕陽',note:'午餐非阿古豬（塔可飯／沖繩料理）；萬聖節變裝發糖(17:00–18:00)、皮卡丘塗鴉、金黃夕陽。注意交通管制與停車。'},
-        {n:4,name:'OMO5 沖繩那霸（入住）',lat:26.2159,lng:127.6726,drive:'約 30 分',meta:'後 2 晚住宿',note:'鄰國際通、距機場約 15 分。'}
+        {n:4,name:'OMO5 沖繩那霸（入住）',lat:26.2159,lng:127.6726,kind:'hotel',drive:'約 30 分',meta:'🏨 後 2 晚住宿',note:'鄰國際通（步行約 8–10 分）、距機場約 15 分。'}
       ]},
       4:{color:COLORS[4],stops:[
-        {n:1,name:'OMO5 沖繩那霸',lat:26.2159,lng:127.6726,meta:'出發點 09:00',note:'今日由北往南、再單向北返，不折返。晚餐後步行逛國際通、不用車。'},
+        {n:1,name:'OMO5 沖繩那霸（旅館）',lat:26.2159,lng:127.6726,kind:'hotel',meta:'🏨 後 2 晚住宿 · 出發點 09:00 · 傍晚 18:00 回這裡',note:'今日由北往南、再單向北返，不折返。18:00 回旅館放戰利品休整約 20 分，再步行去國際通吃晚餐、不用車。'},
         {n:2,name:'波上宮',lat:26.2201,lng:127.6672,drive:'約 10 分',meta:'停留 30 分',note:'琉球八社之首、海崖上的神社。社務所 9:00 起可求御守／御朱印。'},
         {n:3,name:'糸滿お魚センター（道の駅いとまん）',lat:26.1349,lng:127.6685,drive:'約 30 分',meta:'海鮮午餐 90 分',note:'日本最南端道の駅；11 家鮮魚店的海鮮丼、生魚片、海葡萄。10:00 開門，週末中午最擠、建議一開門就到。幼童改吃燒物／天婦羅。'},
         {n:4,name:'DMM かりゆし水族館（iias 沖繩豐崎）',lat:26.1608,lng:127.6539,drive:'約 15 分',meta:'停留 120 分',note:'全室內水族館：觸摸池、企鵝、水豚、迷你豬；推車全館可行、育嬰室完備。同棟 iias 豐崎商場可順逛，是今天的完美雨備。建議官網先購票。'},
         {n:5,name:'Ashibinaa Outlet',lat:26.1717,lng:127.6640,drive:'約 10 分',meta:'血拼 100 分',note:'沖繩唯一大型 Outlet，可現場辦免稅。'},
-        {n:6,name:'瀨長島 Umikaji Terrace',lat:26.1772,lng:127.6452,drive:'約 10 分',meta:'停留 105 分・看飛機＋夕陽 · 之後約 20 分返回 OMO5',note:'海景商店街、緊鄰機場跑道；11/1 日落約 17:45，刻意排在黃昏最美的時段。'}
+        {n:6,name:'瀨長島 Umikaji Terrace',lat:26.1772,lng:127.6452,drive:'約 10 分',meta:'停留 105 分・看飛機＋夕陽 · 之後約 20 分返回 OMO5',note:'海景商店街、緊鄰機場跑道；11/1 日落約 17:45，刻意排在黃昏最美的時段。'},
+        {n:7,name:'國際通（晚餐＋逛街）',lat:26.2140,lng:127.6870,via:[26.2159,127.6726],viaDrive:'約 20 分・回旅館',drive:'約 10 分',walk:true,meta:'🚶 18:30 入座・晚餐 60 分 · 飯後自由逛街',note:'先回 OMO5 放戰利品、休整約 20 分，再步行約 10 分過來。那霸最大繁華街約 1.6km；唐吉訶德近 24 小時、伴手禮店多開到 22:00，累了隨時走回旅館。不佔包車時數。'}
       ]},
       5:{color:COLORS[5],stops:[
-        {n:1,name:'OMO5 沖繩那霸（退房）',lat:26.2159,lng:127.6726,meta:'早餐・退房',note:'早餐後退房、行李上車，直達那霸機場。'},
+        {n:1,name:'OMO5 沖繩那霸（退房）',lat:26.2159,lng:127.6726,kind:'hotel',meta:'🏨 早餐・退房',note:'早餐後退房、行李上車，直達那霸機場。'},
         {n:2,name:'那覇空港（返程）',lat:26.2063,lng:127.6517,drive:'約 15 分',meta:'桃園組 CI121 11:55／台中組 CI311 13:25 起飛',note:'桃園組建議 09:45–10:00 前報到；台中組較晚，可約 11:00 退房再赴機場、報到約 12:25。'}
       ]}
     };
@@ -1178,15 +1182,35 @@
     var TILE='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
     var TILE_OPT={attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19};
 
-    function pinIcon(n,color){ return L.divIcon({className:'',html:'<div class="geo-pin" style="background:'+color+'"><span>'+n+'</span></div>',iconSize:[30,30],iconAnchor:[15,28],popupAnchor:[0,-28]}); }
-    function popupHtml(p){ var meta=(p.drive?'🚗 '+p.drive+' · ':'')+p.meta; return '<div class="geo-pop-nm">'+p.n+'. '+p.name+'</div><div class="geo-pop-meta">'+meta+'</div><div class="geo-pop-note">'+p.note+'</div>'; }
-    function dayLatLngs(k){ return DAYS[k].stops.map(function(p){return [p.lat,p.lng];}); }
+    function pinIcon(p,color){
+      var hotel = p.kind==='hotel';
+      var html='<div class="geo-pin'+(hotel?' geo-pin-hotel':'')+'" style="background:'+color+'"><span>'+p.n+'</span>'+(hotel?'<i class="geo-pin-tag">🏨</i>':'')+'</div>';
+      return L.divIcon({className:'',html:html,iconSize:[30,30],iconAnchor:[15,28],popupAnchor:[0,-28]});
+    }
+    function legIcon(color,txt,walk){ return L.divIcon({className:'',html:'<div class="geo-drive" style="color:'+color+'">'+(walk?'🚶 ':'🚗 ')+txt+'</div>',iconSize:[0,0]}); }
+    function popupHtml(p){
+      var meta=(p.drive?(p.walk?'🚶 ':'🚗 ')+p.drive+' · ':'')+p.meta;
+      var nm=(p.kind==='hotel'?'🏨 ':'')+p.n+'. '+p.name;
+      return '<div class="geo-pop-nm">'+nm+'</div><div class="geo-pop-meta">'+meta+'</div><div class="geo-pop-note">'+p.note+'</div>';
+    }
+    // A stop may carry a `via` waypoint ([lat,lng]) the route passes through before reaching it
+    // (e.g. Day 4 走回 OMO5 放行李後再步行到國際通), so the line doesn't cut the corner.
+    function dayLatLngs(k){
+      var a=[]; DAYS[k].stops.forEach(function(p){ if(p.via) a.push(p.via); a.push([p.lat,p.lng]); }); return a;
+    }
+    function mid(a,b){ return [(a[0]+b[0])/2,(a[1]+b[1])/2]; }
     function drawDay(map,k){
       var color=DAYS[k].color, stops=DAYS[k].stops, pts=dayLatLngs(k), grp=L.layerGroup().addTo(map);
       L.polyline(pts,{color:color,weight:4,opacity:.9,dashArray:'1,9',lineCap:'round'}).addTo(grp);
-      stops.forEach(function(p){ L.marker([p.lat,p.lng],{icon:pinIcon(p.n,color)}).addTo(grp).bindPopup(popupHtml(p)); });
-      for(var i=1;i<stops.length;i++){ var a=stops[i-1],b=stops[i],mid=[(a.lat+b.lat)/2,(a.lng+b.lng)/2];
-        L.marker(mid,{interactive:false,icon:L.divIcon({className:'',html:'<div class="geo-drive" style="color:'+color+'">🚗 '+b.drive+'</div>',iconSize:[0,0]})}).addTo(grp); }
+      stops.forEach(function(p){ L.marker([p.lat,p.lng],{icon:pinIcon(p,color)}).addTo(grp).bindPopup(popupHtml(p)); });
+      for(var i=1;i<stops.length;i++){
+        var a=[stops[i-1].lat,stops[i-1].lng], b=stops[i], bLL=[b.lat,b.lng];
+        if(b.via){
+          if(b.viaDrive) L.marker(mid(a,b.via),{interactive:false,icon:legIcon(color,b.viaDrive,false)}).addTo(grp);
+          a=b.via;
+        }
+        L.marker(mid(a,bLL),{interactive:false,icon:legIcon(color,b.drive,b.walk)}).addTo(grp);
+      }
       return grp;
     }
 
