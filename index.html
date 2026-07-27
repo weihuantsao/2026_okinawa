@@ -14,209 +14,270 @@
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   :root{
-    /* brighter palette */
-    --sky:#7dd5e3; --sky-deep:#1f93ab;
-    --aqua:#f2fcfb; --aqua-soft:#e3f7f4;
-    --sun:#ffc56b; --sun-deep:#f08a2e;
-    --coral:#ff8a78; --leaf:#54bf8c;
-    --grape:#a877d8; --rose:#f06a9a;
-    --bg:#fffefb; --paper:#ffffff;
-    /* darker text for contrast on bright bg */
-    --ink:#1f2d33; --ink-soft:#5b6b71;
-    --line:#ecf3f2;
+    /* 和の伝統色：深藍綠を基調に、柿色をただ一つのアクセントとして */
+    --sky:#8fb3b8; --sky-deep:#3a7580;      /* 水淺葱 / 藍鼠 */
+    --aqua:#f5f2ec; --aqua-soft:#ebe7de;    /* 和紙の生成り */
+    --sun:#d9a86b; --sun-deep:#a8551f;      /* 淡香 / 柿色（唯一のアクセント）*/
+    --coral:#ad5b4b; --leaf:#456e54;        /* 洗朱 / 松葉 */
+    --grape:#6d5c8e; --rose:#98455c;        /* 藤紫 / 蘇芳 */
+    --bg:#faf8f4; --paper:#ffffff;
+    --ink:#1c2b2e; --ink-soft:#536468; --ink-faint:#76807d;
+    --line:#e5e1d8; --line-soft:#f0ede6;
+    --shadow:0 1px 2px rgba(28,43,46,.04);
+    --serif:"Noto Serif TC",serif;
+    --gothic:"Zen Maru Gothic",sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
-  body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.85;-webkit-font-smoothing:antialiased;}
-  .wrap{max-width:1040px;margin:0 auto;padding:0 32px;}
+  body{font-family:"Noto Sans TC",sans-serif;background:var(--bg);color:var(--ink);line-height:1.9;font-size:16px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 28px;}
+  strong{font-weight:700;color:var(--ink);}
 
-  header.hero{background:linear-gradient(160deg,#aef0f3 0%,#c6f5dd 52%,#ffeec2 120%);color:#16323a;padding:64px 0 60px;position:relative;overflow:hidden;}
-  header.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:44px;background:radial-gradient(circle at 12px -6px, var(--bg) 14px, transparent 15px) repeat-x;background-size:32px 32px;}
+  /* ── 表紙 ───────────────────────────────── */
+  header.hero{background:var(--paper);color:var(--ink);padding:76px 0 58px;position:relative;border-bottom:1px solid var(--line);}
+  header.hero::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--sky-deep);}
   .hero .wrap{position:relative;z-index:2;}
-  .hero .eyebrow{font-family:"Zen Maru Gothic",sans-serif;letter-spacing:.32em;font-size:.78rem;color:#d2701f;font-weight:700;margin-bottom:16px;}
-  .hero h1{font-family:"Noto Serif TC",serif;font-weight:900;font-size:clamp(2rem,6vw,3rem);line-height:1.28;margin-bottom:14px;color:#143038;}
-  .hero .sub{font-size:1.02rem;color:#274750;max-width:640px;}
-  .hero .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px;}
-  .hero .pill{background:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,1);padding:7px 15px;border-radius:999px;font-size:.85rem;color:#163b44;font-weight:600;}
+  .hero .eyebrow{font-family:var(--gothic);letter-spacing:.34em;font-size:.7rem;color:var(--sun-deep);font-weight:700;margin-bottom:22px;}
+  .hero h1{font-family:var(--serif);font-weight:900;font-size:clamp(1.9rem,5.4vw,2.85rem);line-height:1.34;margin-bottom:20px;color:var(--ink);letter-spacing:.02em;}
+  .hero h1::after{content:"";display:block;width:46px;height:2px;background:var(--sun-deep);margin-top:22px;}
+  .hero .sub{font-size:.97rem;color:var(--ink-soft);max-width:660px;line-height:1.95;}
+  .hero .pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px;}
+  .hero .pill{background:transparent;border:1px solid var(--line);padding:6px 14px;border-radius:2px;font-size:.8rem;color:var(--ink-soft);font-weight:500;letter-spacing:.02em;}
 
-  .sec-label{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sun-deep);letter-spacing:.18em;font-size:.82rem;margin-bottom:6px;}
-  .sec-title{font-family:"Noto Serif TC",serif;font-weight:700;font-size:1.5rem;color:var(--ink);margin-bottom:20px;}
+  /* ── 見出し ─────────────────────────────── */
+  .sec-label{font-family:var(--gothic);font-weight:700;color:var(--sun-deep);letter-spacing:.22em;font-size:.7rem;margin-bottom:10px;}
+  .sec-title{font-family:var(--serif);font-weight:700;font-size:1.42rem;color:var(--ink);margin-bottom:26px;letter-spacing:.03em;position:relative;padding-bottom:14px;}
+  .sec-title::after{content:"";position:absolute;left:0;bottom:0;width:28px;height:2px;background:var(--sky-deep);}
 
-  section.basic{margin-top:52px;}
-  .info-row{display:flex;gap:14px;padding:14px 0;border-bottom:1px dotted var(--line);}
+  section.basic{margin-top:60px;}
+  .info-row{display:flex;gap:20px;padding:15px 0;border-bottom:1px solid var(--line-soft);}
   .info-row:last-child{border-bottom:none;}
-  .info-row .k{flex:0 0 96px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sky-deep);font-size:.92rem;}
-  .info-row .v{font-size:.95rem;color:var(--ink-soft);}
-  .info-row .v strong{color:var(--ink);}
+  .info-row .k{flex:0 0 92px;font-family:var(--gothic);font-weight:700;color:var(--sky-deep);font-size:.84rem;letter-spacing:.08em;padding-top:.15em;}
+  .info-row .v{font-size:.93rem;color:var(--ink-soft);line-height:1.95;}
 
-  section.days{margin-top:54px;}
+  section.days{margin-top:64px;}
   .day{margin-bottom:24px;}
-  .day-hd{display:flex;align-items:baseline;gap:14px;margin-bottom:4px;border-bottom:3px solid var(--sun);padding-bottom:10px;}
-  .day-hd .num{font-family:"Noto Serif TC",serif;font-weight:900;font-size:2.2rem;color:var(--sun-deep);line-height:1;}
-  .day-hd .num small{display:block;font-family:"Zen Maru Gothic",sans-serif;font-size:.55rem;letter-spacing:.25em;color:var(--ink-soft);font-weight:700;}
-  .day-hd .ttl{font-family:"Noto Serif TC",serif;font-weight:700;font-size:1.12rem;color:var(--ink);line-height:1.4;}
-  .day-flow{font-size:.85rem;color:var(--ink-soft);margin:14px 0 4px;}
-  .day-flow b{color:var(--sky-deep);}
+  .day-hd{display:flex;align-items:baseline;gap:18px;margin-bottom:4px;border-bottom:1px solid var(--ink);padding-bottom:14px;}
+  .day-hd .num{font-family:var(--serif);font-weight:900;font-size:2rem;color:var(--sun-deep);line-height:1;letter-spacing:.01em;}
+  .day-hd .num small{display:block;font-family:var(--gothic);font-size:.52rem;letter-spacing:.28em;color:var(--ink-faint);font-weight:700;margin-bottom:7px;}
+  .day-hd .ttl{font-family:var(--serif);font-weight:700;font-size:1.06rem;color:var(--ink);line-height:1.65;}
+  .day-flow{font-size:.83rem;color:var(--ink-soft);margin:18px 0 4px;line-height:2;padding:14px 16px;background:var(--aqua);border-left:2px solid var(--sky-deep);}
+  .day-flow b{color:var(--sky-deep);font-weight:700;}
 
-  .map-box{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:14px 16px 10px;margin:18px 0 22px;box-shadow:0 6px 18px rgba(31,147,171,.10);}
-  .map-box .map-cap{font-size:.74rem;color:var(--ink-soft);text-align:right;margin-top:2px;font-family:"Zen Maru Gothic",sans-serif;letter-spacing:.05em;}
+  .map-box{background:var(--paper);border:1px solid var(--line);padding:18px 18px 12px;margin:22px 0 26px;box-shadow:var(--shadow);}
+  .map-box .map-cap{font-size:.72rem;color:var(--ink-faint);text-align:right;margin-top:6px;font-family:var(--gothic);letter-spacing:.05em;line-height:1.7;}
   .map-box svg{width:100%;height:auto;display:block;}
 
   /* geo route map (Leaflet) */
-  .geo-map{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin:18px 0 22px;box-shadow:0 6px 18px rgba(31,147,171,.10);}
-  .geo-map .lmap{width:100%;height:410px;background:var(--aqua);}
-  .geo-map .geo-cap{font-size:.74rem;color:var(--ink-soft);padding:8px 14px;font-family:"Zen Maru Gothic",sans-serif;background:var(--paper);border-top:1px solid var(--line);}
-  .geo-leg{position:absolute;top:10px;right:10px;z-index:500;max-width:64%;line-height:1.35;background:rgba(255,255,255,.94);border:1px solid var(--line);border-radius:10px;padding:6px 11px;font-size:.78rem;font-weight:700;color:var(--ink);box-shadow:0 2px 8px rgba(0,0,0,.14);font-family:"Zen Maru Gothic",sans-serif;}
-  .geo-toggle{display:flex;flex-wrap:wrap;gap:6px;padding:10px 12px;background:var(--paper);border-bottom:1px solid var(--line);}
-  .geo-tbtn{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.8rem;border:1px solid #d4ede9;background:#fff;color:var(--ink-soft);padding:4px 13px;border-radius:999px;cursor:pointer;transition:all .15s;}
-  .geo-tbtn:hover{border-color:var(--sky);color:var(--ink);}
-  .geo-tbtn.active{background:var(--c,var(--sun-deep));color:#fff;border-color:transparent;box-shadow:0 3px 8px rgba(0,0,0,.2);}
+  .geo-map{position:relative;border:1px solid var(--line);overflow:hidden;margin:22px 0 26px;box-shadow:var(--shadow);}
+  .geo-map .lmap{width:100%;height:400px;background:var(--aqua);}
+  .geo-map .geo-cap{font-size:.72rem;color:var(--ink-faint);padding:10px 16px;font-family:var(--gothic);background:var(--paper);border-top:1px solid var(--line);line-height:1.8;}
+  .geo-leg{position:absolute;top:10px;right:10px;z-index:500;max-width:64%;line-height:1.5;background:rgba(255,255,255,.95);border:1px solid var(--line);padding:7px 12px;font-size:.75rem;font-weight:700;color:var(--ink);box-shadow:0 1px 6px rgba(28,43,46,.12);font-family:var(--gothic);}
+  .geo-toggle{display:flex;flex-wrap:wrap;gap:6px;padding:11px 14px;background:var(--paper);border-bottom:1px solid var(--line);}
+  .geo-tbtn{font-family:var(--gothic);font-weight:700;font-size:.78rem;border:1px solid var(--line);background:#fff;color:var(--ink-soft);padding:4px 14px;border-radius:2px;cursor:pointer;transition:all .15s;letter-spacing:.04em;}
+  .geo-tbtn:hover{border-color:var(--sky-deep);color:var(--ink);}
+  .geo-tbtn.active{background:var(--c,var(--sun-deep));color:#fff;border-color:transparent;}
   .geo-pin{display:flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);color:#fff;box-shadow:0 2px 6px rgba(0,0,0,.35);border:2px solid #fff;}
   .geo-pin span{transform:rotate(45deg);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.9rem;line-height:1;}
   .geo-pin{position:relative;}
-  .geo-pin-hotel{border-color:#ffd66b;box-shadow:0 0 0 3px rgba(255,183,3,.5),0 2px 6px rgba(0,0,0,.35);}
+  .geo-pin-hotel{border-color:var(--sun);box-shadow:0 0 0 3px rgba(168,85,31,.4),0 2px 6px rgba(0,0,0,.3);}
   .geo-pin-tag{position:absolute;top:-8px;right:-8px;transform:rotate(45deg);font-style:normal;font-size:.6rem;line-height:1;background:#fff;border-radius:50%;padding:2px 2.5px;box-shadow:0 1px 3px rgba(0,0,0,.3);}
-  .geo-drive{background:rgba(255,255,255,.96);border:1px solid rgba(0,0,0,.15);border-radius:999px;padding:1px 8px;font-size:.72rem;font-weight:700;color:var(--sun-deep);white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.2);font-family:"Zen Maru Gothic",sans-serif;}
-  .leaflet-popup-content{font-family:"Noto Sans TC",sans-serif;margin:12px 14px;}
-  .geo-pop-nm{font-weight:700;color:var(--ink);font-size:.96rem;}
-  .geo-pop-meta{color:var(--sun-deep);font-weight:700;font-size:.8rem;margin-top:3px;font-family:"Zen Maru Gothic",sans-serif;}
-  .geo-pop-note{color:var(--ink-soft);font-size:.82rem;margin-top:5px;line-height:1.6;}
+  .geo-drive{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:2px;padding:1px 8px;font-size:.71rem;font-weight:700;color:var(--sun-deep);white-space:nowrap;box-shadow:0 1px 3px rgba(28,43,46,.18);font-family:var(--gothic);}
+  .leaflet-popup-content{font-family:"Noto Sans TC",sans-serif;margin:13px 15px;}
+  .geo-pop-nm{font-weight:700;color:var(--ink);font-size:.94rem;font-family:var(--serif);}
+  .geo-pop-meta{color:var(--sun-deep);font-weight:700;font-size:.78rem;margin-top:4px;font-family:var(--gothic);}
+  .geo-pop-note{color:var(--ink-soft);font-size:.81rem;margin-top:6px;line-height:1.75;}
 
   /* flight card + collapsible */
-  .flt-row{display:flex;gap:10px;align-items:baseline;padding:8px 0;border-bottom:1px dotted var(--line);}
+  .flt-row{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line-soft);}
   .flt-row:last-of-type{border-bottom:none;}
-  .flt-tag{flex:0 0 auto;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.76rem;color:#fff;border-radius:999px;padding:2px 11px;}
+  .flt-tag{flex:0 0 auto;font-family:var(--gothic);font-weight:700;font-size:.72rem;color:#fff;border-radius:2px;padding:2px 10px;letter-spacing:.06em;}
   .flt-tag.go{background:var(--leaf);}
   .flt-tag.back{background:var(--sun-deep);}
-  .flt-body{font-size:.92rem;color:var(--ink);}
-  .fold{border:1px solid var(--line);border-radius:12px;margin-top:12px;background:var(--aqua);overflow:hidden;}
-  .fold>summary{cursor:pointer;list-style:none;padding:10px 14px;font-weight:700;font-size:.88rem;color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;display:flex;align-items:center;gap:8px;}
+  .flt-body{font-size:.9rem;color:var(--ink);}
+  .fold{border:1px solid var(--line);margin-top:14px;background:var(--paper);overflow:hidden;}
+  .fold>summary{cursor:pointer;list-style:none;padding:12px 16px;font-weight:700;font-size:.86rem;color:var(--sky-deep);font-family:var(--gothic);display:flex;align-items:center;gap:9px;letter-spacing:.03em;background:var(--aqua);transition:background .15s;}
   .fold>summary::-webkit-details-marker{display:none;}
-  .fold>summary::before{content:"▸";color:var(--sun-deep);transition:transform .18s;}
-  .fold[open]>summary::before{transform:rotate(90deg);}
+  .fold>summary::before{content:"＋";color:var(--sun-deep);font-size:.9em;transition:transform .2s;}
+  .fold[open]>summary::before{transform:rotate(135deg);}
+  .fold[open]>summary{border-bottom:1px solid var(--line);}
   .fold>summary:hover{background:var(--aqua-soft);}
-  .fold-body{padding:2px 14px 14px;}
-  .dep{display:inline-block;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.76rem;color:#fff;border-radius:8px;padding:2px 9px;margin-right:8px;}
+  .fold-body{padding:14px 18px 16px;}
+  .dep{display:inline-block;font-family:var(--gothic);font-weight:700;font-size:.73rem;color:#fff;border-radius:2px;padding:2px 9px;margin-right:8px;letter-spacing:.04em;}
   .dep.tpe{background:var(--sky-deep);}
   .dep.rmq{background:var(--grape);}
-  .fold-body ul{margin:0;padding-left:1.25em;}
-  .fold-body li{font-size:.9rem;color:var(--ink-soft);line-height:1.75;margin:5px 0;}
-  .fold-body li strong{color:var(--ink);}
-  .wx{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:10px 14px 6px;margin:14px 0 8px;box-shadow:0 6px 18px rgba(31,147,171,.08);}
-  .wx-hd{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.8rem;color:var(--sky-deep);margin-bottom:2px;}
-  .wx-hd .leg{font-weight:500;color:var(--ink-soft);font-size:.7rem;margin-left:6px;}
+  .fold-body ul{margin:0;padding-left:1.15em;}
+  .fold-body li{font-size:.88rem;color:var(--ink-soft);line-height:1.95;margin:8px 0;padding-left:.2em;}
+  .fold-body li::marker{color:var(--sky);}
+  .wx{background:var(--paper);border:1px solid var(--line);padding:13px 16px 8px;margin:18px 0 10px;box-shadow:var(--shadow);}
+  .wx-hd{font-family:var(--gothic);font-weight:700;font-size:.78rem;color:var(--sky-deep);margin-bottom:4px;letter-spacing:.04em;}
+  .wx-hd .leg{font-weight:500;color:var(--ink-faint);font-size:.68rem;margin-left:8px;}
   .wx svg{width:100%;height:auto;display:block;}
-  .wx-note{font-size:.68rem;color:var(--ink-soft);text-align:right;font-family:"Zen Maru Gothic",sans-serif;margin-top:2px;}
+  .wx-note{font-size:.67rem;color:var(--ink-faint);text-align:right;font-family:var(--gothic);margin-top:3px;}
 
   /* stay-time summary chips */
-  .stays{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 18px;}
-  .stay{display:flex;align-items:center;gap:6px;background:var(--aqua-soft);border:1px solid #d4ede9;border-radius:999px;padding:4px 12px;font-size:.82rem;color:var(--ink);}
+  .stays{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 22px;}
+  .stay{display:flex;align-items:center;gap:8px;background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:5px 13px;font-size:.81rem;color:var(--ink);}
   .stay .nm{font-weight:700;}
-  .stay .tm{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sun-deep);}
-  .stay.opt{background:#fdeaf1;border-color:#f8cdde;}
+  .stay .tm{font-family:var(--gothic);font-weight:700;color:var(--sun-deep);font-size:.78rem;}
+  .stay.opt{background:var(--aqua);border-style:dashed;}
   .stay.opt .tm{color:var(--rose);}
 
-  .slot{display:flex;gap:14px;padding:7px 0;}
-  .slot .tag{flex:0 0 56px;font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.8rem;color:#fff;text-align:center;height:fit-content;border-radius:8px;padding:4px 0;margin-top:3px;}
+  .slot{display:flex;gap:16px;padding:10px 0;border-bottom:1px solid var(--line-soft);}
+  .slot:last-of-type{border-bottom:none;}
+  .slot .tag{flex:0 0 52px;font-family:var(--gothic);font-weight:700;font-size:.74rem;color:#fff;text-align:center;height:fit-content;border-radius:2px;padding:4px 0;margin-top:5px;letter-spacing:.06em;}
   .slot .tag.am{background:var(--leaf);} .slot .tag.pm{background:var(--sky-deep);} .slot .tag.eve{background:var(--sun-deep);} .slot .tag.all{background:var(--grape);} .slot .tag.opt{background:var(--rose);}
-  .slot p{font-size:.96rem;}
-  .slot p .dur{display:inline-block;font-family:"Zen Maru Gothic",sans-serif;font-size:.78rem;font-weight:700;color:var(--sun-deep);background:rgba(255,197,107,.28);border-radius:6px;padding:0 7px;margin-left:4px;}
+  .slot p{font-size:.93rem;line-height:2;}
+  .slot p .dur{display:inline-block;font-family:var(--gothic);font-size:.75rem;font-weight:700;color:var(--sun-deep);border:1px solid var(--sun);border-radius:2px;padding:0 7px;margin:0 3px;white-space:nowrap;}
+  .slot.optional{background:var(--aqua);padding:12px 14px;border-bottom:none;margin-top:6px;}
   .slot.optional p{color:var(--ink-soft);}
-  .review{margin-top:14px;padding:14px 18px;background:var(--aqua);border-left:4px solid var(--sun);border-radius:0 12px 12px 0;font-size:.92rem;color:var(--ink-soft);}
-  .review b{color:var(--sun-deep);font-family:"Noto Serif TC",serif;}
+  .review{margin-top:22px;padding:18px 22px;background:var(--aqua);border-left:2px solid var(--sun-deep);font-size:.9rem;color:var(--ink-soft);line-height:2;}
+  .review b{color:var(--sun-deep);font-family:var(--serif);letter-spacing:.04em;}
 
   /* tabs */
-  .tabnav{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:20;}
-  .tabbtn{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.92rem;border:1px solid #d4ede9;background:var(--paper);color:var(--ink-soft);padding:7px 17px;border-radius:999px;cursor:pointer;transition:all .18s;line-height:1.2;text-align:center;}
-  .tabbtn .d{display:block;font-size:.66rem;letter-spacing:.08em;color:var(--sun-deep);font-weight:700;}
-  .tabbtn:hover{border-color:var(--sky);color:var(--ink);}
-  .tabbtn.active{background:var(--sun-deep);color:#fff;border-color:var(--sun-deep);box-shadow:0 4px 12px rgba(240,138,46,.28);}
-  .tabbtn.active .d{color:#ffe7c8;}
+  .tabnav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:30px;position:sticky;top:0;background:var(--bg);padding:12px 0;z-index:20;border-bottom:1px solid var(--line);}
+  .tabbtn{font-family:var(--gothic);font-weight:700;font-size:.88rem;border:1px solid var(--line);background:var(--paper);color:var(--ink-soft);padding:8px 18px;border-radius:2px;cursor:pointer;transition:all .18s;line-height:1.3;text-align:center;}
+  .tabbtn .d{display:block;font-size:.62rem;letter-spacing:.12em;color:var(--ink-faint);font-weight:700;margin-bottom:2px;}
+  .tabbtn:hover{border-color:var(--sky-deep);color:var(--ink);}
+  .tabbtn.active{background:var(--sky-deep);color:#fff;border-color:var(--sky-deep);}
+  .tabbtn.active .d{color:rgba(255,255,255,.72);}
   .tab-panel{display:none;}
   .tab-panel.active{display:block;animation:fadein .35s ease;}
   @keyframes fadein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 
   /* overview tab */
-  .ov-intro{font-size:.98rem;color:var(--ink-soft);margin-bottom:8px;}
-  .ov-scroll{overflow-x:auto;margin:18px 0 24px;}
-  .ov-table{width:100%;border-collapse:collapse;font-size:.9rem;min-width:620px;}
-  .ov-table th{background:var(--aqua-soft);color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;padding:12px 12px;text-align:left;border-bottom:2px solid var(--sky);white-space:nowrap;}
-  .ov-table td{padding:12px 12px;border-bottom:1px dotted var(--line);vertical-align:top;}
+  .ov-intro{font-size:.95rem;color:var(--ink-soft);margin-bottom:10px;line-height:2;}
+  .ov-scroll{overflow-x:auto;margin:22px 0 28px;border:1px solid var(--line);background:var(--paper);}
+  .ov-table{width:100%;border-collapse:collapse;font-size:.88rem;min-width:620px;}
+  .ov-table th{background:var(--aqua);color:var(--sky-deep);font-family:var(--gothic);font-weight:700;padding:13px 14px;text-align:left;border-bottom:1px solid var(--sky-deep);white-space:nowrap;letter-spacing:.06em;font-size:.8rem;}
+  .ov-table td{padding:13px 14px;border-bottom:1px solid var(--line-soft);vertical-align:top;line-height:1.9;}
   .ov-table tr:last-child td{border-bottom:none;}
-  .ov-table .dn{font-family:"Noto Serif TC",serif;font-weight:900;color:var(--sun-deep);white-space:nowrap;}
+  .ov-table .dn{font-family:var(--serif);font-weight:900;color:var(--sun-deep);white-space:nowrap;}
   .ov-table .ht{font-weight:700;color:var(--sky-deep);white-space:nowrap;}
-  .ov-card{display:flex;gap:16px;background:var(--aqua);border-left:4px solid var(--sky);border-radius:0 12px 12px 0;padding:14px 20px;margin:10px 0;font-size:.92rem;color:var(--ink-soft);}
-  .ov-card b{flex:0 0 auto;white-space:nowrap;color:var(--sky-deep);font-family:"Noto Serif TC",serif;}
+  .ov-card{display:flex;gap:18px;background:var(--paper);border:1px solid var(--line);border-left:2px solid var(--sky-deep);padding:16px 22px;margin:10px 0;font-size:.9rem;color:var(--ink-soft);line-height:2;}
+  .ov-card b{flex:0 0 auto;white-space:nowrap;color:var(--sky-deep);font-family:var(--serif);}
   .ov-card span{flex:1;}
 
   /* must-buy / must-eat picks */
-  .picks{margin:18px 0 4px;background:linear-gradient(120deg,#f3fbf6,#eef9f7);border:1px solid #d4ede9;border-radius:14px;padding:14px 18px;}
-  .picks .ph{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.88rem;color:var(--leaf);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
-  .pk{display:flex;gap:12px;padding:9px 0;border-top:1px dashed #cfe9e6;flex-wrap:wrap;align-items:baseline;}
+  .picks{margin:24px 0 4px;background:var(--paper);border:1px solid var(--line);padding:16px 22px;}
+  .picks .ph{font-family:var(--gothic);font-weight:700;font-size:.82rem;color:var(--leaf);margin-bottom:12px;display:flex;align-items:center;gap:8px;letter-spacing:.08em;padding-bottom:10px;border-bottom:1px solid var(--line-soft);}
+  .pk{display:flex;gap:16px;padding:11px 0;border-top:1px solid var(--line-soft);flex-wrap:wrap;align-items:baseline;}
   .pk:first-of-type{border-top:none;}
-  .pk .pkn{font-weight:700;color:var(--ink);font-size:.9rem;flex:0 0 130px;}
-  .pk .pkbody{flex:1;min-width:240px;font-size:.85rem;color:var(--ink-soft);}
-  .pk .lab{font-family:"Zen Maru Gothic",sans-serif;font-size:.7rem;font-weight:700;border-radius:5px;padding:1px 7px;color:#fff;margin-right:5px;display:inline-block;}
+  .pk .pkn{font-weight:700;color:var(--ink);font-size:.88rem;flex:0 0 130px;font-family:var(--serif);}
+  .pk .pkbody{flex:1;min-width:240px;font-size:.84rem;color:var(--ink-soft);line-height:1.95;}
+  .pk .lab{font-family:var(--gothic);font-size:.68rem;font-weight:700;border-radius:2px;padding:1px 7px;color:#fff;margin-right:6px;display:inline-block;letter-spacing:.05em;}
   .pk .buy{background:var(--grape);} .pk .eat{background:var(--coral);} .pk .see{background:var(--sky-deep);}
 
   /* per-day note */
-  .daynote{margin:22px 0 4px;background:linear-gradient(120deg,#fff6e6,#ffeef2);border:1px solid #ffe0c0;border-radius:14px;padding:14px 20px;}
-  .daynote h4{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:var(--sun-deep);font-size:.9rem;margin-bottom:6px;display:flex;align-items:center;gap:7px;}
+  .daynote{margin:26px 0 4px;background:var(--aqua);border:1px solid var(--line);padding:16px 22px;}
+  .daynote h4{font-family:var(--gothic);font-weight:700;color:var(--sun-deep);font-size:.84rem;margin-bottom:8px;display:flex;align-items:center;gap:8px;letter-spacing:.08em;padding-bottom:10px;border-bottom:1px solid var(--line);}
   .daynote ul{list-style:none;}
-  .daynote li{font-size:.9rem;color:var(--ink-soft);padding:4px 0 4px 18px;position:relative;}
-  .daynote li::before{content:"・";position:absolute;left:0;color:var(--sun-deep);font-weight:700;}
-  .daynote .hl{background:rgba(240,106,154,.16);padding:1px 6px;border-radius:4px;color:#c43d6f;font-weight:700;}
+  .daynote li{font-size:.88rem;color:var(--ink-soft);padding:7px 0 7px 20px;position:relative;line-height:1.95;}
+  .daynote li::before{content:"—";position:absolute;left:0;color:var(--sun-deep);font-weight:700;}
+  .hl{background:rgba(168,85,31,.1);padding:1px 6px;border-radius:2px;color:var(--sun-deep);font-weight:700;box-decoration-break:clone;-webkit-box-decoration-break:clone;}
 
   /* per-day reference links */
-  .day-links{margin:22px 0 4px;}
-  .day-links h4{font-family:"Zen Maru Gothic",sans-serif;font-size:.92rem;color:var(--sky-deep);margin-bottom:4px;font-weight:700;display:flex;align-items:center;gap:7px;}
-  .lk{display:flex;gap:12px;padding:9px 0;border-bottom:1px dotted var(--line);align-items:baseline;flex-wrap:wrap;}
-  .lk .nm{font-weight:700;color:var(--ink);font-size:.92rem;flex:0 0 180px;}
-  .lk a{color:var(--sun-deep);font-size:.86rem;text-decoration:none;word-break:break-all;}
-  .lk a:hover{text-decoration:underline;}
-  .lk .note{font-size:.82rem;color:var(--ink-soft);width:100%;}
+  .day-links{margin:26px 0 4px;}
+  .day-links h4{font-family:var(--gothic);font-size:.84rem;color:var(--sky-deep);margin-bottom:6px;font-weight:700;display:flex;align-items:center;gap:8px;letter-spacing:.08em;padding-bottom:10px;border-bottom:1px solid var(--line);}
+  .lk{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--line-soft);align-items:baseline;flex-wrap:wrap;}
+  .lk:last-of-type{border-bottom:none;}
+  .lk .nm{font-weight:700;color:var(--ink);font-size:.89rem;flex:0 0 180px;}
+  .lk a{color:var(--sun-deep);font-size:.83rem;text-decoration:none;word-break:break-all;border-bottom:1px solid rgba(168,85,31,.3);}
+  .lk a:hover{border-bottom-color:var(--sun-deep);}
+  .lk .note{font-size:.81rem;color:var(--ink-soft);width:100%;line-height:1.9;}
 
   /* dining cards */
-  .dine{margin:16px 0 4px;background:linear-gradient(120deg,#fffaf0,#fff5f7);border:1px solid #ffe6cf;border-radius:14px;padding:14px 18px;}
-  .dine .dh{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.86rem;color:var(--sun-deep);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
-  .dine .dh .meal{background:var(--sun-deep);color:#fff;border-radius:6px;padding:1px 8px;font-size:.74rem;}
-  .rc{display:flex;gap:12px;padding:8px 0;border-top:1px dashed #ffd9b8;align-items:baseline;flex-wrap:wrap;}
+  .dine{margin:24px 0 4px;background:var(--paper);border:1px solid var(--line);padding:16px 22px;}
+  .dine .dh{font-family:var(--gothic);font-weight:700;font-size:.82rem;color:var(--sun-deep);margin-bottom:12px;display:flex;align-items:center;gap:8px;letter-spacing:.06em;padding-bottom:10px;border-bottom:1px solid var(--line-soft);flex-wrap:wrap;}
+  .dine .dh .meal{background:var(--sun-deep);color:#fff;border-radius:2px;padding:2px 9px;font-size:.72rem;}
+  .rc{display:flex;gap:12px;padding:10px 0;border-top:1px solid var(--line-soft);align-items:baseline;flex-wrap:wrap;}
   .rc:first-of-type{border-top:none;}
-  .rc .rn{font-weight:700;color:var(--ink);font-size:.9rem;}
-  .rc .score{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;color:#e0892b;font-size:.82rem;background:rgba(255,197,107,.3);border-radius:6px;padding:0 7px;}
-  .rc a{color:var(--sky-deep);font-size:.8rem;text-decoration:none;}
-  .rc a:hover{text-decoration:underline;}
-  .rc .rnote{width:100%;font-size:.82rem;color:var(--ink-soft);}
+  .rc .rn{font-weight:700;color:var(--ink);font-size:.88rem;font-family:var(--serif);}
+  .rc .score{font-family:var(--gothic);font-weight:700;color:var(--sun-deep);font-size:.78rem;border:1px solid var(--sun);border-radius:2px;padding:0 7px;}
+  .rc a{color:var(--sky-deep);font-size:.79rem;text-decoration:none;border-bottom:1px solid rgba(58,117,128,.3);}
+  .rc a:hover{border-bottom-color:var(--sky-deep);}
+  .rc .rnote{width:100%;font-size:.81rem;color:var(--ink-soft);line-height:1.9;}
 
-  footer{text-align:center;padding:34px 0 44px;color:var(--ink-soft);font-size:.82rem;border-top:1px solid var(--line);margin-top:30px;}
+  footer{text-align:center;padding:44px 0 56px;color:var(--ink-faint);font-size:.79rem;border-top:1px solid var(--line);margin-top:48px;line-height:2;}
   footer .star{color:var(--sun-deep);}
 
   /* booking / reservation tab */
-  .bk-h{font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:1.02rem;color:var(--sky-deep);margin:26px 0 12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:2px solid var(--sky);padding-bottom:7px;}
+  .bk-h{font-family:var(--gothic);font-weight:700;font-size:.98rem;color:var(--ink);margin:34px 0 14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;border-bottom:1px solid var(--ink);padding-bottom:9px;letter-spacing:.04em;}
   .bk-h:first-of-type{margin-top:8px;}
-  .bk-badge{font-family:"Zen Maru Gothic",sans-serif;font-size:.72rem;font-weight:700;border-radius:6px;padding:1px 8px;color:#fff;white-space:nowrap;}
+  .bk-badge{font-family:var(--gothic);font-size:.7rem;font-weight:700;border-radius:2px;padding:2px 8px;color:#fff;white-space:nowrap;letter-spacing:.04em;}
   .bk-badge.ok{background:var(--leaf);} .bk-badge.todo{background:var(--rose);} .bk-badge.hold{background:var(--sun-deep);}
-  .bk-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:10px 0;box-shadow:0 4px 12px rgba(31,147,171,.06);}
-  .bk-card .bk-nm{font-family:"Noto Serif TC",serif;font-weight:700;color:var(--ink);font-size:1rem;margin-bottom:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:baseline;}
-  .bk-card .ord{font-family:"Zen Maru Gothic",sans-serif;font-size:.76rem;color:var(--sun-deep);font-weight:700;background:rgba(255,197,107,.24);border-radius:6px;padding:1px 8px;}
-  .bk-row{font-size:.88rem;color:var(--ink-soft);padding:3px 0;display:flex;gap:10px;}
-  .bk-row .bk-k{flex:0 0 64px;color:var(--sky-deep);font-weight:700;}
-  .bk-row .bk-v strong{color:var(--ink);}
-  .bk-note{font-size:.82rem;color:var(--ink-soft);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);}
-  .bk-table{width:100%;border-collapse:collapse;font-size:.86rem;min-width:560px;}
-  .bk-table th{background:var(--aqua-soft);color:var(--sky-deep);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;padding:9px 10px;text-align:left;border-bottom:2px solid var(--sky);white-space:nowrap;}
-  .bk-table td{padding:9px 10px;border-bottom:1px dotted var(--line);vertical-align:top;}
+  .bk-card{background:var(--paper);border:1px solid var(--line);padding:16px 22px;margin:12px 0;box-shadow:var(--shadow);}
+  .bk-card .bk-nm{font-family:var(--serif);font-weight:700;color:var(--ink);font-size:.98rem;margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;align-items:baseline;}
+  .bk-card .ord{font-family:var(--gothic);font-size:.74rem;color:var(--sun-deep);font-weight:700;border:1px solid var(--sun);border-radius:2px;padding:1px 8px;}
+  .bk-row{font-size:.86rem;color:var(--ink-soft);padding:5px 0;display:flex;gap:14px;line-height:1.9;}
+  .bk-row .bk-k{flex:0 0 62px;color:var(--sky-deep);font-weight:700;font-family:var(--gothic);font-size:.8rem;letter-spacing:.06em;padding-top:.15em;}
+  .bk-note{font-size:.81rem;color:var(--ink-soft);margin-top:12px;padding:12px 14px;background:var(--aqua);border-left:2px solid var(--sky);line-height:1.95;}
+  .bk-table{width:100%;border-collapse:collapse;font-size:.84rem;min-width:560px;}
+  .bk-table th{background:var(--aqua);color:var(--sky-deep);font-family:var(--gothic);font-weight:700;padding:11px 12px;text-align:left;border-bottom:1px solid var(--sky-deep);white-space:nowrap;letter-spacing:.06em;font-size:.78rem;}
+  .bk-table td{padding:11px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top;line-height:1.9;}
   .bk-table tr:last-child td{border-bottom:none;}
-  .bk-table .d2{white-space:nowrap;font-weight:700;color:var(--sun-deep);}
+  .bk-table .dn,.bk-table .d2{white-space:nowrap;font-weight:700;color:var(--sun-deep);}
+  .bk-table .dn{white-space:normal;}
 
+  /* ── 手機優先 ───────────────────────────── */
   @media(max-width:680px){
-    .wrap{padding:0 20px;}
-    .day-hd{flex-wrap:wrap;}
-    .info-row .k{flex-basis:78px;}
+    body{font-size:16.5px;}
+    .wrap{padding:0 18px;}
+    header.hero{padding:52px 0 40px;}
+    .hero .pills{gap:6px;}
+    .hero .pill{font-size:.76rem;padding:5px 11px;}
+    .day-hd{flex-wrap:wrap;gap:10px;}
+    .day-hd .num{font-size:1.7rem;}
+    .info-row{flex-direction:column;gap:4px;}
+    .info-row .k{flex-basis:auto;}
     .ov-card{flex-direction:column;gap:4px;}
     .pk .pkn{flex-basis:100%;}
     .lk .nm{flex-basis:100%;}
-    .tabbtn{flex:1 1 28%;padding:7px 8px;font-size:.86rem;}
+    .tabnav{gap:5px;padding:10px 0;}
+    .tabbtn{flex:1 1 28%;padding:7px 6px;font-size:.82rem;}
+    .geo-map .lmap{height:300px;}
+    .geo-leg{max-width:74%;font-size:.7rem;padding:5px 9px;}
+    .slot{gap:11px;}
+    .slot .tag{flex-basis:46px;font-size:.7rem;}
+    .picks,.daynote,.dine,.bk-card{padding:14px 15px;}
+    .fold-body{padding:12px 14px 14px;}
+    .review{padding:14px 16px;}
+  }
+
+  /* ── 大螢幕：同樣內容、更寬鬆的呼吸 ──────── */
+  @media(min-width:1100px){
+    .wrap{max-width:1180px;padding:0 40px;}
+    body{font-size:16.5px;}
+    .geo-map .lmap{height:500px;}
+    .info-row .k{flex-basis:112px;}
+    .slot .tag{flex-basis:60px;}
+    .lk .nm{flex:0 0 220px;}
+    .lk .note{width:auto;flex:1 1 100%;padding-left:234px;margin-top:-4px;}
+    .daynote ul,.fold-body>ul{columns:2;column-gap:44px;}
+    .daynote li,.fold-body>ul>li{break-inside:avoid;-webkit-column-break-inside:avoid;}
+    .pk .pkn{flex-basis:160px;}
+  }
+
+  /* ── 列印：攤平所有分頁與摺疊區塊 ────────── */
+  @media print{
+    @page{margin:14mm 12mm;}
+    html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.7;}
+    .wrap{max-width:none;padding:0;}
+    .tabnav,.geo-toggle,.geo-map .lmap,.geo-leg{display:none!important;}
+    .tab-panel{display:block!important;animation:none!important;}
+    .tab-panel+.tab-panel{page-break-before:always;}
+    .geo-map::after{content:"（路線地圖為互動內容，請於網頁版檢視）";display:block;padding:10px 14px;font-size:9pt;color:#666;}
+    .fold{break-inside:avoid;}
+    .fold>summary{background:#f4f2ee!important;}
+    .fold>summary::before{content:"■";}
+    .day-hd,.bk-h,.sec-title{break-after:avoid;}
+    .map-box,.wx,.picks,.daynote,.dine,.bk-card,.review,.ov-card,.slot,.lk,.pk,.rc{break-inside:avoid;box-shadow:none!important;}
+    .map-box,.wx,.geo-map,.picks,.dine,.bk-card,.ov-scroll{border-color:#bbb!important;}
+    header.hero{padding:0 0 18px;border-bottom:2px solid #000;}
+    .hero .pill{border-color:#bbb;}
+    a{color:#000!important;border-bottom:none!important;}
+    .lk a::after{content:" ("attr(href)")";font-size:8pt;color:#666;word-break:break-all;}
+    footer{page-break-before:avoid;}
   }
 </style>
 </head>
@@ -224,7 +285,7 @@
 
 <header class="hero">
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v3.7 · 更新 2026/07/27</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.0 · 更新 2026/07/27</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -330,39 +391,39 @@
       <p class="day-flow"><b>今日動線：</b>那霸機場 →<b>車 15 分</b>→ PARCO CITY（浦添・<b>敘敘苑午餐 90＋血拼 90，約 180 分</b>）→<b>車 50 分</b>→ 萬座毛（恩納・停 30 分）→<b>車 15 分</b>→ BEB5 瀨良垣（入住＋恩納晚餐）｜ <b>總拉車約 80 分</b> ｜ <b>全日約 13:00–20:00</b>（桃園組 10:45 先到、台中組 CI310 12:25 抵達，通關後約 13:00 集合出發）</p>
       <div class="map-box">
         <svg viewBox="0 0 720 150" role="img" aria-label="Day1 當日時間軸 13:00–20:00">
-          <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
-          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
-            <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">13:00</text>
-            <line x1="149" y1="114" x2="149" y2="122" stroke="#cfe9e6"/><text x="149" y="134" text-anchor="middle">14:00</text>
-            <line x1="237" y1="114" x2="237" y2="122" stroke="#cfe9e6"/><text x="237" y="134" text-anchor="middle">15:00</text>
-            <line x1="326" y1="114" x2="326" y2="122" stroke="#cfe9e6"/><text x="326" y="134" text-anchor="middle">16:00</text>
-            <line x1="414" y1="114" x2="414" y2="122" stroke="#cfe9e6"/><text x="414" y="134" text-anchor="middle">17:00</text>
-            <line x1="503" y1="114" x2="503" y2="122" stroke="#cfe9e6"/><text x="503" y="134" text-anchor="middle">18:00</text>
-            <line x1="591" y1="114" x2="591" y2="122" stroke="#cfe9e6"/><text x="591" y="134" text-anchor="middle">19:00</text>
-            <line x1="680" y1="114" x2="680" y2="122" stroke="#cfe9e6"/><text x="680" y="134" text-anchor="middle">20:00</text>
+          <line x1="60" y1="118" x2="680" y2="118" stroke="#e5e1d8" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#76807d">
+            <line x1="60" y1="114" x2="60" y2="122" stroke="#e5e1d8"/><text x="60" y="134" text-anchor="middle">13:00</text>
+            <line x1="149" y1="114" x2="149" y2="122" stroke="#e5e1d8"/><text x="149" y="134" text-anchor="middle">14:00</text>
+            <line x1="237" y1="114" x2="237" y2="122" stroke="#e5e1d8"/><text x="237" y="134" text-anchor="middle">15:00</text>
+            <line x1="326" y1="114" x2="326" y2="122" stroke="#e5e1d8"/><text x="326" y="134" text-anchor="middle">16:00</text>
+            <line x1="414" y1="114" x2="414" y2="122" stroke="#e5e1d8"/><text x="414" y="134" text-anchor="middle">17:00</text>
+            <line x1="503" y1="114" x2="503" y2="122" stroke="#e5e1d8"/><text x="503" y="134" text-anchor="middle">18:00</text>
+            <line x1="591" y1="114" x2="591" y2="122" stroke="#e5e1d8"/><text x="591" y="134" text-anchor="middle">19:00</text>
+            <line x1="680" y1="114" x2="680" y2="122" stroke="#e5e1d8"/><text x="680" y="134" text-anchor="middle">20:00</text>
           </g>
-          <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
+          <g stroke="#8fb3b8" stroke-width="3" stroke-linecap="round">
             <line x1="60" y1="69" x2="82" y2="69"/>
             <line x1="348" y1="69" x2="422" y2="69"/>
             <line x1="466" y1="69" x2="488" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
-            <text x="71" y="50" fill="#1f93ab">車15分</text>
-            <text x="385" y="50" fill="#1f93ab">車50分</text>
-            <text x="477" y="50" fill="#1f93ab">15分</text>
-            <text x="215" y="50" fill="#5b6b71">午餐90＋逛90</text>
-            <text x="444" y="50" fill="#5b6b71">停30分</text>
+            <text x="71" y="50" fill="#3a7580">車15分</text>
+            <text x="385" y="50" fill="#3a7580">車50分</text>
+            <text x="477" y="50" fill="#3a7580">15分</text>
+            <text x="215" y="50" fill="#536468">午餐90＋逛90</text>
+            <text x="444" y="50" fill="#536468">停30分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
-            <circle cx="60" cy="69" r="9" fill="#54bf8c"/>
-            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">那霸機場</text>
-            <rect x="82" y="56" width="266" height="26" rx="6" fill="#a877d8"/>
+            <circle cx="60" cy="69" r="9" fill="#456e54"/>
+            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">那霸機場</text>
+            <rect x="82" y="56" width="266" height="26" rx="6" fill="#6d5c8e"/>
             <text x="215" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">PARCO・敘敘苑午餐＋血拼</text>
-            <rect x="422" y="56" width="44" height="26" rx="6" fill="#f08a2e"/>
+            <rect x="422" y="56" width="44" height="26" rx="6" fill="#a8551f"/>
             <text x="444" y="73" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">萬座毛</text>
-            <rect x="488" y="56" width="89" height="26" rx="6" fill="#1f93ab"/>
+            <rect x="488" y="56" width="89" height="26" rx="6" fill="#3a7580"/>
             <text x="532" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">入住 BEB5</text>
-            <rect x="577" y="56" width="103" height="26" rx="6" fill="#ffc56b"/>
+            <rect x="577" y="56" width="103" height="26" rx="6" fill="#d9a86b"/>
             <text x="628" y="73" text-anchor="middle" font-size="9.5" fill="#6b3f0e" font-weight="700">恩納晚餐</text>
           </g>
         </svg>
@@ -440,41 +501,41 @@
       <p class="day-flow"><b>今日動線：</b>恩納村（BEB5・<b>8:00 出發</b>）→<b>車 60 分</b>→ 美麗海水族館（<b>9:00 到</b>・停 150 分＋午餐）→<b>車 40 分</b>→ 古宇利島（停 90 分）→<b>車 70 分</b>→ 恩納村（BEB5）｜ <b>總拉車約 170 分</b> ｜ <b>全日約 8:00–16:00</b>（早出避人潮）</p>
       <div class="map-box">
         <svg viewBox="0 0 720 150" role="img" aria-label="Day2 當日時間軸 8:00–16:00">
-          <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
-          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
-            <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">8:00</text>
-            <line x1="138" y1="114" x2="138" y2="122" stroke="#cfe9e6"/><text x="138" y="134" text-anchor="middle">9:00</text>
-            <line x1="215" y1="114" x2="215" y2="122" stroke="#cfe9e6"/><text x="215" y="134" text-anchor="middle">10:00</text>
-            <line x1="293" y1="114" x2="293" y2="122" stroke="#cfe9e6"/><text x="293" y="134" text-anchor="middle">11:00</text>
-            <line x1="370" y1="114" x2="370" y2="122" stroke="#cfe9e6"/><text x="370" y="134" text-anchor="middle">12:00</text>
-            <line x1="448" y1="114" x2="448" y2="122" stroke="#cfe9e6"/><text x="448" y="134" text-anchor="middle">13:00</text>
-            <line x1="525" y1="114" x2="525" y2="122" stroke="#cfe9e6"/><text x="525" y="134" text-anchor="middle">14:00</text>
-            <line x1="603" y1="114" x2="603" y2="122" stroke="#cfe9e6"/><text x="603" y="134" text-anchor="middle">15:00</text>
-            <line x1="680" y1="114" x2="680" y2="122" stroke="#cfe9e6"/><text x="680" y="134" text-anchor="middle">16:00</text>
+          <line x1="60" y1="118" x2="680" y2="118" stroke="#e5e1d8" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#76807d">
+            <line x1="60" y1="114" x2="60" y2="122" stroke="#e5e1d8"/><text x="60" y="134" text-anchor="middle">8:00</text>
+            <line x1="138" y1="114" x2="138" y2="122" stroke="#e5e1d8"/><text x="138" y="134" text-anchor="middle">9:00</text>
+            <line x1="215" y1="114" x2="215" y2="122" stroke="#e5e1d8"/><text x="215" y="134" text-anchor="middle">10:00</text>
+            <line x1="293" y1="114" x2="293" y2="122" stroke="#e5e1d8"/><text x="293" y="134" text-anchor="middle">11:00</text>
+            <line x1="370" y1="114" x2="370" y2="122" stroke="#e5e1d8"/><text x="370" y="134" text-anchor="middle">12:00</text>
+            <line x1="448" y1="114" x2="448" y2="122" stroke="#e5e1d8"/><text x="448" y="134" text-anchor="middle">13:00</text>
+            <line x1="525" y1="114" x2="525" y2="122" stroke="#e5e1d8"/><text x="525" y="134" text-anchor="middle">14:00</text>
+            <line x1="603" y1="114" x2="603" y2="122" stroke="#e5e1d8"/><text x="603" y="134" text-anchor="middle">15:00</text>
+            <line x1="680" y1="114" x2="680" y2="122" stroke="#e5e1d8"/><text x="680" y="134" text-anchor="middle">16:00</text>
           </g>
-          <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
+          <g stroke="#8fb3b8" stroke-width="3" stroke-linecap="round">
             <line x1="60" y1="69" x2="138" y2="69"/>
             <line x1="409" y1="69" x2="461" y2="69"/>
             <line x1="577" y1="69" x2="667" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
-            <text x="99" y="50" fill="#1f93ab">車 60分</text>
-            <text x="435" y="50" fill="#1f93ab">車 40分</text>
-            <text x="622" y="50" fill="#1f93ab">車 70分</text>
-            <text x="234" y="50" fill="#5b6b71">停 150分</text>
-            <text x="519" y="50" fill="#5b6b71">停 90分</text>
+            <text x="99" y="50" fill="#3a7580">車 60分</text>
+            <text x="435" y="50" fill="#3a7580">車 40分</text>
+            <text x="622" y="50" fill="#3a7580">車 70分</text>
+            <text x="234" y="50" fill="#536468">停 150分</text>
+            <text x="519" y="50" fill="#536468">停 90分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
-            <circle cx="60" cy="69" r="9" fill="#1f93ab"/>
-            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">BEB5</text>
-            <rect x="138" y="56" width="193" height="26" rx="6" fill="#1f93ab"/>
+            <circle cx="60" cy="69" r="9" fill="#3a7580"/>
+            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">BEB5</text>
+            <rect x="138" y="56" width="193" height="26" rx="6" fill="#3a7580"/>
             <text x="234" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">美麗海水族館</text>
-            <rect x="331" y="56" width="78" height="26" rx="6" fill="#ffc56b"/>
+            <rect x="331" y="56" width="78" height="26" rx="6" fill="#d9a86b"/>
             <text x="370" y="73" text-anchor="middle" font-size="9" fill="#6b3f0e" font-weight="700">午餐</text>
-            <rect x="461" y="56" width="116" height="26" rx="6" fill="#ff8a78"/>
+            <rect x="461" y="56" width="116" height="26" rx="6" fill="#ad5b4b"/>
             <text x="519" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">古宇利島</text>
-            <circle cx="667" cy="69" r="9" fill="#1f93ab"/>
-            <text x="667" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">回BEB5·設施</text>
+            <circle cx="667" cy="69" r="9" fill="#3a7580"/>
+            <text x="667" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">回BEB5·設施</text>
           </g>
         </svg>
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 8:00–16:00</div>
@@ -552,46 +613,46 @@
       <p class="day-flow"><b>今日動線：</b>恩納村·瀨良垣（BEB5·早餐＋泳池悠閒、約 11:00 退房）→<b>車 15 分</b>→ 恩納・おんなの駅 なかゆくい市場（快閃 40 分）→<b>車 30 分</b>→ 北谷・美國村（午餐＋下午逛街＋萬聖節＋夕陽）→<b>徒步</b>→ 北谷晚餐（90 分）→<b>車 30 分</b>→ OMO5 那霸（入住）｜ <b>總拉車約 75 分</b> ｜ <b>全日約 10:00–20:00（早上悠閒、午後全留給美國村）</b></p>
       <div class="map-box">
         <svg viewBox="0 0 720 150" role="img" aria-label="Day3 當日時間軸 10:00–20:00">
-          <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
-          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
-            <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">10:00</text>
-            <line x1="122" y1="114" x2="122" y2="122" stroke="#cfe9e6"/><text x="122" y="134" text-anchor="middle">11:00</text>
-            <line x1="184" y1="114" x2="184" y2="122" stroke="#cfe9e6"/><text x="184" y="134" text-anchor="middle">12:00</text>
-            <line x1="246" y1="114" x2="246" y2="122" stroke="#cfe9e6"/><text x="246" y="134" text-anchor="middle">13:00</text>
-            <line x1="308" y1="114" x2="308" y2="122" stroke="#cfe9e6"/><text x="308" y="134" text-anchor="middle">14:00</text>
-            <line x1="370" y1="114" x2="370" y2="122" stroke="#cfe9e6"/><text x="370" y="134" text-anchor="middle">15:00</text>
-            <line x1="432" y1="114" x2="432" y2="122" stroke="#cfe9e6"/><text x="432" y="134" text-anchor="middle">16:00</text>
-            <line x1="494" y1="114" x2="494" y2="122" stroke="#cfe9e6"/><text x="494" y="134" text-anchor="middle">17:00</text>
-            <line x1="556" y1="114" x2="556" y2="122" stroke="#cfe9e6"/><text x="556" y="134" text-anchor="middle">18:00</text>
-            <line x1="618" y1="114" x2="618" y2="122" stroke="#cfe9e6"/><text x="618" y="134" text-anchor="middle">19:00</text>
-            <line x1="680" y1="114" x2="680" y2="122" stroke="#cfe9e6"/><text x="680" y="134" text-anchor="middle">20:00</text>
+          <line x1="60" y1="118" x2="680" y2="118" stroke="#e5e1d8" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#76807d">
+            <line x1="60" y1="114" x2="60" y2="122" stroke="#e5e1d8"/><text x="60" y="134" text-anchor="middle">10:00</text>
+            <line x1="122" y1="114" x2="122" y2="122" stroke="#e5e1d8"/><text x="122" y="134" text-anchor="middle">11:00</text>
+            <line x1="184" y1="114" x2="184" y2="122" stroke="#e5e1d8"/><text x="184" y="134" text-anchor="middle">12:00</text>
+            <line x1="246" y1="114" x2="246" y2="122" stroke="#e5e1d8"/><text x="246" y="134" text-anchor="middle">13:00</text>
+            <line x1="308" y1="114" x2="308" y2="122" stroke="#e5e1d8"/><text x="308" y="134" text-anchor="middle">14:00</text>
+            <line x1="370" y1="114" x2="370" y2="122" stroke="#e5e1d8"/><text x="370" y="134" text-anchor="middle">15:00</text>
+            <line x1="432" y1="114" x2="432" y2="122" stroke="#e5e1d8"/><text x="432" y="134" text-anchor="middle">16:00</text>
+            <line x1="494" y1="114" x2="494" y2="122" stroke="#e5e1d8"/><text x="494" y="134" text-anchor="middle">17:00</text>
+            <line x1="556" y1="114" x2="556" y2="122" stroke="#e5e1d8"/><text x="556" y="134" text-anchor="middle">18:00</text>
+            <line x1="618" y1="114" x2="618" y2="122" stroke="#e5e1d8"/><text x="618" y="134" text-anchor="middle">19:00</text>
+            <line x1="680" y1="114" x2="680" y2="122" stroke="#e5e1d8"/><text x="680" y="134" text-anchor="middle">20:00</text>
           </g>
-          <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
+          <g stroke="#8fb3b8" stroke-width="3" stroke-linecap="round">
             <line x1="140" y1="69" x2="160" y2="69"/>
             <line x1="220" y1="69" x2="256" y2="69"/>
             <line x1="649" y1="69" x2="680" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
-            <text x="150" y="50" fill="#1f93ab">車15分</text>
-            <text x="238" y="50" fill="#1f93ab">車30分</text>
-            <text x="665" y="50" fill="#1f93ab">車30分</text>
-            <text x="190" y="50" fill="#5b6b71">快閃40分</text>
-            <text x="406" y="50" fill="#5b6b71">午餐＋下午～夕陽</text>
-            <text x="602" y="50" fill="#5b6b71">晚餐90分</text>
+            <text x="150" y="50" fill="#3a7580">車15分</text>
+            <text x="238" y="50" fill="#3a7580">車30分</text>
+            <text x="665" y="50" fill="#3a7580">車30分</text>
+            <text x="190" y="50" fill="#536468">快閃40分</text>
+            <text x="406" y="50" fill="#536468">午餐＋下午～夕陽</text>
+            <text x="602" y="50" fill="#536468">晚餐90分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
-            <circle cx="60" cy="69" r="9" fill="#1f93ab"/>
-            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">BEB5</text>
+            <circle cx="60" cy="69" r="9" fill="#3a7580"/>
+            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">BEB5</text>
             <rect x="76" y="56" width="64" height="26" rx="6" fill="#9ed7e6"/>
             <text x="108" y="73" text-anchor="middle" font-size="8.5" fill="#14343b" font-weight="700">早餐·泳池</text>
-            <rect x="160" y="56" width="60" height="26" rx="6" fill="#54bf8c"/>
+            <rect x="160" y="56" width="60" height="26" rx="6" fill="#456e54"/>
             <text x="190" y="73" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">おんなの駅</text>
-            <rect x="256" y="56" width="300" height="26" rx="6" fill="#ff8a78"/>
+            <rect x="256" y="56" width="300" height="26" rx="6" fill="#ad5b4b"/>
             <text x="406" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">美國村（午餐＋逛街＋萬聖節＋夕陽）</text>
-            <rect x="556" y="56" width="93" height="26" rx="6" fill="#f08a2e"/>
+            <rect x="556" y="56" width="93" height="26" rx="6" fill="#a8551f"/>
             <text x="602" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">北谷晚餐</text>
-            <circle cx="680" cy="69" r="9" fill="#1f93ab"/>
-            <text x="680" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">入住OMO5</text>
+            <circle cx="680" cy="69" r="9" fill="#3a7580"/>
+            <text x="680" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">入住OMO5</text>
           </g>
         </svg>
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 10:00–20:00（BEB5 悠閒早晨 → 10/31 萬聖節）</div>
@@ -673,21 +734,21 @@
       <p class="day-flow"><b>今日動線：</b>OMO5 那霸 →<b>車 10 分</b>→ 波上宮（停 30 分）→<b>車 30 分</b>→ 糸滿お魚センター（海鮮午餐 90 分）→<b>車 15 分</b>→ DMM かりゆし水族館（停 120 分）→<b>車 10 分</b>→ Ashibinaa Outlet（血拼 100 分）→<b>車 10 分</b>→ 瀨長島（停 105 分・看飛機＋夕陽）→<b>車 20 分</b>→ OMO5 那霸（18:00 放戰利品休整）→<b>步行 30 分</b>→ 國際通（晚餐 60 分，之後自由逛街）｜ <b>總拉車約 95 分</b> ｜ <b>全日約 9:00–19:30（國際通段步行、不佔包車）</b></p>
       <div class="map-box">
         <svg viewBox="0 0 720 150" role="img" aria-label="Day4 當日時間軸 9:00–19:30">
-          <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
-          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
-            <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">9:00</text>
-            <line x1="119" y1="114" x2="119" y2="122" stroke="#cfe9e6"/><text x="119" y="134" text-anchor="middle">10:00</text>
-            <line x1="178.1" y1="114" x2="178.1" y2="122" stroke="#cfe9e6"/><text x="178.1" y="134" text-anchor="middle">11:00</text>
-            <line x1="237.1" y1="114" x2="237.1" y2="122" stroke="#cfe9e6"/><text x="237.1" y="134" text-anchor="middle">12:00</text>
-            <line x1="296.2" y1="114" x2="296.2" y2="122" stroke="#cfe9e6"/><text x="296.2" y="134" text-anchor="middle">13:00</text>
-            <line x1="355.2" y1="114" x2="355.2" y2="122" stroke="#cfe9e6"/><text x="355.2" y="134" text-anchor="middle">14:00</text>
-            <line x1="414.3" y1="114" x2="414.3" y2="122" stroke="#cfe9e6"/><text x="414.3" y="134" text-anchor="middle">15:00</text>
-            <line x1="473.3" y1="114" x2="473.3" y2="122" stroke="#cfe9e6"/><text x="473.3" y="134" text-anchor="middle">16:00</text>
-            <line x1="532.4" y1="114" x2="532.4" y2="122" stroke="#cfe9e6"/><text x="532.4" y="134" text-anchor="middle">17:00</text>
-            <line x1="591.4" y1="114" x2="591.4" y2="122" stroke="#cfe9e6"/><text x="591.4" y="134" text-anchor="middle">18:00</text>
-            <line x1="650.5" y1="114" x2="650.5" y2="122" stroke="#cfe9e6"/><text x="650.5" y="134" text-anchor="middle">19:00</text>
+          <line x1="60" y1="118" x2="680" y2="118" stroke="#e5e1d8" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#76807d">
+            <line x1="60" y1="114" x2="60" y2="122" stroke="#e5e1d8"/><text x="60" y="134" text-anchor="middle">9:00</text>
+            <line x1="119" y1="114" x2="119" y2="122" stroke="#e5e1d8"/><text x="119" y="134" text-anchor="middle">10:00</text>
+            <line x1="178.1" y1="114" x2="178.1" y2="122" stroke="#e5e1d8"/><text x="178.1" y="134" text-anchor="middle">11:00</text>
+            <line x1="237.1" y1="114" x2="237.1" y2="122" stroke="#e5e1d8"/><text x="237.1" y="134" text-anchor="middle">12:00</text>
+            <line x1="296.2" y1="114" x2="296.2" y2="122" stroke="#e5e1d8"/><text x="296.2" y="134" text-anchor="middle">13:00</text>
+            <line x1="355.2" y1="114" x2="355.2" y2="122" stroke="#e5e1d8"/><text x="355.2" y="134" text-anchor="middle">14:00</text>
+            <line x1="414.3" y1="114" x2="414.3" y2="122" stroke="#e5e1d8"/><text x="414.3" y="134" text-anchor="middle">15:00</text>
+            <line x1="473.3" y1="114" x2="473.3" y2="122" stroke="#e5e1d8"/><text x="473.3" y="134" text-anchor="middle">16:00</text>
+            <line x1="532.4" y1="114" x2="532.4" y2="122" stroke="#e5e1d8"/><text x="532.4" y="134" text-anchor="middle">17:00</text>
+            <line x1="591.4" y1="114" x2="591.4" y2="122" stroke="#e5e1d8"/><text x="591.4" y="134" text-anchor="middle">18:00</text>
+            <line x1="650.5" y1="114" x2="650.5" y2="122" stroke="#e5e1d8"/><text x="650.5" y="134" text-anchor="middle">19:00</text>
           </g>
-          <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
+          <g stroke="#8fb3b8" stroke-width="3" stroke-linecap="round">
             <line x1="60" y1="69" x2="69.8" y2="69"/>
             <line x1="99.4" y1="69" x2="128.9" y2="69"/>
             <line x1="217.5" y1="69" x2="232.2" y2="69"/>
@@ -699,36 +760,36 @@
             <line x1="591.4" y1="69" x2="620.9" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
-            <text x="64" y="50" fill="#1f93ab">10分</text>
-            <text x="114" y="50" fill="#1f93ab">車30分</text>
-            <text x="225" y="50" fill="#1f93ab">15分</text>
-            <text x="355" y="50" fill="#1f93ab">10分</text>
-            <text x="464" y="50" fill="#1f93ab">10分</text>
-            <text x="582" y="50" fill="#1f93ab">車20分</text>
+            <text x="64" y="50" fill="#3a7580">10分</text>
+            <text x="114" y="50" fill="#3a7580">車30分</text>
+            <text x="225" y="50" fill="#3a7580">15分</text>
+            <text x="355" y="50" fill="#3a7580">10分</text>
+            <text x="464" y="50" fill="#3a7580">10分</text>
+            <text x="582" y="50" fill="#3a7580">車20分</text>
             <text x="606" y="38" fill="#8a9ba0">步行30分</text>
-            <text x="85" y="38" fill="#5b6b71">30分</text>
-            <text x="173" y="50" fill="#5b6b71">90分</text>
-            <text x="291" y="50" fill="#5b6b71">120分</text>
-            <text x="409" y="50" fill="#5b6b71">100分</text>
-            <text x="520" y="50" fill="#5b6b71">105分</text>
-            <text x="650" y="50" fill="#5b6b71">60分</text>
+            <text x="85" y="38" fill="#536468">30分</text>
+            <text x="173" y="50" fill="#536468">90分</text>
+            <text x="291" y="50" fill="#536468">120分</text>
+            <text x="409" y="50" fill="#536468">100分</text>
+            <text x="520" y="50" fill="#536468">105分</text>
+            <text x="650" y="50" fill="#536468">60分</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
-            <circle cx="60" cy="69" r="9" fill="#1f93ab"/>
-            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">OMO5</text>
-            <rect x="69.8" y="56" width="29.6" height="26" rx="6" fill="#f06a9a"/>
+            <circle cx="60" cy="69" r="9" fill="#3a7580"/>
+            <text x="60" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">OMO5</text>
+            <rect x="69.8" y="56" width="29.6" height="26" rx="6" fill="#98455c"/>
             <text x="84.6" y="73" text-anchor="middle" font-size="7" fill="#fff" font-weight="700">波上宮</text>
-            <rect x="128.9" y="56" width="88.6" height="26" rx="6" fill="#54bf8c"/>
+            <rect x="128.9" y="56" width="88.6" height="26" rx="6" fill="#456e54"/>
             <text x="173.2" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">糸滿魚市場</text>
-            <rect x="232.2" y="56" width="118.1" height="26" rx="6" fill="#1f93ab"/>
+            <rect x="232.2" y="56" width="118.1" height="26" rx="6" fill="#3a7580"/>
             <text x="291.3" y="73" text-anchor="middle" font-size="9.5" fill="#fff" font-weight="700">DMM 水族館</text>
-            <rect x="360.2" y="56" width="98.4" height="26" rx="6" fill="#f08a2e"/>
+            <rect x="360.2" y="56" width="98.4" height="26" rx="6" fill="#a8551f"/>
             <text x="409.4" y="73" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">Ashibinaa Outlet</text>
-            <rect x="468.4" y="56" width="103.3" height="26" rx="6" fill="#ff8a78"/>
+            <rect x="468.4" y="56" width="103.3" height="26" rx="6" fill="#ad5b4b"/>
             <text x="520" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">瀨長島・夕陽</text>
-            <circle cx="591.4" cy="69" r="9" fill="#1f93ab"/>
-            <text x="591.4" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">回OMO5</text>
-            <rect x="620.9" y="56" width="59.1" height="26" rx="6" fill="#a877d8"/>
+            <circle cx="591.4" cy="69" r="9" fill="#3a7580"/>
+            <text x="591.4" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">回OMO5</text>
+            <rect x="620.9" y="56" width="59.1" height="26" rx="6" fill="#6d5c8e"/>
             <text x="650.5" y="73" text-anchor="middle" font-size="8" fill="#fff" font-weight="700">國際通晚餐</text>
           </g>
         </svg>
@@ -814,12 +875,12 @@
       <details class="fold" open>
         <summary>🏸 國際通 逛街預排（含 YY 羽球店・有打烊時間壓力）</summary>
         <div class="fold-body">
-        <div class="bk-note" style="border-color:#e0483d;">⚠️ <strong>先看這個：羽球店 19:30 打烊，跟晚餐時段直接撞車。</strong>目前晚餐排 18:30–19:30，若先吃飯，吃完店就關了。<br><br><strong>建議 A（推薦・分頭行動）</strong>：18:10 從 OMO5 出發，<span class="hl">想逛羽球店的人先直奔店裡</span>（搭單軌県庁前→美栄橋 1 站約 3 分＋步行 4 分，約 18:25 到；或直接步行約 18–20 分），逛 40–50 分；<strong>其他人帶 3 個小孩直接進餐廳點餐</strong>，19:20 左右會合一起吃。小孩不用陪站在球拍店裡，晚餐也不會延後。<br><strong>建議 B（全員先逛後吃）</strong>：18:10 出發 → 18:30–19:20 全員逛街（羽球店優先）→ 19:30 才進餐廳。動線單純，但<strong>晚餐拖到 20:30 才結束</strong>，隔天桃園組要 09:45 前報到，幼童會太累。</div>
+        <div class="bk-note" style="border-color:#a9443a;">⚠️ <strong>先看這個：羽球店 19:30 打烊，跟晚餐時段直接撞車。</strong>目前晚餐排 18:30–19:30，若先吃飯，吃完店就關了。<br><br><strong>建議 A（推薦・分頭行動）</strong>：18:10 從 OMO5 出發，<span class="hl">想逛羽球店的人先直奔店裡</span>（搭單軌県庁前→美栄橋 1 站約 3 分＋步行 4 分，約 18:25 到；或直接步行約 18–20 分），逛 40–50 分；<strong>其他人帶 3 個小孩直接進餐廳點餐</strong>，19:20 左右會合一起吃。小孩不用陪站在球拍店裡，晚餐也不會延後。<br><strong>建議 B（全員先逛後吃）</strong>：18:10 出發 → 18:30–19:20 全員逛街（羽球店優先）→ 19:30 才進餐廳。動線單純，但<strong>晚餐拖到 20:30 才結束</strong>，隔天桃園組要 09:45 前報到，幼童會太累。</div>
         <div class="ov-scroll">
           <table class="bk-table" style="min-width:700px;">
             <thead><tr><th>店家</th><th>類別</th><th>位置・交通</th><th>營業時間（11/1 週日）</th><th>想買什麼・備註</th></tr></thead>
             <tbody>
-              <tr><td class="dn"><strong>シャトルハウス 那霸國際通店</strong> <span class="bk-badge ok">優先</span></td><td>羽球（YONEX）</td><td>那霸市牧志 2-17-4-201（2F）· ゆいレール<strong>美栄橋駅</strong>徒步約 4 分 · 自 OMO5 步行約 18–20 分，或搭單軌<strong>県庁前→美栄橋 1 站</strong>約 3 分</td><td><strong>10:00–19:30</strong><br><span style="color:#c0392b;">⚠️ 19:30 打烊</span><br>（週三公休，11/1 週日有開）</td><td><strong>YONEX 為主</strong>，另有 GOSEN、KIZUNA · 球拍、球線、握把布、羽球、球鞋 · <strong>握把種類特別齊</strong> · 一次買多支球拍有 <strong>25% off 起</strong>的優惠 · 1983 年創業（大阪難波本店），2019/11 進駐那霸</td></tr>
+              <tr><td class="dn"><strong>シャトルハウス 那霸國際通店</strong> <span class="bk-badge ok">優先</span></td><td>羽球（YONEX）</td><td>那霸市牧志 2-17-4-201（2F）· ゆいレール<strong>美栄橋駅</strong>徒步約 4 分 · 自 OMO5 步行約 18–20 分，或搭單軌<strong>県庁前→美栄橋 1 站</strong>約 3 分</td><td><strong>10:00–19:30</strong><br><span style="color:#a9443a;">⚠️ 19:30 打烊</span><br>（週三公休，11/1 週日有開）</td><td><strong>YONEX 為主</strong>，另有 GOSEN、KIZUNA · 球拍、球線、握把布、羽球、球鞋 · <strong>握把種類特別齊</strong> · 一次買多支球拍有 <strong>25% off 起</strong>的優惠 · 1983 年創業（大阪難波本店），2019/11 進駐那霸</td></tr>
               <tr><td class="dn">唐吉訶德 國際通店</td><td>藥妝・雜貨</td><td><span class="bk-badge todo">待補</span></td><td>近 24 小時</td><td>藥妝、零食、電器、玩具 · 晚餐後也能逛，<strong>擺最後</strong>不佔黃金時段</td></tr>
               <tr><td class="dn">御菓子御殿</td><td>伴手禮</td><td><span class="bk-badge todo">待補</span></td><td><span class="bk-badge todo">待補</span></td><td>紅芋塔</td></tr>
               <tr><td class="dn"><span class="bk-badge todo">待補</span></td><td>藥妝店</td><td><span class="bk-badge todo">待補</span></td><td><span class="bk-badge todo">待補</span></td><td><span class="bk-badge todo">待補</span></td></tr>
@@ -851,7 +912,7 @@
           </table>
         </div>
         <div class="bk-note">📝 <strong>備註欄留空</strong>是刻意的——想買什麼由你自己填（可再加型號／尺寸／目標價／認領人）；已列出的品牌位置都已查證補齊，剩下 4 個分類等你指定品牌後我再補位置。<br>🏷️ <strong>DESCENTE STORE 是集團直營 outlet</strong>，同一家店可一次逛 9 個牌子：DESCENTE（機能外套・ALLTERRAIN）、le coq sportif、Munsingwear、UMBRO、arena、MOVESPORT、inov-8、LANVIN SPORT、SRIXON。<br>💡 <strong>共通提醒</strong>：Ashibinaa 為開放式建築、推車可推，營業 10:00–20:00，<strong>上列品牌全部集中在 1F</strong>（2F 主要是美食廣場），逛起來不用上下跑；<strong>一進場先攻 DESCENTE</strong>（本日主目標）再逛其他。單店滿 ¥5,500（含稅）可<strong>現場辦免稅、須帶護照本人辦理</strong>，想湊門檻可集中一人結帳；鍋具、行李箱等重物記得預留托運額度。</div>
-        <div class="bk-note" style="border-color:#54bf8c;">🏃 <strong>On 昂跑 → スポーツデポ 豊崎店</strong>（On 官方經銷）<br>豐見城市字豊崎 1-411「豊崎ライフスタイルセンター TOMITON」內 · <span class="hl">Ashibinaa 斜對面、步行約 3–5 分</span> · <strong>10:00–21:00</strong> · TEL 098-851-1150 · 沖繩縣內 4 家 SPORTS DEPO 中賣場最大、品項最齊，有跑步顧問駐店。<br>⏱️ 要去的話從 Ashibinaa 的 100 分鐘裡<strong>切 20–25 分過去</strong>，或請司機載（車程 2–3 分）。</div>
+        <div class="bk-note" style="border-color:#456e54;">🏃 <strong>On 昂跑 → スポーツデポ 豊崎店</strong>（On 官方經銷）<br>豐見城市字豊崎 1-411「豊崎ライフスタイルセンター TOMITON」內 · <span class="hl">Ashibinaa 斜對面、步行約 3–5 分</span> · <strong>10:00–21:00</strong> · TEL 098-851-1150 · 沖繩縣內 4 家 SPORTS DEPO 中賣場最大、品項最齊，有跑步顧問駐店。<br>⏱️ 要去的話從 Ashibinaa 的 100 分鐘裡<strong>切 20–25 分過去</strong>，或請司機載（車程 2–3 分）。</div>
         </div>
       </details>
       <div class="daynote">
@@ -893,30 +954,30 @@
       <p class="day-flow"><b>今日動線：</b>OMO5 那霸 →<b>車約 15 分</b>→ 那霸機場 ｜ <b>兩組回程時刻不同</b>：桃園組 <b>CI121 11:55</b>（宜早退房、09:45–10:00 前報到）／台中組 <b>CI311 13:25</b>（可悠閒早晨、約 11:00 退房再赴機場、報到約 12:25）</p>
       <div class="map-box">
         <svg viewBox="0 0 720 150" role="img" aria-label="Day5 當日時間軸 07:00–12:00（桃園組返程）">
-          <line x1="60" y1="118" x2="680" y2="118" stroke="#cfe9e6" stroke-width="1"/>
-          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#9bb0b4">
-            <line x1="60" y1="114" x2="60" y2="122" stroke="#cfe9e6"/><text x="60" y="134" text-anchor="middle">7:00</text>
-            <line x1="184" y1="114" x2="184" y2="122" stroke="#cfe9e6"/><text x="184" y="134" text-anchor="middle">8:00</text>
-            <line x1="308" y1="114" x2="308" y2="122" stroke="#cfe9e6"/><text x="308" y="134" text-anchor="middle">9:00</text>
-            <line x1="432" y1="114" x2="432" y2="122" stroke="#cfe9e6"/><text x="432" y="134" text-anchor="middle">10:00</text>
-            <line x1="556" y1="114" x2="556" y2="122" stroke="#cfe9e6"/><text x="556" y="134" text-anchor="middle">11:00</text>
-            <line x1="680" y1="114" x2="680" y2="122" stroke="#cfe9e6"/><text x="680" y="134" text-anchor="middle">12:00</text>
+          <line x1="60" y1="118" x2="680" y2="118" stroke="#e5e1d8" stroke-width="1"/>
+          <g font-family="'Zen Maru Gothic',sans-serif" font-size="9.5" fill="#76807d">
+            <line x1="60" y1="114" x2="60" y2="122" stroke="#e5e1d8"/><text x="60" y="134" text-anchor="middle">7:00</text>
+            <line x1="184" y1="114" x2="184" y2="122" stroke="#e5e1d8"/><text x="184" y="134" text-anchor="middle">8:00</text>
+            <line x1="308" y1="114" x2="308" y2="122" stroke="#e5e1d8"/><text x="308" y="134" text-anchor="middle">9:00</text>
+            <line x1="432" y1="114" x2="432" y2="122" stroke="#e5e1d8"/><text x="432" y="134" text-anchor="middle">10:00</text>
+            <line x1="556" y1="114" x2="556" y2="122" stroke="#e5e1d8"/><text x="556" y="134" text-anchor="middle">11:00</text>
+            <line x1="680" y1="114" x2="680" y2="122" stroke="#e5e1d8"/><text x="680" y="134" text-anchor="middle">12:00</text>
           </g>
-          <g stroke="#7dd5e3" stroke-width="3" stroke-linecap="round">
+          <g stroke="#8fb3b8" stroke-width="3" stroke-linecap="round">
             <line x1="246" y1="69" x2="277" y2="69"/>
           </g>
           <g font-family="'Noto Sans TC',sans-serif" font-size="8.5" text-anchor="middle">
-            <text x="261" y="50" fill="#1f93ab">車15分</text>
-            <text x="153" y="50" fill="#5b6b71">早餐・退房</text>
-            <text x="473" y="50" fill="#5b6b71">報到・候機</text>
+            <text x="261" y="50" fill="#3a7580">車15分</text>
+            <text x="153" y="50" fill="#536468">早餐・退房</text>
+            <text x="473" y="50" fill="#536468">報到・候機</text>
           </g>
           <g font-family="'Noto Sans TC',sans-serif">
-            <rect x="60" y="56" width="186" height="26" rx="6" fill="#54bf8c"/>
+            <rect x="60" y="56" width="186" height="26" rx="6" fill="#456e54"/>
             <text x="153" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">OMO5 早餐・退房整裝</text>
-            <rect x="277" y="56" width="393" height="26" rx="6" fill="#1f93ab"/>
+            <rect x="277" y="56" width="393" height="26" rx="6" fill="#3a7580"/>
             <text x="473" y="73" text-anchor="middle" font-size="9" fill="#fff" font-weight="700">那霸機場 報到・安檢・候機（免稅）</text>
-            <circle cx="670" cy="69" r="9" fill="#f08a2e"/>
-            <text x="660" y="96" text-anchor="middle" font-size="9" fill="#1f2d33" font-weight="700">桃園 CI121 11:55</text>
+            <circle cx="670" cy="69" r="9" fill="#a8551f"/>
+            <text x="660" y="96" text-anchor="middle" font-size="9" fill="#1c2b2e" font-weight="700">桃園 CI121 11:55</text>
           </g>
         </svg>
         <div class="map-cap">X 軸＝當日實際時刻（此圖以桃園組為主）· 桃園組 CI121 11:55 起飛（軸內）；台中組 CI311 13:25 為午後，可悠閒早晨後再赴機場</div>
@@ -1090,7 +1151,7 @@
             <tr><td class="d2">10/31 六</td><td>午餐・北谷／美國村</td><td>美國村一帶（塔可飯きじむなぁ／沖繩料理・非阿古豬）</td><td><span class="bk-badge todo">待訂</span></td></tr>
             <tr><td class="d2">10/31 六</td><td>晚餐・北谷</td><td>FRANKEY TAVERN ★4.6／The Calif Kitchen ★4.5／美濱殿內 ★4.3（備選：目利きの銀次 延 19:30 後）</td><td><span class="bk-badge todo">待訂</span></td></tr>
             <tr><td class="d2">11/1 日</td><td>午餐・糸滿魚市場</td><td>糸滿お魚センター 各攤自選（海鮮丼／生魚片／燒物／天婦羅）· 不需訂位，10:00 開門建議一開門就到；<strong>幼童改吃燒物、天婦羅、味噌湯</strong></td><td><span class="bk-badge hold">現場可</span></td></tr>
-            <tr><td class="d2">11/1 日</td><td>晚餐・國際通（自 OMO5 步行，18:30 入座）</td><td>①<strong>海渡 KAITO ★4.9</strong>（沖繩料理居酒屋・首選）／②<strong>ちゅらちゅら 那霸國際通店</strong>（有 5–24 人包廂・TEL 098-963-9924）／③JUMBO STEAK HAN'S 松山店（離 OMO5 最近・保底）／④てびち屋本舗 松山店（沖繩豬腳）／⑤琉球規樂 ★4.8（Agu 涮涮鍋・<strong>與 Day 1 重複</strong>）<br><span style="color:#c0392b;">✕ Yunangi ゆうなんぎい <strong>週日公休、11/1 不可用</strong></span></td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr><td class="d2">11/1 日</td><td>晚餐・國際通（自 OMO5 步行，18:30 入座）</td><td>①<strong>海渡 KAITO ★4.9</strong>（沖繩料理居酒屋・首選）／②<strong>ちゅらちゅら 那霸國際通店</strong>（有 5–24 人包廂・TEL 098-963-9924）／③JUMBO STEAK HAN'S 松山店（離 OMO5 最近・保底）／④てびち屋本舗 松山店（沖繩豬腳）／⑤琉球規樂 ★4.8（Agu 涮涮鍋・<strong>與 Day 1 重複</strong>）<br><span style="color:#a9443a;">✕ Yunangi ゆうなんぎい <strong>週日公休、11/1 不可用</strong></span></td><td><span class="bk-badge todo">待訂</span></td></tr>
             <tr><td class="d2">10/29 四</td><td>午餐・PARCO CITY（Day 1）</td><td>和風亭 3F／やまや食堂 2F／THE PLATINUM 自助餐（館內美食街可現場）</td><td><span class="bk-badge hold">現場可</span></td></tr>
           </tbody>
         </table>
@@ -1134,7 +1195,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v3.7</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.0</strong> ｜ 最後更新 <strong>2026/07/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1158,6 +1219,23 @@
       });
     });
   })();
+
+  // 列印時攤平所有摺疊區塊（CSS 無法展開 <details>），印完還原
+  (function(){
+    var reclose = [];
+    function expand(){
+      reclose = [];
+      document.querySelectorAll('details:not([open])').forEach(function(d){ reclose.push(d); d.open = true; });
+    }
+    function restore(){ reclose.forEach(function(d){ d.open = false; }); reclose = []; }
+    window.addEventListener('beforeprint', expand);
+    window.addEventListener('afterprint', restore);
+    if(window.matchMedia){
+      var mq = window.matchMedia('print');
+      var onChange = function(e){ e.matches ? expand() : restore(); };
+      mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+    }
+  })();
 </script>
 
 <script>
@@ -1165,7 +1243,7 @@
   document.addEventListener('DOMContentLoaded', function(){
     if (typeof L === 'undefined') return;
 
-    var COLORS = { 1:'#f08a2e', 2:'#54bf8c', 3:'#1f93ab', 4:'#a877d8', 5:'#f06a9a' };
+    var COLORS = { 1:'#a8551f', 2:'#456e54', 3:'#3a7580', 4:'#6d5c8e', 5:'#98455c' };
     var DAYS = {
       1:{color:COLORS[1],stops:[
         {n:1,name:'那覇空港（接機）',lat:26.2063,lng:127.6517,meta:'下午集合 · 出發點',note:'桃園組 CI120 10:45 先到、台中組 CI310 12:25 抵達，通關後約 13:00 於機場集合上包車。'},
@@ -1288,22 +1366,22 @@
       4:{date:'11/1',hourly:[{h:'9:00',t:23,r:20,u:2},{h:'10:00',t:24,r:20,u:4},{h:'11:00',t:25,r:30,u:5},{h:'12:00',t:26,r:30,u:5},{h:'13:00',t:26,r:30,u:5},{h:'14:00',t:26,r:30,u:4},{h:'15:00',t:25,r:20,u:3},{h:'16:00',t:24,r:20,u:2},{h:'17:00',t:24,r:20,u:1},{h:'18:00',t:23,r:20,u:0},{h:'19:00',t:23,r:20,u:0}]},
       5:{date:'11/2',hourly:[{h:'7:00',t:22,r:10,u:0},{h:'8:00',t:22,r:10,u:1},{h:'9:00',t:23,r:20,u:3},{h:'10:00',t:24,r:20,u:4},{h:'11:00',t:25,r:20,u:5},{h:'12:00',t:25,r:30,u:5}]}
     };
-    function uvColor(u){ return u<=2?'#54bf8c':(u<=5?'#e0a92e':(u<=7?'#f08a2e':'#e0483d')); }
+    function uvColor(u){ return u<=2?'#456e54':(u<=5?'#bf9433':(u<=7?'#a8551f':'#a9443a')); }
     function drawWx(d){
       var hs=d.hourly, n=hs.length, x0=48, x1=690;
       function X(i){ return n>1? x0+(x1-x0)*i/(n-1) : (x0+x1)/2; }
       var ts=hs.map(function(o){return o.t;}); var tmax=Math.max.apply(null,ts), tmin=Math.min.apply(null,ts);
       function yT(t){ return tmax===tmin?22:14+(tmax-t)/(tmax-tmin)*20; }
       var grid='', pts='', s='', i, x, y, o;
-      for(i=0;i<n;i++){ x=X(i); grid+='<line x1="'+x.toFixed(1)+'" y1="12" x2="'+x.toFixed(1)+'" y2="82" stroke="#eef5f4"/>'; pts+=(i?' ':'')+x.toFixed(1)+','+yT(hs[i].t).toFixed(1); }
-      s+='<polyline points="'+pts+'" fill="none" stroke="#f08a2e" stroke-width="2"/>';
+      for(i=0;i<n;i++){ x=X(i); grid+='<line x1="'+x.toFixed(1)+'" y1="12" x2="'+x.toFixed(1)+'" y2="82" stroke="#f0ede6"/>'; pts+=(i?' ':'')+x.toFixed(1)+','+yT(hs[i].t).toFixed(1); }
+      s+='<polyline points="'+pts+'" fill="none" stroke="#a8551f" stroke-width="2"/>';
       for(i=0;i<n;i++){ o=hs[i]; x=X(i); y=yT(o.t);
-        s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.6" fill="#f08a2e"/>';
-        s+='<text x="'+x.toFixed(1)+'" y="'+(y-6).toFixed(1)+'" text-anchor="middle" font-size="8.5" fill="#f08a2e" font-weight="700">'+o.t+'°</text>';
-        s+='<text x="'+x.toFixed(1)+'" y="52" text-anchor="middle" font-size="8.5" fill="#1f93ab">'+o.r+'%</text>';
+        s+='<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="2.6" fill="#a8551f"/>';
+        s+='<text x="'+x.toFixed(1)+'" y="'+(y-6).toFixed(1)+'" text-anchor="middle" font-size="8.5" fill="#a8551f" font-weight="700">'+o.t+'°</text>';
+        s+='<text x="'+x.toFixed(1)+'" y="52" text-anchor="middle" font-size="8.5" fill="#3a7580">'+o.r+'%</text>';
         s+='<circle cx="'+x.toFixed(1)+'" cy="66" r="8" fill="'+uvColor(o.u)+'"/>';
         s+='<text x="'+x.toFixed(1)+'" y="69.2" text-anchor="middle" font-size="8.5" fill="#fff" font-weight="700">'+o.u+'</text>';
-        s+='<text x="'+x.toFixed(1)+'" y="92" text-anchor="middle" font-size="8" fill="#9bb0b4" font-family="Zen Maru Gothic,sans-serif">'+o.h+'</text>';
+        s+='<text x="'+x.toFixed(1)+'" y="92" text-anchor="middle" font-size="8" fill="#76807d" font-family="Zen Maru Gothic,sans-serif">'+o.h+'</text>';
       }
       return '<svg viewBox="0 0 720 98" role="img" aria-label="當日氣候參考"><g font-family="Noto Sans TC,sans-serif">'+grid+s+'</g></svg>';
     }
