@@ -116,6 +116,12 @@
   /* geo route map (Leaflet) */
   .geo-map{position:relative;border:1px solid var(--line);overflow:hidden;margin:22px 0 26px;box-shadow:var(--shadow);}
   .geo-map .lmap{width:100%;height:400px;background:var(--aqua);}
+  /* OSM 標準圖磚偏彩色；降飽和還原原本的淡色底圖，讓彩色標記與路線維持對比 */
+  .geo-map .lmap .leaflet-tile-pane{filter:saturate(.3) brightness(1.1) contrast(.92);}
+  .geo-tilewarn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:900;
+    background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:6px;
+    padding:10px 14px;font-size:.78rem;color:var(--ink-soft);box-shadow:var(--shadow);
+    max-width:86%;text-align:center;line-height:1.7;}
   .geo-map .geo-cap{font-size:.72rem;color:var(--ink-faint);padding:10px 16px;font-family:var(--gothic);background:var(--paper);border-top:1px solid var(--line);line-height:1.8;}
   .geo-leg{position:absolute;top:10px;right:10px;z-index:500;max-width:64%;line-height:1.5;background:rgba(255,255,255,.95);border:1px solid var(--line);padding:7px 12px;font-size:.75rem;font-weight:700;color:var(--ink);box-shadow:0 1px 6px rgba(28,43,46,.12);font-family:var(--gothic);}
   .geo-toggle{display:flex;flex-wrap:wrap;gap:6px;padding:11px 14px;background:var(--paper);border-bottom:1px solid var(--line);}
@@ -355,7 +361,7 @@
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.7 · 更新 2026/09/11</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.8 · 更新 2026/09/29</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -1306,7 +1312,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.7</strong> ｜ 最後更新 <strong>2026/09/11</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.8</strong> ｜ 最後更新 <strong>2026/09/29</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1537,8 +1543,36 @@
       ]}
     };
 
-    var TILE='https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png';
-    var TILE_OPT={attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19};
+    // CARTO 於 2026 年改為需申請 API key，未帶 key 的圖磚會回傳「API KEY REQUIRED」浮水印圖
+    // （HTTP 200，所以不會觸發 tileerror），因此改用免金鑰的 OSM 官方圖磚。
+    // OSM 標準圖磚偏彩色，靠 .lmap 的 CSS filter 降飽和，維持原本淡色底圖、讓彩色標記跳出來。
+    var TILE='https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+    var TILE_OPT={attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',maxZoom:19};
+    var TILE_FALLBACK='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+    var TILE_FALLBACK_OPT={attribution:'Tiles &copy; Esri',maxZoom:16};
+
+    // 底圖是外部服務，哪天再被停用就會整片空白。掛上 tileerror：連續失敗就換備援來源，
+    // 兩邊都不通才顯示提示，至少讓人知道是底圖掛了而不是頁面壞了。
+    function addBaseLayer(map){
+      var fails=0, swapped=false;
+      var layer=L.tileLayer(TILE,TILE_OPT).addTo(map);
+      layer.on('tileerror',function(){
+        if(swapped || ++fails<4) return;
+        swapped=true; map.removeLayer(layer);
+        var fb=L.tileLayer(TILE_FALLBACK,TILE_FALLBACK_OPT).addTo(map);
+        var fbFails=0;
+        fb.on('tileerror',function(){
+          if(++fbFails<4 || map._tileWarned) return;
+          map._tileWarned=true;
+          var el=map.getContainer();
+          var w=document.createElement('div');
+          w.className='geo-tilewarn';
+          w.textContent='⚠️ 底圖圖磚載入失敗（可能被網路或防火牆阻擋）。標記與路線仍可點選。';
+          el.appendChild(w);
+        });
+      });
+      return layer;
+    }
 
     function pinIcon(p,color){
       var hotel = p.kind==='hotel';
@@ -1576,7 +1610,7 @@
     var dayMaps={};
     Object.keys(DAYS).forEach(function(k){
       var el=document.getElementById('geo-map-d'+k); if(!el) return;
-      var m=L.map(el,{scrollWheelZoom:false,zoomControl:true}); L.tileLayer(TILE,TILE_OPT).addTo(m);
+      var m=L.map(el,{scrollWheelZoom:false,zoomControl:true}); addBaseLayer(m);
       drawDay(m,k); var b=L.latLngBounds(dayLatLngs(k)).pad(0.28); m.fitBounds(b);
       dayMaps['tab-d'+k]={map:m,bounds:b};
     });
@@ -1585,7 +1619,7 @@
     var allMap=null, allBounds=null, allGroups={};
     var allEl=document.getElementById('geo-map-all');
     if(allEl){
-      allMap=L.map(allEl,{scrollWheelZoom:false,zoomControl:true}); L.tileLayer(TILE,TILE_OPT).addTo(allMap);
+      allMap=L.map(allEl,{scrollWheelZoom:false,zoomControl:true}); addBaseLayer(allMap);
       var allPts=[];
       Object.keys(DAYS).forEach(function(k){ allGroups[k]=drawDay(allMap,k); allPts=allPts.concat(dayLatLngs(k)); });
       allBounds=L.latLngBounds(allPts).pad(0.12); allMap.fitBounds(allBounds);
