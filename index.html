@@ -132,6 +132,7 @@
   .geo-pin span{transform:rotate(45deg);font-family:"Zen Maru Gothic",sans-serif;font-weight:700;font-size:.9rem;line-height:1;}
   .geo-pin{position:relative;}
   .geo-pin-hotel{border-color:var(--sun);box-shadow:0 0 0 3px rgba(168,85,31,.4),0 2px 6px rgba(0,0,0,.3);}
+  .geo-pin-food{border-color:#f0d9a8;box-shadow:0 0 0 3px rgba(173,91,75,.35),0 2px 6px rgba(0,0,0,.3);}
   .geo-pin-tag{position:absolute;top:-8px;right:-8px;transform:rotate(45deg);font-style:normal;font-size:.6rem;line-height:1;background:#fff;border-radius:50%;padding:2px 2.5px;box-shadow:0 1px 3px rgba(0,0,0,.3);}
   .geo-drive{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:2px;padding:1px 8px;font-size:.71rem;font-weight:700;color:var(--sun-deep);white-space:nowrap;box-shadow:0 1px 3px rgba(28,43,46,.18);font-family:var(--gothic);}
   .leaflet-popup-content{font-family:"Noto Sans TC",sans-serif;margin:13px 15px;}
@@ -361,7 +362,7 @@
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.10 · 更新 2026/10/01</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.11 · 更新 2026/10/01</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -411,7 +412,7 @@
       <div class="geo-map">
         <div class="geo-toggle" id="geo-toggle-all"></div>
         <div id="geo-map-all" class="lmap" style="height:460px"></div>
-        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · 線上為路段車程 · <strong>🏨＝住宿旅館</strong>（BEB5 瀨良垣／OMO5 那霸）· 🚶＝步行路段</div>
+        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · 線上為路段車程 · <strong>🏨＝住宿旅館</strong>（BEB5 瀨良垣／OMO5 那霸）· <strong>🍽＝晚餐地點</strong>· 🚶＝步行路段</div>
       </div>
 
       <div class="ov-scroll">
@@ -510,9 +511,9 @@
         <div class="map-cap">X 軸＝當日實際時刻（色塊＝停留、細線＝車程）· 約 13:00–20:15 ｜ 17:50 入住放行李 → 18:20 出發 → 18:30 Ocean Boo! 入座 → 20:00 用餐結束、7 分鐘回 BEB5</div>
       </div>
       <div class="geo-map">
-        <div class="geo-leg">Day 1 · ①機場 → ②PARCO → ③萬座毛 → ④BEB5</div>
+        <div class="geo-leg">Day 1 · ①機場 → ②PARCO → ③萬座毛 → ④BEB5 → ⑤Ocean Boo! 晚餐</div>
         <div id="geo-map-d1" class="lmap"></div>
-        <div class="geo-cap">🗺️ Day 1 路線動線圖（示範）· 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
+        <div class="geo-cap">🗺️ Day 1 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程 · <strong>🏨＝住宿旅館（BEB5 瀨良垣）</strong>· <strong>🍽＝晚餐（Ocean Boo! 恩納萬座店・已訂 18:30）</strong>，飯後約 7 分原路回 BEB5</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">敘敘苑午餐（PARCO 3F）</span><span class="tm">90分</span></span>
@@ -764,7 +765,7 @@
       <div class="geo-map">
         <div class="geo-leg">Day 3 · BEB5→おんなの駅→殘波岬→美國村→DEPO 天久→OMO5</div>
         <div id="geo-map-d3" class="lmap"></div>
-        <div class="geo-cap">🗺️ Day 3 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程</div>
+        <div class="geo-cap">🗺️ Day 3 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · 線上為路段車程 · <strong>🍽＝晚餐（目利きの銀次 新都心店）</strong>· <strong>🏨＝住宿旅館（OMO5 那霸）</strong>· 🚶＝步行路段</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">BEB5 悠閒早晨</span><span class="tm">早餐·泳池</span></span>
@@ -910,7 +911,7 @@
       <div class="geo-map">
         <div class="geo-leg">Day 4 · 🏨OMO5→波上宮→糸滿魚市場→DMM 水族館→Outlet→瀨長島→🏨OMO5→國際通</div>
         <div id="geo-map-d4" class="lmap"></div>
-        <div class="geo-cap">🗺️ Day 4 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · <strong>🏨＝住宿旅館（OMO5 沖繩那霸）</strong> · 🚗＝包車路段、<strong>🚶＝步行路段</strong>（傍晚先回旅館放戰利品，再走去國際通吃晚餐）</div>
+        <div class="geo-cap">🗺️ Day 4 路線動線圖 · 點下標記看景點詳情 · 數字＝造訪順序 · <strong>🏨＝住宿旅館（OMO5 沖繩那霸）</strong> · <strong>🍽＝晚餐（國際通）</strong> · 🚗＝包車路段、<strong>🚶＝步行路段</strong>（傍晚先回旅館放戰利品，再走去國際通吃晚餐）</div>
       </div>
       <div class="stays">
         <span class="stay"><span class="nm">波上宮</span><span class="tm">30分</span></span>
@@ -1315,7 +1316,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.10</strong> ｜ 最後更新 <strong>2026/10/01</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.11</strong> ｜ 最後更新 <strong>2026/10/01</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1514,7 +1515,8 @@
         {n:1,name:'那覇空港（接機）',lat:26.2063,lng:127.6517,meta:'下午集合 · 出發點',note:'桃園組 CI120 10:45 先到、台中組 CI310 12:15 抵達，通關後約 13:00 於機場集合上包車。'},
         {n:2,name:'SAN-A 浦添西海岸 PARCO CITY',lat:26.2628,lng:127.7045,drive:'約 15 分',meta:'敘敘苑午餐＋血拼 約180分',note:'縣內最大約 250 店、免稅；飛行後歇腳、育嬰室、美食街。'},
         {n:3,name:'萬座毛',lat:26.5052,lng:127.8505,drive:'約 50 分',meta:'停留 30 分',note:'象鼻岩＋斷崖海景；必買黑糖、海鹽、紅芋塔。平坦步道推車友善。'},
-        {n:4,name:'星野 BEB5 沖繩瀨良垣（入住）',lat:26.5019,lng:127.8767,kind:'hotel',drive:'約 15 分',meta:'🏨 前 2 晚住宿',note:'公寓式附廚房大冰箱；先到附近 MaxValu 補副食品、鮮乳。'}
+        {n:4,name:'星野 BEB5 沖繩瀨良垣（入住）',lat:26.5019,lng:127.8767,kind:'hotel',drive:'約 15 分',meta:'🏨 前 2 晚住宿 · 17:50 入住放行李',note:'公寓式附廚房大冰箱；先到附近 MaxValu 補副食品、鮮乳。18:20 原車出發去吃晚餐。'},
+        {n:5,name:'Ocean Boo! 恩納萬座店（晚餐・已訂）',lat:26.4836,lng:127.8463,kind:'food',drive:'約 7 分',meta:'🍽 18:30–20:00 · 晚餐 90 分 · 之後約 7 分返回 BEB5',note:'阿古豬涮涮鍋專門店，10/29 18:30・12 位已訂（☎ 098-952-5640）。自家昆布高湯，先下高麗菜絲＋海蘊＋麩，再涮阿古豬，最後煮雜炊收尾；店家主張吃原味、不附柚子醋或芝麻醬。有兒童椅與兒童餐具、寬敞沙發座。'}
       ]},
       2:{color:COLORS[2],stops:[
         {n:1,name:'星野 BEB5 沖繩瀨良垣（旅館）',lat:26.5019,lng:127.8767,kind:'hotel',meta:'🏨 前 2 晚住宿 · 出發點',note:'走自動車道北上前往本部；今晚仍住這裡。'},
@@ -1528,7 +1530,7 @@
         {n:3,name:'殘波岬公園（讀谷）',lat:26.4419,lng:127.7069,drive:'約 25 分',meta:'12:30–13:20 · 停留 50 分',note:'沖繩最大紅瓦巨大獅子＋白色燈塔、斷崖海景；園內有兒童遊具與小動物區。免門票、免費停車。想早點到美國村可整站省略。'},
         {n:4,name:'美國村 Depot Island',lat:26.3157,lng:127.7556,drive:'約 25 分',meta:'14:05–17:50 · 萬聖節主場 225 分（13:45 抵北谷、留 20 分找車位）',note:'逛街、Blue Seal、皮卡丘塗鴉；萬聖節變裝發糖(17:00–18:00)、日落約 17:45。注意交通管制與停車，17:50 準時上車、比人群早 10 分鐘離場避開散場車潮。'},
         {n:5,name:'SPORTS DEPO 天久店（那霸新都心）',lat:26.2262,lng:127.6928,drive:'約 30 分',meta:'18:20–19:25 · 停留 65 分',note:'Alpen 集團沖繩旗艦店（天久りうぼう楽市內）。10:00–21:00、可免稅（單店滿 ¥5,500 含稅＋帶護照）。有停車場，大件戰利品直接進海獅後車廂。'},
-        {n:6,name:'目利きの銀次 新都心店（晚餐）',lat:26.2205,lng:127.6952,walk:true,drive:'步行約 5 分',meta:'🚶 19:30–20:30 · 晚餐 60 分',note:'產地直送海鮮居酒屋，那霸市天久 1-9-19，與 SPORTS DEPO 同為天久 1 丁目。需提早約 1 個月訂 12 人位；訂不到改 SAN-A 那霸 Main Place 美食街。'},
+        {n:6,name:'目利きの銀次 新都心店（晚餐）',lat:26.2205,lng:127.6952,kind:'food',walk:true,drive:'步行約 5 分',meta:'🚶 19:30–20:30 · 晚餐 60 分',note:'產地直送海鮮居酒屋，那霸市天久 1-9-19，與 SPORTS DEPO 同為天久 1 丁目。需提早約 1 個月訂 12 人位；訂不到改 SAN-A 那霸 Main Place 美食街。'},
         {n:7,name:'OMO5 沖繩那霸（入住）',lat:26.2159,lng:127.6726,kind:'hotel',drive:'約 10 分',meta:'🏨 後 2 晚住宿 · 約 20:40 入住',note:'鄰國際通（步行約 8–10 分）、距機場約 15 分。'}
       ]},
       4:{color:COLORS[4],stops:[
@@ -1538,7 +1540,7 @@
         {n:4,name:'DMM かりゆし水族館（iias 沖繩豐崎）',lat:26.1608,lng:127.6539,drive:'約 15 分',meta:'停留 120 分',note:'全室內水族館：觸摸池、企鵝、水豚、迷你豬；推車全館可行、育嬰室完備。同棟 iias 豐崎商場可順逛，是今天的完美雨備。建議官網先購票。'},
         {n:5,name:'Ashibinaa Outlet',lat:26.1717,lng:127.6640,drive:'約 10 分',meta:'血拼 100 分',note:'沖繩唯一大型 Outlet，可現場辦免稅。'},
         {n:6,name:'瀨長島 Umikaji Terrace',lat:26.1772,lng:127.6452,drive:'約 10 分',meta:'停留 105 分・看飛機＋夕陽 · 之後約 20 分返回 OMO5',note:'海景商店街、緊鄰機場跑道；11/1 日落約 17:45，刻意排在黃昏最美的時段。'},
-        {n:7,name:'國際通（晚餐＋逛街）',lat:26.2140,lng:127.6870,via:[26.2159,127.6726],viaDrive:'約 20 分・回旅館',drive:'約 10 分',walk:true,meta:'🚶 18:30 入座・晚餐 60 分 · 飯後自由逛街',note:'先回 OMO5 放戰利品、休整約 20 分，再步行約 10 分過來。那霸最大繁華街約 1.6km；唐吉訶德近 24 小時、伴手禮店多開到 22:00，累了隨時走回旅館。不佔包車時數。'}
+        {n:7,name:'國際通（晚餐＋逛街）',lat:26.2140,lng:127.6870,kind:'food',via:[26.2159,127.6726],viaDrive:'約 20 分・回旅館',drive:'約 10 分',walk:true,meta:'🚶 18:30 入座・晚餐 60 分 · 飯後自由逛街',note:'先回 OMO5 放戰利品、休整約 20 分，再步行約 10 分過來。那霸最大繁華街約 1.6km；唐吉訶德近 24 小時、伴手禮店多開到 22:00，累了隨時走回旅館。不佔包車時數。'}
       ]},
       5:{color:COLORS[5],stops:[
         {n:1,name:'OMO5 沖繩那霸（退房）',lat:26.2159,lng:127.6726,kind:'hotel',meta:'🏨 早餐・退房',note:'早餐後退房、行李上車，直達那霸機場。'},
@@ -1578,8 +1580,9 @@
     }
 
     function pinIcon(p,color){
-      var hotel = p.kind==='hotel';
-      var html='<div class="geo-pin'+(hotel?' geo-pin-hotel':'')+'" style="background:'+color+'"><span>'+p.n+'</span>'+(hotel?'<i class="geo-pin-tag">🏨</i>':'')+'</div>';
+      var hotel = p.kind==='hotel', food = p.kind==='food';
+      var tag = hotel?'🏨':(food?'🍽':'');
+      var html='<div class="geo-pin'+(hotel?' geo-pin-hotel':'')+(food?' geo-pin-food':'')+'" style="background:'+color+'"><span>'+p.n+'</span>'+(tag?'<i class="geo-pin-tag">'+tag+'</i>':'')+'</div>';
       return L.divIcon({className:'',html:html,iconSize:[30,30],iconAnchor:[15,28],popupAnchor:[0,-28]});
     }
     function legIcon(color,txt,walk){ return L.divIcon({className:'',html:'<div class="geo-drive" style="color:'+color+'">'+(walk?'🚶 ':'🚗 ')+txt+'</div>',iconSize:[0,0]}); }
