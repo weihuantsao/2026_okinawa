@@ -271,24 +271,30 @@
   .bk-table .dn,.bk-table .d2{white-space:nowrap;font-weight:700;color:var(--sun-deep);}
   .bk-table .dn{white-space:normal;}
 
-  /* booking 左側索引（TOC）：桌機為黏性側欄，手機改為分頁列下方的橫向標籤 */
-  .bk-layout{display:grid;grid-template-columns:176px minmax(0,1fr);gap:34px;align-items:start;}
-  .bk-main{min-width:0;}
-  .bk-toc{position:sticky;top:calc(var(--navh,76px) + 14px);max-height:calc(100vh - var(--navh,76px) - 28px);overflow-y:auto;font-family:var(--gothic);border-left:1px solid var(--line);padding:2px 0;}
-  .bk-toc .toc-t{font-size:.64rem;letter-spacing:.16em;color:var(--ink-faint);font-weight:700;padding:0 0 8px 14px;}
-  .bk-toc a{display:block;padding:5px 8px 5px 14px;margin-left:-1px;border-left:2px solid transparent;color:var(--ink-soft);text-decoration:none;font-size:.84rem;font-weight:700;line-height:1.5;transition:color .15s,background .15s;}
-  .bk-toc a.l2{padding-left:26px;font-size:.77rem;font-weight:500;color:var(--ink-faint);}
+  /* booking 索引（TOC）：不佔內容寬度。寬螢幕（≥1460px）浮在內容左側留白處的黏性側欄；
+     其餘寬度改為分頁列下方的橫向標籤列 */
+  .bk-layout{position:relative;}
+  .bk-rail{display:contents;}
+  .bk-toc{position:sticky;top:var(--navh,76px);z-index:15;display:flex;gap:6px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 0;margin:-18px 0 8px;scrollbar-width:none;font-family:var(--gothic);}
+  .bk-toc::-webkit-scrollbar{display:none;}
+  .bk-toc .toc-t,.bk-toc a.l2{display:none;}
+  .bk-toc a{flex:0 0 auto;padding:4px 12px;border:1px solid var(--line);border-radius:2px;background:var(--paper);color:var(--ink-soft);text-decoration:none;font-size:.8rem;font-weight:700;line-height:1.5;transition:color .15s,background .15s;}
   .bk-toc a:hover{color:var(--ink);}
-  .bk-toc a.sec{color:var(--ink);}
-  .bk-toc a.on{border-left-color:var(--sky-deep);color:var(--sky-deep);background:var(--aqua);}
+  .bk-toc a.sec{background:var(--sky-deep);border-color:var(--sky-deep);color:#fff;}
   #tab-book [data-toc]{scroll-margin-top:calc(var(--navh,76px) + var(--toch,0px) + 14px);}
-  @media(max-width:820px){
-    .bk-layout{display:block;}
-    .bk-toc{top:var(--navh,76px);z-index:15;max-height:none;display:flex;gap:6px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;background:var(--bg);border-left:0;border-bottom:1px solid var(--line);padding:8px 0;margin:-18px 0 8px;scrollbar-width:none;}
-    .bk-toc::-webkit-scrollbar{display:none;}
-    .bk-toc .toc-t,.bk-toc a.l2{display:none;}
-    .bk-toc a{flex:0 0 auto;margin:0;padding:4px 12px;border:1px solid var(--line);border-radius:2px;background:var(--paper);font-size:.8rem;}
-    .bk-toc a.sec{background:var(--sky-deep);border-color:var(--sky-deep);color:#fff;}
+  @media(min-width:821px) and (max-width:1459px){
+    .bk-toc a.l2{display:block;font-weight:500;font-size:.76rem;color:var(--ink-faint);}
+    .bk-toc a.l2.on{border-color:var(--sky-deep);color:var(--sky-deep);background:var(--aqua);}
+  }
+  @media(min-width:1460px){
+    .bk-rail{display:block;position:absolute;top:0;bottom:0;right:calc(100% + 22px);width:150px;}
+    .bk-toc{top:calc(var(--navh,76px) + 14px);display:block;max-height:calc(100vh - var(--navh,76px) - 28px);overflow-x:hidden;overflow-y:auto;white-space:normal;background:none;border-bottom:0;border-left:1px solid var(--line);padding:2px 0;margin:0;}
+    .bk-toc .toc-t{display:block;font-size:.64rem;letter-spacing:.16em;color:var(--ink-faint);font-weight:700;padding:0 0 8px 14px;}
+    .bk-toc a,.bk-toc a.l2{display:block;}
+    .bk-toc a{padding:5px 8px 5px 14px;margin-left:-1px;border:0;border-left:2px solid transparent;border-radius:0;background:none;font-size:.84rem;}
+    .bk-toc a.l2{padding-left:26px;font-size:.77rem;font-weight:500;color:var(--ink-faint);}
+    .bk-toc a.sec{background:none;color:var(--ink);}
+    .bk-toc a.on{border-left-color:var(--sky-deep);color:var(--sky-deep);background:var(--aqua);}
   }
 
   /* ── 手機優先 ───────────────────────────── */
@@ -335,7 +341,6 @@
     @page{margin:14mm 12mm;}
     html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.7;}
     .wrap{max-width:none;padding:0;}
-    .bk-layout{display:block;}
     .tabnav,.bk-toc,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle,.mv{display:none!important;}
     header.hero{min-height:150px;}
     .hero-scrim{background:rgba(255,255,255,.9)!important;}
@@ -383,7 +388,7 @@
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.13 · 更新 2026/10/07</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.14 · 更新 2026/10/07</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -1143,7 +1148,7 @@
     <!-- TAB: BOOKING -->
     <div id="tab-book" class="tab-panel">
     <div class="bk-layout">
-    <nav class="bk-toc" aria-label="預約資訊索引"></nav>
+    <div class="bk-rail"><nav class="bk-toc" aria-label="預約資訊索引"></nav></div>
     <div class="bk-main">
       <p class="ov-intro">本頁彙整全程<strong>預約狀態</strong>，分成機票、飯店、餐廳、包車、門票・體驗五類逐項確認。狀態標示：<span class="bk-badge ok">已訂</span> 已完成／<span class="bk-badge hold">待確認</span> 已訂待補資料／<span class="bk-badge todo">待訂</span> 尚未預約。</p>
 
@@ -1284,14 +1289,14 @@
         <table class="bk-table">
           <thead><tr><th>日期</th><th>餐別・區域</th><th>建議店家</th><th>狀態</th></tr></thead>
           <tbody>
+            <tr id="bk-food-1029" data-toc="10/29（四）Day 1"><td class="d2">10/29 四</td><td>午餐・PARCO CITY（Day 1）</td><td>和風亭 3F／やまや食堂 2F／THE PLATINUM 自助餐（館內美食街可現場）</td><td><span class="bk-badge hold">現場可</span></td></tr>
             <tr><td class="d2">10/29 四</td><td>晚餐・恩納（18:30 入座）</td><td><strong>Ocean Boo! 恩納萬座店</strong>（あぐー豚しゃぶしゃぶ専門店 オーシャンBoo！）· 恩納村恩納 6497-1 K&amp;S ビル南恩納 202（2F）· ☎ 098-952-5640 · <strong>12 位（9 大 3 小）已預約完成</strong>，有兒童椅與兒童餐具 · 距 BEB5 約 7 分、距萬座毛約 8 分</td><td><span class="bk-badge ok">已訂位</span></td></tr>
-            <tr><td class="d2">10/30 五</td><td>午餐・本部</td><td>J's Kitchen ★4.7／papaiya ★4.2／Kairo ★4.4</td><td><span class="bk-badge todo">待訂</span></td></tr>
+            <tr id="bk-food-1030" data-toc="10/30（五）Day 2"><td class="d2">10/30 五</td><td>午餐・本部</td><td>J's Kitchen ★4.7／papaiya ★4.2／Kairo ★4.4</td><td><span class="bk-badge todo">待訂</span></td></tr>
             <tr><td class="d2">10/30 五</td><td>晚餐・BEB5 館內</td><td><strong>房內廚房自炊</strong>（Day 1 已在 MaxValu 補好食材）或 BEB5 飯店餐廳／TAMARIBA 輕食 · <strong>不用車、不需訂位</strong><br><span style="color:#a9443a;">⚠️ 刻意不排恩納外食：包車 16:00 已收工，晚上再出車當日會變 10.5–12 小時而超出 10 小時額度。真要外食請自行叫計程車</span></td><td><span class="bk-badge ok">已定案</span></td></tr>
-            <tr><td class="d2">10/31 六</td><td>午餐・恩納おんなの駅</td><td>道の駅美食街現場點（沖繩麵／天婦羅／B級美食＋現榨果汁）· 50 分快速解決，時間留給萬聖節<br>備選：改在美國村吃 14:15 遲午餐 → タコライスカフェ きじむなぁ</td><td><span class="bk-badge hold">現場可</span></td></tr>
+            <tr id="bk-food-1031" data-toc="10/31（六）Day 3"><td class="d2">10/31 六</td><td>午餐・恩納おんなの駅</td><td>道の駅美食街現場點（沖繩麵／天婦羅／B級美食＋現榨果汁）· 50 分快速解決，時間留給萬聖節<br>備選：改在美國村吃 14:15 遲午餐 → タコライスカフェ きじむなぁ</td><td><span class="bk-badge hold">現場可</span></td></tr>
             <tr><td class="d2">10/31 六</td><td>晚餐・那霸新都心／天久（19:30）</td><td><strong>目利きの銀次 新都心店</strong>（天久 1-9-19・TEL 098-863-3442・<strong>自 SPORTS DEPO 步行 5 分</strong>）<span class="bk-badge ok">首選</span>；<a href="https://booking.ebica.jp/webrsv/search/e020072701/28790" target="_blank" rel="noopener">官方線上訂位</a>，<strong>提早約 1 個月訂 12 人位、時間訂 19:30、備註 3 位幼兒</strong><br>保底：SAN-A 那霸 Main Place 美食街（免訂位）｜若砍掉 DEPO 留在北谷吃：FRANKEY TAVERN ★4.6／The Calif Kitchen ★4.5</td><td><span class="bk-badge todo">待訂</span></td></tr>
-            <tr><td class="d2">11/1 日</td><td>午餐・糸滿魚市場</td><td>糸滿お魚センター 各攤自選（海鮮丼／生魚片／燒物／天婦羅）· 不需訂位，10:00 開門建議一開門就到；<strong>幼童改吃燒物、天婦羅、味噌湯</strong></td><td><span class="bk-badge hold">現場可</span></td></tr>
+            <tr id="bk-food-111" data-toc="11/1（日）Day 4"><td class="d2">11/1 日</td><td>午餐・糸滿魚市場</td><td>糸滿お魚センター 各攤自選（海鮮丼／生魚片／燒物／天婦羅）· 不需訂位，10:00 開門建議一開門就到；<strong>幼童改吃燒物、天婦羅、味噌湯</strong></td><td><span class="bk-badge hold">現場可</span></td></tr>
             <tr><td class="d2">11/1 日</td><td>晚餐・國際通（自 OMO5 步行，18:30 入座）</td><td>①<strong>海渡 KAITO ★4.9</strong>（沖繩料理居酒屋・首選）／②<strong>ちゅらちゅら 那霸國際通店</strong>（有 5–24 人包廂・TEL 098-963-9924）／③JUMBO STEAK HAN'S 松山店（離 OMO5 最近・保底）／④てびち屋本舗 松山店（沖繩豬腳）／⑤琉球規樂 ★4.8（Agu 涮涮鍋・<strong>與 Day 1 重複</strong>）<br><span style="color:#a9443a;">✕ Yunangi ゆうなんぎい <strong>週日公休、11/1 不可用</strong></span></td><td><span class="bk-badge todo">待訂</span></td></tr>
-            <tr><td class="d2">10/29 四</td><td>午餐・PARCO CITY（Day 1）</td><td>和風亭 3F／やまや食堂 2F／THE PLATINUM 自助餐（館內美食街可現場）</td><td><span class="bk-badge hold">現場可</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -1355,7 +1360,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.13</strong> ｜ 最後更新 <strong>2026/10/07</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.14</strong> ｜ 最後更新 <strong>2026/10/07</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1414,8 +1419,8 @@
       var sec = i; while(sec > 0 && links[sec].classList.contains('l2')) sec--;
       links.forEach(function(a, k){ a.classList.toggle('on', k === i); a.classList.toggle('sec', k === sec); });
       cur = i;
-      // 手機橫向標籤：把所屬大項捲進可視範圍（只動水平捲軸，不影響頁面）
-      if(toc.scrollWidth > toc.clientWidth){ toc.scrollLeft = links[sec].offsetLeft - toc.offsetLeft - 16; }
+      // 橫向標籤列：把目前項目（若被隱藏則用所屬大項）捲進可視範圍（只動水平捲軸，不影響頁面）
+      if(toc.scrollWidth > toc.clientWidth){ var a = links[i].offsetParent ? links[i] : links[sec]; toc.scrollLeft = a.offsetLeft - toc.offsetLeft - 16; }
     }
     function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(spy); } }
     window.addEventListener('scroll', onScroll, { passive: true });
