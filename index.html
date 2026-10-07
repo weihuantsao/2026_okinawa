@@ -271,6 +271,26 @@
   .bk-table .dn,.bk-table .d2{white-space:nowrap;font-weight:700;color:var(--sun-deep);}
   .bk-table .dn{white-space:normal;}
 
+  /* booking 左側索引（TOC）：桌機為黏性側欄，手機改為分頁列下方的橫向標籤 */
+  .bk-layout{display:grid;grid-template-columns:176px minmax(0,1fr);gap:34px;align-items:start;}
+  .bk-main{min-width:0;}
+  .bk-toc{position:sticky;top:calc(var(--navh,76px) + 14px);max-height:calc(100vh - var(--navh,76px) - 28px);overflow-y:auto;font-family:var(--gothic);border-left:1px solid var(--line);padding:2px 0;}
+  .bk-toc .toc-t{font-size:.64rem;letter-spacing:.16em;color:var(--ink-faint);font-weight:700;padding:0 0 8px 14px;}
+  .bk-toc a{display:block;padding:5px 8px 5px 14px;margin-left:-1px;border-left:2px solid transparent;color:var(--ink-soft);text-decoration:none;font-size:.84rem;font-weight:700;line-height:1.5;transition:color .15s,background .15s;}
+  .bk-toc a.l2{padding-left:26px;font-size:.77rem;font-weight:500;color:var(--ink-faint);}
+  .bk-toc a:hover{color:var(--ink);}
+  .bk-toc a.sec{color:var(--ink);}
+  .bk-toc a.on{border-left-color:var(--sky-deep);color:var(--sky-deep);background:var(--aqua);}
+  #tab-book [data-toc]{scroll-margin-top:calc(var(--navh,76px) + var(--toch,0px) + 14px);}
+  @media(max-width:820px){
+    .bk-layout{display:block;}
+    .bk-toc{top:var(--navh,76px);z-index:15;max-height:none;display:flex;gap:6px;overflow-x:auto;overflow-y:hidden;white-space:nowrap;background:var(--bg);border-left:0;border-bottom:1px solid var(--line);padding:8px 0;margin:-18px 0 8px;scrollbar-width:none;}
+    .bk-toc::-webkit-scrollbar{display:none;}
+    .bk-toc .toc-t,.bk-toc a.l2{display:none;}
+    .bk-toc a{flex:0 0 auto;margin:0;padding:4px 12px;border:1px solid var(--line);border-radius:2px;background:var(--paper);font-size:.8rem;}
+    .bk-toc a.sec{background:var(--sky-deep);border-color:var(--sky-deep);color:#fff;}
+  }
+
   /* ── 手機優先 ───────────────────────────── */
   @media(max-width:680px){
     body{font-size:16.5px;}
@@ -315,7 +335,8 @@
     @page{margin:14mm 12mm;}
     html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.7;}
     .wrap{max-width:none;padding:0;}
-    .tabnav,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle,.mv{display:none!important;}
+    .bk-layout{display:block;}
+    .tabnav,.bk-toc,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle,.mv{display:none!important;}
     header.hero{min-height:150px;}
     .hero-scrim{background:rgba(255,255,255,.9)!important;}
     .tab-panel{display:block!important;animation:none!important;}
@@ -362,7 +383,7 @@
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.12 · 更新 2026/10/07</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.13 · 更新 2026/10/07</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -1121,12 +1142,15 @@
 
     <!-- TAB: BOOKING -->
     <div id="tab-book" class="tab-panel">
+    <div class="bk-layout">
+    <nav class="bk-toc" aria-label="預約資訊索引"></nav>
+    <div class="bk-main">
       <p class="ov-intro">本頁彙整全程<strong>預約狀態</strong>，分成機票、飯店、餐廳、包車、門票・體驗五類逐項確認。狀態標示：<span class="bk-badge ok">已訂</span> 已完成／<span class="bk-badge hold">待確認</span> 已訂待補資料／<span class="bk-badge todo">待訂</span> 尚未預約。</p>
 
-      <div class="bk-h">✈️ 機票 <span class="bk-badge ok">全數已開票</span></div>
+      <div class="bk-h" id="bk-flight" data-toc="✈️ 機票">✈️ 機票 <span class="bk-badge ok">全數已開票</span></div>
       <div class="bk-note" style="margin:0 0 10px;">本團<strong>分兩地出發、皆搭華航</strong>：<span class="dep tpe">桃園 TPE</span>瑋桓一家 3 人（CI120／CI121・已開票）／<span class="dep rmq">台中 RMQ</span>其餘 9 人（CI310／CI311・9 位全數已開票）。兩組去回時刻已確認，並反映到 Day 1 抵達集合與 Day 5 離場動線。</div>
 
-      <div class="bk-card">
+      <div class="bk-card" id="bk-flight-tpe" data-toc="桃園組 CI120／121">
         <div class="bk-nm"><span class="dep tpe">桃園 TPE 出發</span>瑋桓一家 3 人 · 中華航空 CI120／CI121 <span class="bk-badge ok">已開票</span></div>
         <div class="flt-row"><span class="flt-tag go">去程</span><span class="flt-body"><strong>CI120</strong> · <strong>10/29（四）</strong> 桃園 T2 <strong>08:10</strong> → 那霸 T1 <strong>10:45</strong> · 飛行 1:35</span></div>
         <div class="flt-row"><span class="flt-tag back">回程</span><span class="flt-body"><strong>CI121</strong> · <strong>11/2（一）</strong> 那霸 T1 <strong>11:55</strong> → 桃園 T2 <strong>12:35</strong> · 飛行 1:40</span></div>
@@ -1152,7 +1176,7 @@
         </details>
       </div>
 
-      <div class="bk-card">
+      <div class="bk-card" id="bk-flight-rmq" data-toc="台中組 CI310／311">
         <div class="bk-nm"><span class="dep rmq">台中 RMQ 出發</span>其餘成員 9 人 · 中華航空 CI310／CI311 <span class="bk-badge ok">已開票</span></div>
         <div class="flt-row"><span class="flt-tag go">去程</span><span class="flt-body"><strong>CI310</strong> · <strong>10/29（四）</strong> 台中 RMQ T2 <strong>09:45</strong> → 那霸 T1 <strong>12:15</strong> · 飛行 1:30</span></div>
         <div class="flt-row"><span class="flt-tag back">回程</span><span class="flt-body"><strong>CI311</strong> · <strong>11/2（一）</strong> 那霸 T1 <strong>13:15</strong> → 台中 RMQ T2 <strong>14:05</strong> · 飛行 1:50</span></div>
@@ -1184,8 +1208,8 @@
         </details>
       </div>
 
-      <div class="bk-h">🏨 飯店 <span class="bk-badge ok">已訂</span></div>
-      <div class="bk-card">
+      <div class="bk-h" id="bk-hotel" data-toc="🏨 飯店">🏨 飯店 <span class="bk-badge ok">已訂</span></div>
+      <div class="bk-card" id="bk-hotel-beb5" data-toc="BEB5 瀨良垣（前 2 晚）">
         <div class="bk-nm">星野 BEB5 沖繩瀨良垣（前 2 晚） <span class="ord">訂單 BOSTTA261730</span></div>
         <div class="bk-row"><span class="bk-k">入住</span><span class="bk-v">2026/<strong>10/29</strong>（四）→ <strong>10/31</strong>（六）· 共 <strong>2 晚</strong></span></div>
         <div class="bk-row"><span class="bk-k">時間</span><span class="bk-v">入住 15:00～ ／ 退房 ～11:00</span></div>
@@ -1217,7 +1241,7 @@
           </div>
         </details>
       </div>
-      <div class="bk-card">
+      <div class="bk-card" id="bk-hotel-omo5" data-toc="OMO5 那霸（後 2 晚）">
         <div class="bk-nm">OMO5 沖繩那霸 by 星野集團（後 2 晚） <span class="bk-badge ok">已訂</span> <span class="ord">預訂編號 OONDDD266852</span></div>
         <div class="bk-row"><span class="bk-k">入住</span><span class="bk-v">2026/<strong>10/31</strong>（六）→ <strong>11/2</strong>（一）· 共 <strong>2 晚</strong></span></div>
         <div class="bk-row"><span class="bk-k">時間</span><span class="bk-v">入住 15:00～ ／ 退房 ～11:00</span></div>
@@ -1255,7 +1279,7 @@
         </details>
       </div>
 
-      <div class="bk-h">🍽️ 餐廳（12 人・建議提前預約） <span class="bk-badge todo">待訂</span></div>
+      <div class="bk-h" id="bk-food" data-toc="🍽️ 餐廳">🍽️ 餐廳（12 人・建議提前預約） <span class="bk-badge todo">待訂</span></div>
       <div class="ov-scroll">
         <table class="bk-table">
           <thead><tr><th>日期</th><th>餐別・區域</th><th>建議店家</th><th>狀態</th></tr></thead>
@@ -1273,8 +1297,8 @@
       </div>
       <div class="bk-note">預約時統一備註「<strong>12 人、3 位幼兒需兒童椅／座敷</strong>」。最熱門的<strong>目利きの銀次約提前 1 個月</strong>；美國村午餐建議提前 2–4 週。<strong>Day 1 恩納阿古豬涮涮鍋（Ocean Boo! 恩納萬座店）已訂位完成，不需再處理</strong>。<br>⚠️ <strong>注意日期對應</strong>：<strong>11/1 是週日</strong>，Yunangi ゆうなんぎい 週日公休、已從候選移除；訂位前請再確認各店 11/1 當天是否營業、能否容納 12 人並提供包廂或兒童椅。<strong>Day 4 晚餐建議避開 Agu 豬涮涮鍋</strong>（Day 1 恩納已吃過）。</div>
 
-      <div class="bk-h">🚐 包車・接送交通 <span class="bk-badge ok">訂金已付</span></div>
-      <div class="bk-card">
+      <div class="bk-h" id="bk-car" data-toc="🚐 包車・接送">🚐 包車・接送交通 <span class="bk-badge ok">訂金已付</span></div>
+      <div class="bk-card" id="bk-car-oka" data-toc="沖繩包車 2 台">
         <div class="bk-nm">包車 2 台・每日 10 小時 × 4 天（10/29–11/1）</div>
         <div class="bk-row"><span class="bk-k">第一台</span><span class="bk-v"><strong>Alphard 阿法（日文司機・約 7 座）</strong>：4 大 2 小・<strong>不放行李</strong>（純載客更寬敞）</span></div>
         <div class="bk-row"><span class="bk-k">第二台</span><span class="bk-v"><strong>HiAce 海獅（中文司機・大台）</strong>：5 大 1 小・<strong>放 9 個大行李箱</strong></span></div>
@@ -1293,7 +1317,7 @@
         · <strong>Day 4（9h00）</strong>：9:00 OMO5 出發 → 波上宮 → 糸滿魚市場 → DMM 水族館 → Ashibinaa → 瀨長島夕陽 → 18:00 回 OMO5。晚餐的國際通段改為步行，不佔包車。<br>
         超時需另議加價。</div>
       </div>
-      <div class="bk-card">
+      <div class="bk-card" id="bk-car-tpe" data-toc="桃園機場接送">
         <div class="bk-nm"><span class="dep tpe">桃園 TPE</span>瑋桓一家 3 人 · 台灣端機場接送（送機＋接機） <span class="bk-badge ok">已付款</span></div>
         <div class="flt-row"><span class="flt-tag go">送機</span><span class="flt-body"><strong>10/29（四）05:20</strong> 住家上車 → 桃園機場 <strong>第二航廈</strong> · 搭 <strong>CI120 08:10</strong></span></div>
         <div class="flt-row"><span class="flt-tag back">接機</span><span class="flt-body"><strong>11/2（一）</strong> 桃園機場 <strong>第二航廈</strong> 接 <strong>CI121 12:35</strong> 抵達 → 住家</span></div>
@@ -1306,7 +1330,7 @@
         <div class="bk-note">🕔 送機 <strong>05:20 上車</strong>，清晨車程約 40 分，約 06:00 抵 T2、起飛前 2 小時報到，帶幼童時間充裕。接機依 CI121 落地 12:35 派車，<strong>延誤時的等候規則請出發前向車行確認</strong>；未加購舉牌，出關後直接聯繫司機。</div>
       </div>
 
-      <div class="bk-h">🎟️ 門票・體驗</div>
+      <div class="bk-h" id="bk-ticket" data-toc="🎟️ 門票・體驗">🎟️ 門票・體驗</div>
       <div class="ov-scroll">
         <table class="bk-table">
           <thead><tr><th>項目</th><th>日期</th><th>說明</th><th>狀態</th></tr></thead>
@@ -1320,6 +1344,8 @@
         </table>
       </div>
       <div class="bk-note">※ 以上為依現行行程整理的預約清單；機票、OMO5 訂房、餐廳與包車車行資料補齊後，可再更新各項狀態。</div>
+    </div><!-- /.bk-main -->
+    </div><!-- /.bk-layout -->
     </div>
 
   </section>
@@ -1329,7 +1355,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.12</strong> ｜ 最後更新 <strong>2026/10/07</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.13</strong> ｜ 最後更新 <strong>2026/10/07</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1352,6 +1378,50 @@
         }
       });
     });
+  })();
+
+  // 預約資訊：由 [data-toc] 自動產生左側索引，並隨捲動標示目前段落
+  (function(){
+    var panel = document.getElementById('tab-book');
+    var toc = panel && panel.querySelector('.bk-toc');
+    var nav = document.querySelector('.tabnav');
+    if(!toc) return;
+    var targets = Array.prototype.slice.call(panel.querySelectorAll('[data-toc]'));
+    var links = [];
+    var t = document.createElement('div'); t.className = 'toc-t'; t.textContent = 'CONTENTS'; toc.appendChild(t);
+    targets.forEach(function(el){
+      var a = document.createElement('a');
+      a.href = '#' + el.id;
+      a.textContent = el.getAttribute('data-toc');
+      if(!el.classList.contains('bk-h')) a.className = 'l2';
+      a.addEventListener('click', function(e){ e.preventDefault(); el.scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      toc.appendChild(a); links.push(a);
+    });
+    var root = document.documentElement;
+    function measure(){
+      root.style.setProperty('--navh', (nav ? nav.offsetHeight : 0) + 'px');
+      var bar = getComputedStyle(toc).display === 'flex';
+      root.style.setProperty('--toch', (bar ? toc.offsetHeight : 0) + 'px');
+    }
+    var cur = -1, ticking = false;
+    function spy(){
+      ticking = false;
+      if(!panel.classList.contains('active')) return;
+      var line = (nav ? nav.offsetHeight : 0) + (getComputedStyle(toc).display === 'flex' ? toc.offsetHeight : 0) + 40;
+      var i = 0;
+      targets.forEach(function(el, k){ if(el.getBoundingClientRect().top <= line) i = k; });
+      if(i === cur) return;
+      var sec = i; while(sec > 0 && links[sec].classList.contains('l2')) sec--;
+      links.forEach(function(a, k){ a.classList.toggle('on', k === i); a.classList.toggle('sec', k === sec); });
+      cur = i;
+      // 手機橫向標籤：把所屬大項捲進可視範圍（只動水平捲軸，不影響頁面）
+      if(toc.scrollWidth > toc.clientWidth){ toc.scrollLeft = links[sec].offsetLeft - toc.offsetLeft - 16; }
+    }
+    function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(spy); } }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', function(){ measure(); onScroll(); });
+    document.querySelectorAll('.tabbtn').forEach(function(b){ b.addEventListener('click', function(){ setTimeout(function(){ measure(); spy(); }, 50); }); });
+    measure(); spy();
   })();
 
   // 「只看地圖」全螢幕檢視器：滿版顯示手繪地圖，支援雙指縮放、拖曳、點兩下放大。
