@@ -388,7 +388,7 @@
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.20 · 更新 2026/10/20</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.21 · 更新 2026/10/20</div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -438,7 +438,7 @@
       <div class="geo-map">
         <div class="geo-toggle" id="geo-toggle-all"></div>
         <div id="geo-map-all" class="lmap" style="height:460px"></div>
-        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · 線上為路段車程 · <strong>🏨＝住宿旅館</strong>（BEB5 瀨良垣／OMO5 那霸）· <strong>🍽＝晚餐地點</strong>· 🚶＝步行路段</div>
+        <div class="geo-cap">🗺️ 全程動線總覽 · 上方切換 Day1–5 或「全部」· 點標記看景點 · <strong>線條為實際道路路線</strong>（非直線連接）· 線上為路段車程 · <strong>🏨＝住宿旅館</strong>（BEB5 瀨良垣／OMO5 那霸）· <strong>🍽＝晚餐地點</strong>· 🚶＝步行路段</div>
       </div>
 
       <div class="ov-scroll">
@@ -1393,7 +1393,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.20</strong> ｜ 最後更新 <strong>2026/10/20</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.21</strong> ｜ 最後更新 <strong>2026/10/20</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1675,6 +1675,47 @@
     // CARTO 於 2026 年改為需申請 API key，未帶 key 的圖磚會回傳「API KEY REQUIRED」浮水印圖
     // （HTTP 200，所以不會觸發 tileerror），因此改用免金鑰的 OSM 官方圖磚。
     // OSM 標準圖磚偏彩色，靠 .lmap 的 CSS filter 降飽和，維持原本淡色底圖、讓彩色標記跳出來。
+    // 實際道路路線（非直線）。2026/10 以 OSRM 預先算好、把幾何烤進本檔，
+    // 執行時不打任何外部路徑 API——這樣就算哪天路徑服務停掉，地圖照常可用。
+    // key：'<day>-<stopIndex>'，帶 v 者為該站 via 中繼點之前的那一小段。
+    var ROUTES = {"1-1":"il}~Cc~bjW}n@xBtHaCxAsKcHuI}Oac@yVgWsKua@mKeHBkEzDmB_Xok@sWmCasAq@kCyDeBkRmFoIwU{Mae@cLg`Bs|AxPuMf@hFcBpB|b@hVt@cD","1-2":"{qh_DcimjWu@bD{b@wUv@qIcPrLsBoCyDuTr@{~Am^ah@uMyo@{lA{qByaBg[{gAx]st@nj@_v@lCyr@jXe{@nIgPiMyE}e@kVoPp@ao@m[o}@","1-3":"g}|_Dm}zjWgGk~@lb@}j@~Tmp@oPaLaB{ZrOkZg@iPyZoIac@c`@kVeDlEjNaFbIeIgK_i@eCuk@wWqZm@{m@|Ru_Atu@}u@~Bok@oRsb@ga@sUoi@qRcnAma@wb@qt@oPoOnSeViMeo@hBcf@oZi[fXks@xFs\\yVsn@sTaTrL","1-4":"kpw`DoxikWNaAxKoIhBgEbNmGkBePvAp@nDgBDoAq@eAHaE~DwFcMkNwHuOkU}`@c@kG`AwSbB~@lBe@rBjANsA","1-5":"miw`DuwnkWOrAsBkAmBd@cB_Aw@hMHdL`AzCxSt]lGxMlNfPd\\zd@bD|C`E|AjE\\xPeAvFHfG~AzFdEbDrEnAfDzEjW{Ox@f@mAcA?","2-1":"miw`DuwnkWqFl@cMyDK}EvC{EbKcDnOye@i@aM}JkL}M`@uKqIyWsEqCmJ~Bo\\ih@ip@FwFjIaNXiXrE_HB}EuHgIoMsAkGcGmJk@uKqG}LaWyT_VyVyEaKoJyCkMhC_[rF{NkB}LiWs\\wRqN{KqC_DgJAuYvVyFlDeU{IeHgSwA_Q}HgOmAoMmU{R{MfZxU","2-2":"k}`aDu`alWjEpK~MhCsNmBeq@uv@oj@eXcd@gEuXsQq]wCik@xRgd@d{AkQfL{HmBiOncA~DjIcQvUzB~u@}Gxc@sYh`@wHdXxC|a@fa@zR`LhUua@flBso@bAu~@`o@wg@|Duq@p]ynAnGg_A{bAcr@pHqZkHyBvLyKzEev@fIa~@be@sS|@jl@pTkCuI","2-3":"}q|aDidokWjCtIwZkNwOcA[aCqEy@jDeIeHoHpEw\\jLea@JyJ`GcMoAgRnDeWgL{w@uGgNkEku@`Kqf@iLg@_Caf@aGoC_@}TtKaq@tJuCtBiTcAcX`DkOdOqHvQeV|Ek@lFsSjg@_R|JgVjVqMvMuNvJaAhQuIbb@_gB}KiFeBcFeSsCsAyKwHuHYoJ`CqIy_Beu@","2-4":"{r{aDerjlWx_Bdu@z@sCzEnMdMdBrFmCdEhD|Q[tOaZtDqUtUeNlPuRfDeh@zLuDvQiYpFsA`^fFlTqAl^uN~`@br@nUbVhElL~g@de@pHzk@`MjN~FtOvTpR~@pI}BvX`EtZ_Cn`@bp@jaB~GlGrIfBbOkAnCoEbDdJhDSbIyg@","2-5":"gohaDmsalWrNib@}IkHsMfNmZuKcm@nZoZsx@`@m}A}j@kt@qH{k@_h@ee@y}@uvAm^tNa{@aAs^p_@gErg@cg@za@kUrp@}m@eB{EoMkoCqhAsEDyAzM}VwQkLjElD~F","3-1":"miw`DuwnkWOrAeIeBaAzTt@rGd_@bq@xn@hx@lKzBrW_AhK`D`JdLdGhZhJwCjOoQ`DkBpFv@lO`PfIjEnQuDbCqG|Fb@dIuF|EO`E}FpIeBxInDjAxBfFkAfApAR|DfAf@iJ`FtCbDgB`BdBhC{DdG","3-2":"qon`DithkWzDeGeBiCfBaBuCcDjN}GtC`C|DkBdDvDkFmCqFnGjPiA`j@rU|OjNxIvOlO`{@rTnAgGji@fMxZz@bRyCrLqV`^kBvHpOth@f@nQ_IxVdNtY^v^kO`Vo@jYkHbQ\\ta@lGnFlKtW~T~PrEpY|L~GdIlLh^fu@mAtn@{KvUbAbEya@zGiNtIoJdU|CbPQfPkHdIiHx@qSnO","3-3":"w~j`DkaojWh]uQvHuPpm@lLv_@wM|fCeHvYgRuCcHnn@g`@v^czAzhAqBj{@_Sza@~Vlv@eIvt@yX~x@qDxs@mj@hF`P~SxD","3-4":"uxr_DufwjWoGxAmDmIn[}HuCyQja@}OfaBr[p^vh@fX|m@pU|Z~K~l@|\\~g@bQ|DrOcEzf@vCzNaKpT|@hIt\\lm@faA|cAr^nU~QqFdIfl@|w@wBjB","3-5":"uia_Dg`kjWmLnKMQdP{NbCrCxBv@zF^JWjFWK}@dCiA^k@~@}CP_ChAa@","3-6":"ce`_D}mkjWtEmBhAtCsCfQrC|CyDhKN|D}@`@oOrYpO~GnPxLjVbYoDnU{FmAMz@","4-1":"gh__Du`gjWL{@y@OgBDQv@mFzGnAtAqGbI?z@Gj@qDzKi@[k@eA","4-2":"mc`_Dk~ejWtA`BpD{Kl\\tEjIcAvRyi@pJrAnKjEtFpKHnL{HxWjApG`FnEr_@fFxW|NnZ@tYjQhd@jErl@vOhi@|DzSwDh^wWhSgI`fCag@}CqO_EDRcH","4-3":"{mo~CcgfjWSbHoJYam@bLnDjVkmAzVyLtFuPfM","4-4":"mpt~ColcjWwNtJ_GbByEf@wG?e\\}BsUcDV{CzFuItAuFNeHgAoKbPkCeC}R","4-5":"auv~CwjejWdC|R{N`ChAdM?dB_@hEkAhEeBzC{ClDu@|CbAve@yKnCKr@^vA","4-6v":"suw~C{uajWSkCxKoCcAwe@mKmBgRyHkf@gFgY_QoFi@sRl@sVuNqTeBkLsDsDiEy@qGlGaTp@mLsCcJqHwF{j@cK{DrS{FmAMz@","4-6":"gh__Du`gjWL{@zFlAfDsTaByAsI{KxF_H_FyR{BiC|@y@jEsA_B_Hz@o@vAcCvACLwBdAJQhA","5-1":"gh__Du`gjWL{@zFlAnDoUrElBf^dF|H`CdDtCdBpCjAxD\\bEg@rH}GnR?fErAdE`CdClElBrEbAvSvAtEdB|DlCsa@zj@cDvCN|Ac@dCgBZsKBAy@"};
+
+    // Google encoded polyline 解碼（精度 5）
+    function decodePoly(str){
+      var pts=[],idx=0,lat=0,lng=0,b,shift,result;
+      while(idx<str.length){
+        shift=0;result=0;
+        do{ b=str.charCodeAt(idx++)-63; result|=(b&0x1f)<<shift; shift+=5; }while(b>=0x20);
+        lat+=(result&1)?~(result>>1):(result>>1);
+        shift=0;result=0;
+        do{ b=str.charCodeAt(idx++)-63; result|=(b&0x1f)<<shift; shift+=5; }while(b>=0x20);
+        lng+=(result&1)?~(result>>1):(result>>1);
+        pts.push([lat*1e-5,lng*1e-5]);
+      }
+      return pts;
+    }
+    var polyCache={};
+    function legPts(k,i,isVia){
+      var key=k+'-'+i+(isVia?'v':'');
+      if(!ROUTES[key]) return null;
+      if(!polyCache[key]) polyCache[key]=decodePoly(ROUTES[key]);
+      return polyCache[key];
+    }
+    // 標籤放在「沿路線的一半距離」處，比直線中點更貼著實際路徑
+    function pathMid(pts){
+      if(!pts||pts.length<2) return null;
+      var d=[0],t=0,i;
+      for(i=1;i<pts.length;i++){
+        var dy=pts[i][0]-pts[i-1][0], dx=(pts[i][1]-pts[i-1][1])*Math.cos(pts[i][0]*Math.PI/180);
+        t+=Math.sqrt(dy*dy+dx*dx); d.push(t);
+      }
+      for(i=1;i<d.length;i++) if(d[i]>=t/2){
+        var f=(t/2-d[i-1])/((d[i]-d[i-1])||1);
+        return [pts[i-1][0]+(pts[i][0]-pts[i-1][0])*f, pts[i-1][1]+(pts[i][1]-pts[i-1][1])*f];
+      }
+      return pts[Math.floor(pts.length/2)];
+    }
+
     var TILE='https://tile.openstreetmap.org/{z}/{x}/{y}.png';
     var TILE_OPT={attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',maxZoom:19};
     var TILE_FALLBACK='https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
@@ -1721,19 +1762,38 @@
       var a=[]; DAYS[k].stops.forEach(function(p){ if(p.via) a.push(p.via); a.push([p.lat,p.lng]); }); return a;
     }
     function mid(a,b){ return [(a[0]+b[0])/2,(a[1]+b[1])/2]; }
+    // 每段各自畫線：有預存的真實道路幾何就照實走，沒有才退回直線。
+    // 行車段畫實線、步行段畫虛線，與圖例的 🚗／🚶 對應。
+    function drawLeg(grp,color,pts,walk){
+      L.polyline(pts,walk
+        ? {color:color,weight:3.5,opacity:.85,dashArray:'2,7',lineCap:'round'}
+        : {color:color,weight:4,opacity:.85,lineCap:'round',lineJoin:'round'}).addTo(grp);
+    }
     function drawDay(map,k){
-      var color=DAYS[k].color, stops=DAYS[k].stops, pts=dayLatLngs(k), grp=L.layerGroup().addTo(map);
-      L.polyline(pts,{color:color,weight:4,opacity:.9,dashArray:'1,9',lineCap:'round'}).addTo(grp);
-      stops.forEach(function(p){ L.marker([p.lat,p.lng],{icon:pinIcon(p,color)}).addTo(grp).bindPopup(popupHtml(p)); });
+      var color=DAYS[k].color, stops=DAYS[k].stops, grp=L.layerGroup().addTo(map);
       for(var i=1;i<stops.length;i++){
-        var a=[stops[i-1].lat,stops[i-1].lng], b=stops[i], bLL=[b.lat,b.lng];
+        var a=[stops[i-1].lat,stops[i-1].lng], b=stops[i], bLL=[b.lat,b.lng], seg;
         if(b.via){
-          if(b.viaDrive) L.marker(mid(a,b.via),{interactive:false,icon:legIcon(color,b.viaDrive,false)}).addTo(grp);
+          seg=legPts(k,i,true)||[a,b.via];
+          drawLeg(grp,color,seg,false);
+          if(b.viaDrive) L.marker(pathMid(seg)||mid(a,b.via),{interactive:false,icon:legIcon(color,b.viaDrive,false)}).addTo(grp);
           a=b.via;
         }
-        L.marker(mid(a,bLL),{interactive:false,icon:legIcon(color,b.drive,b.walk)}).addTo(grp);
+        seg=legPts(k,i,false)||[a,bLL];
+        drawLeg(grp,color,seg,!!b.walk);
+        L.marker(pathMid(seg)||mid(a,bLL),{interactive:false,icon:legIcon(color,b.drive,b.walk)}).addTo(grp);
       }
+      stops.forEach(function(p){ L.marker([p.lat,p.lng],{icon:pinIcon(p,color)}).addTo(grp).bindPopup(popupHtml(p)); });
       return grp;
+    }
+    // 取景要把整條路線framed進去，不能只看站點（彎路會被切掉）
+    function dayFitPts(k){
+      var a=dayLatLngs(k), stops=DAYS[k].stops;
+      for(var i=1;i<stops.length;i++){
+        if(stops[i].via){ var v=legPts(k,i,true); if(v) a=a.concat(v); }
+        var m=legPts(k,i,false); if(m) a=a.concat(m);
+      }
+      return a;
     }
 
     // per-day maps
@@ -1741,7 +1801,7 @@
     Object.keys(DAYS).forEach(function(k){
       var el=document.getElementById('geo-map-d'+k); if(!el) return;
       var m=L.map(el,{scrollWheelZoom:false,zoomControl:true}); addBaseLayer(m);
-      drawDay(m,k); var b=L.latLngBounds(dayLatLngs(k)).pad(0.28); m.fitBounds(b);
+      drawDay(m,k); var b=L.latLngBounds(dayFitPts(k)).pad(0.12); m.fitBounds(b);
       dayMaps['tab-d'+k]={map:m,bounds:b};
     });
 
@@ -1751,7 +1811,7 @@
     if(allEl){
       allMap=L.map(allEl,{scrollWheelZoom:false,zoomControl:true}); addBaseLayer(allMap);
       var allPts=[];
-      Object.keys(DAYS).forEach(function(k){ allGroups[k]=drawDay(allMap,k); allPts=allPts.concat(dayLatLngs(k)); });
+      Object.keys(DAYS).forEach(function(k){ allGroups[k]=drawDay(allMap,k); allPts=allPts.concat(dayFitPts(k)); });
       allBounds=L.latLngBounds(allPts).pad(0.12); allMap.fitBounds(allBounds);
       var bar=document.getElementById('geo-toggle-all');
       if(bar){
@@ -1761,7 +1821,7 @@
           btn.addEventListener('click',function(){
             Array.prototype.forEach.call(bar.children,function(c){c.classList.remove('active');}); btn.classList.add('active');
             if(key==='all'){ Object.keys(allGroups).forEach(function(kk){allMap.addLayer(allGroups[kk]);}); allMap.fitBounds(allBounds); }
-            else { Object.keys(allGroups).forEach(function(kk){ if(kk===String(key)) allMap.addLayer(allGroups[kk]); else allMap.removeLayer(allGroups[kk]); }); allMap.fitBounds(L.latLngBounds(dayLatLngs(key)).pad(0.28)); }
+            else { Object.keys(allGroups).forEach(function(kk){ if(kk===String(key)) allMap.addLayer(allGroups[kk]); else allMap.removeLayer(allGroups[kk]); }); allMap.fitBounds(L.latLngBounds(dayFitPts(key)).pad(0.12)); }
           });
           return btn;
         };
