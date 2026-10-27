@@ -12,6 +12,107 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  // 語系切換：中文內文就是原稿，日文放在 i18n/ja.js 的 { 中文原句: 日文 } 字典。
+  // 逐一比對文字節點（空白正規化後整段比對），查不到就保留中文；之後才插入的節點（地圖標籤、彈出框、天氣列）由 MutationObserver 補翻。
+  // 改了中文內文就要同步改字典；切到日文後在 console 執行 i18nMissing() 可列出缺漏的句子。
+  (function(){
+    var DICT_SRC = 'i18n/ja.js?v=4.27';
+    var FONT_JA = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap';
+    var HAN = /[\u3400-\u9fff\u3041-\u30fa]/;  // \u6f22\u5b57\uff0b\u5047\u540d\uff0c\u4e0d\u542b\u300c\u30fb\u300d
+    var ATTRS = ['alt','aria-label','title'];
+    var root = document.documentElement;
+    var lang = 'zh', dict = null, loading = null, observer = null, ready = false;
+    var origText = new WeakMap(), origAttr = new WeakMap(), origTitle = null, missing = new Set();
+
+    function store(k, v){ try{ localStorage.setItem(k, v); }catch(e){} }
+    function saved(){
+      var q = /[?&]lang=(ja|zh)\b/.exec(location.search);
+      if(q){ store('lang', q[1]); return q[1]; }
+      try{ return localStorage.getItem('lang') === 'ja' ? 'ja' : 'zh'; }catch(e){ return 'zh'; }
+    }
+    function norm(s){ return s.replace(/\s+/g, ' ').trim(); }
+    function tr(s){
+      var k = norm(s);
+      if(!k || !HAN.test(k)) return s;
+      if(!Object.prototype.hasOwnProperty.call(dict, k)){ missing.add(k); return s; }
+      return s.match(/^\s*/)[0] + dict[k] + s.match(/\s*$/)[0];
+    }
+    function skip(el){ return !el || el.closest('script,style,[translate="no"]'); }
+    function text(n){
+      if(skip(n.parentElement)) return;
+      if(!origText.has(n)){ if(lang === 'zh') return; origText.set(n, n.nodeValue); }
+      var zh = origText.get(n), out = lang === 'ja' ? tr(zh) : zh;
+      if(n.nodeValue !== out) n.nodeValue = out;
+    }
+    function attrs(el){
+      if(skip(el)) return;
+      ATTRS.forEach(function(a){
+        if(!el.hasAttribute(a)) return;
+        var o = origAttr.get(el) || {};
+        if(!(a in o)){ if(lang === 'zh') return; o[a] = el.getAttribute(a); origAttr.set(el, o); }
+        var out = lang === 'ja' ? tr(o[a]) : o[a];
+        if(el.getAttribute(a) !== out) el.setAttribute(a, out);
+      });
+    }
+    function walk(node){
+      if(node.nodeType === 3){ text(node); return; }
+      if(node.nodeType !== 1) return;
+      attrs(node);
+      node.querySelectorAll('[' + ATTRS.join('],[') + ']').forEach(attrs);
+      var w = document.createTreeWalker(node, NodeFilter.SHOW_TEXT), n;
+      while((n = w.nextNode())) text(n);
+    }
+    function apply(){
+      root.lang = lang === 'ja' ? 'ja' : 'zh-Hant';
+      if(origTitle === null) origTitle = document.title;
+      document.title = lang === 'ja' ? tr(origTitle) : origTitle;
+      walk(document.body);
+      document.querySelectorAll('.lang-sw button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang)); });
+      if(!observer && lang === 'ja'){
+        observer = new MutationObserver(function(muts){
+          if(lang !== 'ja') return;
+          muts.forEach(function(m){ m.addedNodes.forEach(walk); });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      }
+      root.classList.remove('i18n-wait');
+    }
+    function loadJa(){
+      if(dict) return Promise.resolve();
+      if(!loading) loading = new Promise(function(res, rej){
+        var f = document.createElement('link'); f.rel = 'stylesheet'; f.href = FONT_JA; document.head.appendChild(f);
+        var s = document.createElement('script'); s.src = DICT_SRC;
+        s.onload = function(){ dict = window.I18N_JA || {}; res(); };
+        s.onerror = function(){ loading = null; rej(); };
+        document.head.appendChild(s);
+      });
+      return loading;
+    }
+    function setLang(next){
+      store('lang', next);
+      if(next === 'zh'){ lang = 'zh'; if(ready) apply(); return; }
+      loadJa().then(function(){ lang = 'ja'; if(ready) apply(); }, function(){
+        root.classList.remove('i18n-wait');
+        alert('日本語辞書を読み込めませんでした（i18n/ja.js）。');
+      });
+    }
+    window.i18nMissing = function(){ return Array.from(missing); };
+
+    if(saved() === 'ja'){
+      root.classList.add('i18n-wait');
+      setTimeout(function(){ root.classList.remove('i18n-wait'); }, 3000);
+      setLang('ja');
+    }
+    document.addEventListener('DOMContentLoaded', function(){
+      ready = true;
+      document.querySelectorAll('.lang-sw button').forEach(function(b){
+        b.addEventListener('click', function(){ setLang(b.getAttribute('data-lang')); });
+      });
+      if(lang === 'ja') apply();
+    });
+  })();
+</script>
 <style>
   :root{
     /* 和の伝統色：深藍綠を基調に、柿色をただ一つのアクセントとして */
@@ -51,6 +152,18 @@
   .hero-toggle:hover{background:#fff;border-color:var(--sky-deep);}
   .hero-toggle:focus-visible{outline:2px solid var(--sun-deep);outline-offset:2px;}
   .hero-toggle .ht-ico{color:var(--sun-deep);font-size:.9rem;line-height:1;}
+  /* 語系切換：繁中／日本語（日文字典 i18n/ja.js 只在切到日文時才載入） */
+  .lang-sw{position:absolute;top:14px;left:14px;z-index:4;display:inline-flex;border:1px solid var(--line);border-radius:2px;
+    background:rgba(255,255,255,.92);backdrop-filter:blur(3px);overflow:hidden;}
+  .lang-sw button{font-family:var(--gothic);font-weight:700;font-size:.76rem;letter-spacing:.06em;cursor:pointer;
+    border:0;background:transparent;color:var(--ink-soft);padding:7px 12px;line-height:1.2;transition:background .15s,color .15s;}
+  .lang-sw button+button{border-left:1px solid var(--line);}
+  .lang-sw button:hover{color:var(--ink);background:#fff;}
+  .lang-sw button[aria-pressed="true"]{background:var(--sky-deep);color:#fff;}
+  .lang-sw button:focus-visible{outline:2px solid var(--sun-deep);outline-offset:-2px;}
+  html.i18n-wait body{visibility:hidden;}
+  html[lang="ja"]{--serif:"Noto Serif JP",serif;}
+  html[lang="ja"] body,html[lang="ja"] .leaflet-popup-content{font-family:"Noto Sans JP",sans-serif;}
   /* 全螢幕地圖檢視器：雙指縮放／拖曳／點兩下放大 */
   .mv{position:fixed;inset:0;z-index:9999;background:#101819;overscroll-behavior:contain;}
   .mv[hidden]{display:none;}
@@ -341,7 +454,7 @@
     @page{margin:14mm 12mm;}
     html,body{background:#fff!important;color:#000;font-size:10.5pt;line-height:1.7;}
     .wrap{max-width:none;padding:0;}
-    .tabnav,.bk-toc,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle,.mv{display:none!important;}
+    .tabnav,.bk-toc,.geo-toggle,.geo-map .lmap,.geo-leg,.hero-toggle,.lang-sw,.mv{display:none!important;}
     header.hero{min-height:150px;}
     .hero-scrim{background:rgba(255,255,255,.9)!important;}
     .tab-panel{display:block!important;animation:none!important;}
@@ -384,11 +497,14 @@
     </div>
     <button type="button" class="mv-close" id="mvClose" aria-label="關閉地圖">✕</button>
   </div>
+  <div class="lang-sw" role="group" aria-label="Language" translate="no">
+    <button type="button" data-lang="zh" aria-pressed="true" lang="zh-Hant">繁中</button><button type="button" data-lang="ja" aria-pressed="false" lang="ja">日本語</button>
+  </div>
   <button type="button" class="hero-toggle" id="heroOpenMap" aria-haspopup="dialog">
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ v4.26 · 更新 2026/10/27</div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ <span>v4.27</span> · 更新 <span>2026/10/27</span></div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -1402,7 +1518,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.26</strong> ｜ 最後更新 <strong>2026/10/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.27</strong> ｜ 最後更新 <strong>2026/10/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
@@ -1759,10 +1875,11 @@
       var html='<div class="geo-pin'+(hotel?' geo-pin-hotel':'')+(food?' geo-pin-food':'')+'" style="background:'+color+'"><span>'+p.n+'</span>'+(tag?'<i class="geo-pin-tag">'+tag+'</i>':'')+'</div>';
       return L.divIcon({className:'',html:html,iconSize:[30,30],iconAnchor:[15,28],popupAnchor:[0,-28]});
     }
-    function legIcon(color,txt,walk){ return L.divIcon({className:'',html:'<div class="geo-drive" style="color:'+color+'">'+(walk?'🚶 ':'🚗 ')+txt+'</div>',iconSize:[0,0]}); }
+    // 每個資料字串各自包一層 span，語系切換才能整段比對字典
+    function legIcon(color,txt,walk){ return L.divIcon({className:'',html:'<div class="geo-drive" style="color:'+color+'">'+(walk?'🚶 ':'🚗 ')+'<span>'+txt+'</span></div>',iconSize:[0,0]}); }
     function popupHtml(p){
-      var meta=(p.drive?(p.walk?'🚶 ':'🚗 ')+p.drive+' · ':'')+p.meta;
-      var nm=(p.kind==='hotel'?'🏨 ':'')+p.n+'. '+p.name;
+      var meta=(p.drive?(p.walk?'🚶 ':'🚗 ')+'<span>'+p.drive+'</span> · ':'')+'<span>'+p.meta+'</span>';
+      var nm=(p.kind==='hotel'?'🏨 ':'')+p.n+'. <span>'+p.name+'</span>';
       return '<div class="geo-pop-nm">'+nm+'</div><div class="geo-pop-meta">'+meta+'</div><div class="geo-pop-note">'+p.note+'</div>';
     }
     // A stop may carry a `via` waypoint ([lat,lng]) the route passes through before reaching it
@@ -1880,7 +1997,7 @@
     Object.keys(WX).forEach(function(k){
       var mb=document.querySelector('#tab-d'+k+' .map-box'); if(!mb) return;
       var w=document.createElement('div'); w.className='wx';
-      w.innerHTML='<div class="wx-hd">🌤️ 當天天氣（'+WX[k].date+'・更新時間 10/27）<span class="leg">🌡️氣溫℃ · ☔降雨機率% · ☀️UV（綠低/黃中/橘高）</span></div>'+drawWx(WX[k])+'<div class="wx-note">＊10/27 擷取 Open-Meteo（ECMWF／GFS 數值預報），各日取當天主要停留地點：Day1 恩納、Day2 本部古宇利、Day3 北谷、Day4 豐見城、Day5 那霸，時段已對齊各日實際行程。距出發 2–6 天，<strong>可信度已明顯提高</strong>；與 10/22 那版相比：<strong>10/30 更濕（午後最高 73%）</strong>，而原本預期 11/1 的降溫提前到 10/31 傍晚且幅度變小，<strong>10/31–11/2 轉為晴朗</strong>。出發前一天可再看一次 10/30 的降雨</div>';
+      w.innerHTML='<div class="wx-hd">🌤️ 當天天氣<span>（'+WX[k].date+'・</span>更新時間<span> 10/27）</span><span class="leg">🌡️氣溫℃ · ☔降雨機率% · ☀️UV（綠低/黃中/橘高）</span></div>'+drawWx(WX[k])+'<div class="wx-note">＊10/27 擷取 Open-Meteo（ECMWF／GFS 數值預報），各日取當天主要停留地點：Day1 恩納、Day2 本部古宇利、Day3 北谷、Day4 豐見城、Day5 那霸，時段已對齊各日實際行程。距出發 2–6 天，<strong>可信度已明顯提高</strong>；與 10/22 那版相比：<strong>10/30 更濕（午後最高 73%）</strong>，而原本預期 11/1 的降溫提前到 10/31 傍晚且幅度變小，<strong>10/31–11/2 轉為晴朗</strong>。出發前一天可再看一次 10/30 的降雨</div>';
       mb.parentNode.insertBefore(w, mb);
     });
   });
