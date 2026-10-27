@@ -17,7 +17,7 @@
   // 逐一比對文字節點（空白正規化後整段比對），查不到就保留中文；之後才插入的節點（地圖標籤、彈出框、天氣列）由 MutationObserver 補翻。
   // 改了中文內文就要同步改字典；切到日文後在 console 執行 i18nMissing() 可列出缺漏的句子。
   (function(){
-    var DICT_SRC = 'i18n/ja.js?v=4.28';
+    var DICT_SRC = 'i18n/ja.js?v=4.29';
     var FONT_JA = 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap';
     var HAN = /[\u3400-\u9fff\u3041-\u30fa]/;  // \u6f22\u5b57\uff0b\u5047\u540d\uff0c\u4e0d\u542b\u300c\u30fb\u300d
     var ATTRS = ['alt','aria-label','title'];
@@ -504,7 +504,7 @@
     <span class="ht-ico" aria-hidden="true">⛶</span><span class="ht-txt">只看地圖</span>
   </button>
   <div class="wrap">
-    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ <span>v4.28</span> · 更新 <span>2026/10/27</span></div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N ｜ <span>v4.29</span> · 更新 <span>2026/10/27</span></div>
     <h1>沖繩五天四夜<br>親子包車旅遊規劃書</h1>
     <p class="sub">🍁 秋季出遊 10/29–11/2（四～一）｜ 3 位 1–2 歲幼童同行安心版。前段住中北部享無敵海景、後段住那霸玩遍市區，慢節奏、離島絕景、<strong>10/31 美國村萬聖節</strong>、Outlet × 巨型商場血拼、無障礙與完美雨備。</p>
     <div class="pills">
@@ -526,7 +526,7 @@
     <div class="sec-label">基本資訊與在意關鍵</div>
     <h2 class="sec-title">出發前的安心確認</h2>
     <div class="info-row"><span class="k">住宿飯店</span><span class="v"><strong>前 2 晚：星野 BEB5 沖繩瀨良垣</strong>（恩納村·離中北部景點近，約 <strong>NT$5,000–6,000</strong>／晚）；<strong>後 2 晚：OMO5 沖繩那霸</strong>（鄰那霸市區與機場，約 <strong>NT$3,000–4,000</strong>／晚）。BEB5 已訂 <strong>4 間房</strong>（三人房×2＋四人房×1＋雙人房×1、9 大 3 小，訂單 BOSTTA261730）、OMO5 後 2 晚待確認；BEB5 為公寓式設計附大客廳、微波爐、大冰箱，適合處理寶寶副食品。</span></div>
-    <div class="info-row"><span class="k">交通方式</span><span class="v">全程<strong>包車 2 台（Alphard 阿法＋HiAce 海獅、日文與中文司機各一），每日 10 小時 × 4 天</strong>，配備 <strong>3 張嬰兒安全座椅</strong>；行李集中海獅、阿法純載客更寬敞。<strong>11/2（Day5）不含包車</strong>、往機場自理。費用 <strong>NT$1,650／人／日</strong>，全程合計 <strong>NT$79,200（訂金已付）</strong>。</span></div>
+    <div class="info-row"><span class="k">交通方式</span><span class="v">全程<strong>包車 2 台（Alphard 阿法＋HiAce 海獅、日文與中文司機各一），每日 10 小時 × 4 天</strong>，配備 <strong>3 張嬰兒安全座椅</strong>；行李集中海獅、阿法純載客更寬敞。<strong>11/2（Day5）不含包車</strong>、往機場自理。費用 <strong>NT$1,650／人／日</strong>，全程合計 <strong>NT$79,200（10/27 已全額付清）</strong>。</span></div>
     <div class="info-row"><span class="k">同行成員</span><span class="v"><strong>大人 9 位</strong>、<strong>1–2 歲幼童 3 位</strong>（共 12 人）。含新加入的<strong>梓宣（楷婷姊）</strong>、<strong>巧倫妹</strong> 2 位大人，及幼童<strong>萱萱（曹皓萱）</strong>。</span></div>
     <div class="info-row"><span class="k">行程核心</span><span class="v">慢節奏、知名景點、離島絕景、市區參拜與血拼、<strong>無障礙</strong>與完美<strong>雨備</strong>。</span></div>
     <div class="info-row"><span class="k">動線原則</span><span class="v"><strong>依地理大致由北而南分段、行李只搬一次</strong>：前段（Day1–2）住 BEB5 玩中北部（萬座毛、美麗海、古宇利），Day3 早上在 BEB5 悠閒＋恩納道の駅快閃後一路南下、傍晚在北谷玩美國村萬聖節＋夕陽後入住 OMO5 那霸，後段（Day4–5）集中玩那霸·南部（波上宮、糸滿魚市場、豐崎 DMM 水族館、Ashibinaa、瀨長島夕陽；國際通改晚上從 OMO5 步行）後直奔機場。</span></div>
@@ -598,7 +598,7 @@
       <h3 class="sec-label" style="margin-top:10px;">全程通用提醒（各日 tab 不再重複）</h3>
       <div class="ov-card"><b>🏨 住宿兩段</b><span>前 2 晚 <strong>BEB5 瀨良垣</strong>（恩納村·公寓式附廚房，約 NT$5,000–6,000/晚）；後 2 晚 <strong>OMO5 那霸</strong>（鄰國際通·距機場約 15 分，約 NT$3,000–4,000/晚）。僅 Day 3 退房南下時搬一次行李。</span></div>
       <div class="ov-card"><b>🧭 動線原則</b><span>大致由北而南：Day1–2 待中北部玩萬座毛、美麗海、古宇利；Day3 早上悠閒（BEB5＋恩納道の駅吃午餐）後一路南下、中午拍殘波岬、下午到傍晚玩美國村萬聖節＋夕陽，17:50 離場後到那霸新都心<strong>分兩隊各 90 分</strong>（購物組逛 <strong>SPORTS DEPO 天久店</strong>、育兒組玩 <strong>teamLab 未來遊樂園</strong>），在同區會合吃晚餐，約 21:00 入住那霸；Day4 由北往南單向推進（波上宮→糸滿魚市場→豐崎 DMM 水族館→Ashibinaa→瀨長島夕陽），晚上回 OMO5 步行逛國際通；Day5 最後一線往機場。</span></div>
-      <div class="ov-card"><b>🚐 包車配置</b><span>全程包車 <strong>2 台・每日 10 小時 × 4 天（10/29–11/1）</strong>：<strong>Alphard 阿法（日文司機）</strong>載 4 大 2 小、不放行李；<strong>HiAce 海獅（中文司機・大台）</strong>載 5 大 1 小並集中放 9 個大行李箱。3 張嬰兒安全座椅（阿法 2／海獅 1，適合 1–2 歲）。<strong>11/2（Day5）不含包車</strong>，退房後往機場自理（計程車）。費用 NT$1,650／人／日，全程合計 NT$79,200（訂金已付）。</span></div>
+      <div class="ov-card"><b>🚐 包車配置</b><span>全程包車 <strong>2 台・每日 10 小時 × 4 天（10/29–11/1）</strong>：<strong>Alphard 阿法（日文司機）</strong>載 4 大 2 小、不放行李；<strong>HiAce 海獅（中文司機・大台）</strong>載 5 大 1 小並集中放 9 個大行李箱。3 張嬰兒安全座椅（阿法 2／海獅 1，適合 1–2 歲）。<strong>11/2（Day5）不含包車</strong>，退房後往機場自理（計程車）。費用 NT$1,650／人／日，全程合計 NT$79,200（10/27 已全額付清）。</span></div>
       <div class="ov-card"><b>😴 車上補眠</b><span>長車程（Day1 PARCO 北上恩納約 50 分、Day2 古宇利返程 70 分）刻意對齊寶寶午睡時間，讓孩子在有冷氣的汽座上安穩補眠，抵達景點剛好精神飽滿。</span></div>
       <div class="ov-card"><b>🍽️ 12 人訂位</b><span>9 大 3 小共 12 人，熱門餐廳座位有限且多需座敷。行前先以電話／官網預約，並備註「3 位幼兒需兒童椅／座敷」。商場美食街選擇多，可現場彈性處理。</span></div>
       <div class="ov-card"><b>☔ 雨備</b><span>Day 4 的雨備<strong>已內建在行程上</strong>：遇雨直接延長「DMM かりゆし水族館＋iias 沖繩豐崎」（同一棟、全室內、育嬰室完備）、砍掉傍晚的瀨長島即可，完全不必移動。若整天大雨想換更大場地，遠端備案是「AEON MALL 沖繩來客夢 Rycom」（巨型室內商場、頂級育嬰室、免費兒童造型推車，距 OMO5 約 25 分）。</span></div>
@@ -1458,7 +1458,7 @@
       </div>
       <div class="bk-note">預約時統一備註「<strong>12 人、3 位幼兒需兒童椅／座敷</strong>」。最熱門的<strong>目利きの銀次約提前 1 個月</strong>；美國村午餐建議提前 2–4 週。<strong>Day 1 恩納阿古豬涮涮鍋（Ocean Boo! 恩納萬座店）已訂位完成，不需再處理</strong>。<br>⚠️ <strong>注意日期對應</strong>：<strong>11/1 是週日</strong>，Yunangi ゆうなんぎい 週日公休、已從候選移除；訂位前請再確認各店 11/1 當天是否營業、能否容納 12 人並提供包廂或兒童椅。<strong>Day 4 晚餐建議避開 Agu 豬涮涮鍋</strong>（Day 1 恩納已吃過）。</div>
 
-      <div class="bk-h" id="bk-car" data-toc="🚐 包車・接送">🚐 包車・接送交通 <span class="bk-badge ok">訂金已付</span></div>
+      <div class="bk-h" id="bk-car" data-toc="🚐 包車・接送">🚐 包車・接送交通 <span class="bk-badge ok">已付清</span></div>
       <div class="bk-card" id="bk-car-oka" data-toc="沖繩包車 2 台">
         <div class="bk-nm">包車 2 台・每日 10 小時 × 4 天（10/29–11/1）</div>
         <div class="bk-row"><span class="bk-k">第一台</span><span class="bk-v"><strong>Alphard 阿法（日文司機・約 7 座）</strong>：4 大 2 小・<strong>不放行李</strong>（純載客更寬敞）</span></div>
@@ -1469,7 +1469,7 @@
         <div class="bk-row"><span class="bk-k">每日時數</span><span class="bk-v"><strong>Day1 13:00–20:10＝7h10</strong>（餘裕 2h50）｜<strong>Day2 9:00–17:50＝8h50</strong>（餘裕 1h10）｜<strong>Day3 11:00–21:00＝10h00</strong>（餘裕 0，僅剩內建 20 分停車緩衝）｜<strong>Day4 9:00–18:00＝9h00</strong>（餘裕 1h）· <span style="color:#a9443a;"><strong>四天皆在 10 小時額度內</strong>，Day3 剛好壓線</span></span></div>
         <div class="bk-row"><span class="bk-k">餐食</span><span class="bk-v">不含（早／午／晚自理）</span></div>
         <div class="bk-row"><span class="bk-k">費用</span><span class="bk-v"><strong>NT$1,650／人／日</strong>，全程合計 <strong>NT$79,200</strong>（12 人 × 4 天，每日 10 小時）</span></div>
-        <div class="bk-row"><span class="bk-k">狀態</span><span class="bk-v"><span class="bk-badge ok">訂金已付</span> · 車行名稱／訂單編號／司機聯絡方式 <strong>待補</strong></span></div>
+        <div class="bk-row"><span class="bk-k">狀態</span><span class="bk-v"><span class="bk-badge ok">已付清</span> · 訂金 NT$39,600＋<strong>尾款 NT$39,600（10/27 付清）</strong> · 車行名稱／訂單編號／司機聯絡方式 <strong>待補</strong></span></div>
         <div class="bk-note">⚠️ <strong>11/2（Day5）不含包車</strong>：退房後往那覇機場請自理（計程車約 15 分，12 人約需 2–3 台）。簽約備註：阿法裝 2 張、海獅裝 1 張安全座椅；海獅後車廂需容 9 個大行李箱＋嬰兒推車。<br>
         <strong>🕙 每日 10 小時額度盤點（計時＝首次上車 → 當日最後下車，中間閒置也算）</strong><br>
         · <strong>Day 1（7h10）</strong>：13:00 機場集合出發 → PARCO 150 分 → <strong>道の駅かでな 30 分</strong> → 萬座毛 30 分 → 17:55 BEB5 入住放行李 → 18:30 Ocean Boo! 恩納萬座店晚餐（已訂）→ 20:10 回 BEB5→ 約 20:10 回 BEB5 結束（回程停超市補貨另加約 15 分）。<span style="color:#a9443a;"><strong>計時起點務必＝13:00</strong>；若改成去接 10:45 抵達的桃園組，會變約 9h30、幾乎吃光額度</span>，桃園組空檔請在機場自理。<br>
@@ -1518,7 +1518,7 @@
 <footer>
   <span class="star">🍁</span> 沖繩五天四夜親子包車旅遊規劃書 ｜ 秋季出遊安心版 ｜ 10/29–11/2（四～一） <span class="star">🍁</span><br>
   <span style="font-size:.74rem;">※ 車程與停留時間為一般路況／親子節奏概估，實際依當日交通與寶寶狀況調整。各景點與飯店連結請於出發前再次確認。</span><br>
-  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.28</strong> ｜ 最後更新 <strong>2026/10/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
+  <span style="font-size:.76rem;font-weight:700;color:var(--sun-deep);">📄 本頁版本 <strong>v4.29</strong> ｜ 最後更新 <strong>2026/10/27</strong>（若版本或日期比這舊，表示看到的是快取，請重新整理／清除快取）</span>
 </footer>
 
 <script>
