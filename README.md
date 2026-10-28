@@ -17,6 +17,16 @@
   **改了 index.html 的中文內文，要同步更新字典**，否則該句會顯示回中文；切到日文後在瀏覽器 console 執行
   `i18nMissing()` 可列出缺翻譯的句子。
 
+## 📖 旅遊手冊（可列印・A4）
+- **檔案**：[`handbook.html`](handbook.html)（排版原稿）・[`handbook.pdf`](handbook.pdf)（14 頁成品）
+- **網址**：<https://weihuantsao.github.io/2026_okinawa/handbook.html>
+- **內容**：從 `index.html` 重新編排成適合帶在身上的紙本：五天總覽、航班與集合、住宿與房間分配、
+  每日時間表（含已訂餐廳電話地址、當日天氣）、預約／門票／現金清單、購物總覽、緊急聯絡、打包清單、花費備忘。
+  不含地圖與互動元件。螢幕上看到的每一頁就是印出來的那一頁（A4 直式）。
+- **重新產生 PDF**：改完 `handbook.html` 後用 Chrome 無頭模式輸出——
+  `chrome --headless=new --no-pdf-header-footer --print-to-pdf=handbook.pdf file:///<絕對路徑>/handbook.html`
+  （或直接開網頁按右上「列印／存成 PDF」）。內文有改時記得同步 `index.html` 的對應資訊，兩者目前對齊 v4.30。
+
 ## 🗓️ 慈霖幼兒園 115 學年度第一學期行事曆（互動版）
 - **檔案**：[`TL_day.html`](TL_day.html)
 - **網址**：<https://weihuantsao.github.io/2026_okinawa/TL_day.html>

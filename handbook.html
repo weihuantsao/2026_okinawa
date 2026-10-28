@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>沖繩旅遊手冊 2026</title>
+<meta name="description" content="2026/10/29–11/2 沖繩五天四夜親子包車旅遊・可列印手冊（A4）">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- tokens (print-safe) ---------- */
+  :root{
+    --ink:#1c2b2e; --ink-soft:#4b5a5e; --ink-faint:#7b8689;
+    --line:#cfd6d4; --line-soft:#e4e8e6; --wash:#f3f5f4;
+    --sun:#a8551f; --sky:#3a7580; --rose:#ad5b4b; --moss:#456e54; --plum:#6d5c8e;
+    --d1:#6d5c8e; --d2:#3a7580; --d3:#ad5b4b; --d4:#456e54; --d5:#a8551f;
+    --serif:"Noto Serif TC","Noto Serif JP","PMingLiU",serif;
+    --sans:"Noto Sans TC","Noto Sans JP","Microsoft JhengHei","PingFang TC",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{margin:0;background:#8e9594;font-family:var(--sans);color:var(--ink);font-size:10.5pt;line-height:1.55}
+
+  /* ---------- page model: 210×297mm, same on screen and paper ---------- */
+  .page{width:210mm;min-height:297mm;margin:10mm auto;background:#fff;padding:14mm 15mm 16mm;position:relative;box-shadow:0 2px 18px rgba(0,0,0,.25)}
+  .page+.page{margin-top:0}
+  .pg-foot{position:absolute;left:15mm;right:15mm;bottom:8mm;display:flex;justify-content:space-between;font-size:7.5pt;color:var(--ink-faint);border-top:1px solid var(--line-soft);padding-top:3px;letter-spacing:.06em}
+  @page{size:A4;margin:0}
+  @media print{
+    body{background:#fff}
+    .page{margin:0;box-shadow:none;width:210mm;min-height:297mm;page-break-after:always;break-after:page}
+    .page:last-child{page-break-after:auto;break-after:auto}
+    a{color:inherit;text-decoration:none}
+    .noprint{display:none!important}
+  }
+  @media screen and (max-width:230mm){ .page{width:100%;min-height:0;margin:0;padding:18px 16px;box-shadow:none} .pg-foot{position:static;margin-top:18px} }
+
+  /* ---------- typography ---------- */
+  h1,h2,h3,h4{font-family:var(--serif);margin:0;line-height:1.3}
+  h2.sec{font-size:17pt;font-weight:900;letter-spacing:.02em;border-bottom:2px solid var(--ink);padding-bottom:5px;margin-bottom:10px;display:flex;align-items:baseline;gap:10px}
+  h2.sec small{font-family:var(--sans);font-size:8.5pt;font-weight:500;color:var(--ink-faint);letter-spacing:.14em}
+  h3{font-size:11.5pt;font-weight:700;margin:12px 0 5px;color:var(--ink)}
+  h3 .tag{font-family:var(--sans);font-size:7.5pt;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--ink);padding:1px 6px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  p{margin:0 0 6px}
+  .muted{color:var(--ink-soft)} .faint{color:var(--ink-faint);font-size:8.5pt}
+  .hl{background:#fff2cc;padding:0 2px}
+  .warn{color:var(--rose);font-weight:700}
+  .ok{color:var(--moss);font-weight:700}
+  .small{font-size:9pt}
+  ul{margin:3px 0 6px;padding-left:16px} li{margin:2px 0}
+  .tight li{margin:1px 0}
+
+  /* ---------- components ---------- */
+  table{border-collapse:collapse;width:100%;font-size:9.2pt}
+  th,td{border:1px solid var(--line);padding:4px 6px;vertical-align:top;text-align:left}
+  th{background:var(--wash);font-weight:700;font-size:8.6pt;letter-spacing:.04em}
+  tr{break-inside:avoid;page-break-inside:avoid}
+  .dense th,.dense td{padding:2px 5px;font-size:8.6pt}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:9.4pt}
+  .kv b{color:var(--ink-soft);font-weight:700;white-space:nowrap}
+  .card{border:1px solid var(--line);border-radius:3px;padding:8px 10px;margin:6px 0;break-inside:avoid;page-break-inside:avoid}
+  .card h4{font-size:10.5pt;margin:0 0 4px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .cols3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .chip{display:inline-block;border:1px solid var(--line);border-radius:2px;padding:0 6px;font-size:8.5pt;margin:0 3px 3px 0;background:#fff}
+  .badge{display:inline-block;font-size:7.5pt;font-weight:700;letter-spacing:.06em;padding:0 5px;border-radius:2px;color:#fff;vertical-align:middle}
+  .b-ok{background:var(--moss)} .b-todo{background:var(--sun)} .b-info{background:var(--sky)} .b-rain{background:#5b7fa3}
+  .box{background:var(--wash);border-left:3px solid var(--ink);padding:6px 9px;margin:6px 0;font-size:9.2pt;break-inside:avoid}
+  .box.rose{border-color:var(--rose)} .box.sky{border-color:var(--sky)} .box.moss{border-color:var(--moss)}
+  .check li{list-style:none;position:relative;padding-left:18px}
+  .check li::before{content:"";position:absolute;left:0;top:4px;width:10px;height:10px;border:1.4px solid var(--ink);border-radius:2px}
+
+  /* day header */
+  .day-hd{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:end;border-bottom:2px solid var(--dc,var(--ink));padding-bottom:6px;margin-bottom:8px}
+  .day-hd .n{font-family:var(--serif);font-size:30pt;font-weight:900;line-height:.9;color:var(--dc,var(--ink))}
+  .day-hd .n small{display:block;font-family:var(--sans);font-size:7.5pt;letter-spacing:.2em;color:var(--ink-faint);font-weight:700;margin-bottom:4px}
+  .day-hd .t{font-family:var(--serif);font-size:12.5pt;font-weight:700;line-height:1.4}
+  .day-hd .stay{text-align:right;font-size:8.6pt;color:var(--ink-soft);line-height:1.45}
+  .tt td:first-child{white-space:nowrap;font-weight:700;font-variant-numeric:tabular-nums;width:19mm}
+  .tt td:nth-child(2){font-weight:700;width:46mm}
+  .tt .drv td{background:var(--wash);color:var(--ink-faint);font-size:8.2pt;padding:2px 6px;font-weight:500}
+  .tt .drv td:first-child,.tt .drv td:nth-child(2){font-weight:500}
+  .tt .sub{color:var(--ink-soft);font-weight:400;font-size:8.6pt;display:block}
+  .wx{display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center;font-size:8.5pt;margin:6px 0 2px}
+  .wx .lab{font-weight:700;color:var(--ink-soft);white-space:nowrap}
+  .wx table{font-size:8.2pt} .wx td,.wx th{padding:1px 4px;text-align:center;border-color:var(--line-soft)}
+  .wx td.hot{background:#fde8e4} .wx td.wet{background:#e3edf7;font-weight:700}
+
+  /* cover */
+  .cover{display:flex;flex-direction:column;justify-content:space-between;background:#fff}
+  .cover .eyebrow{font-size:8.5pt;letter-spacing:.3em;color:var(--sun);font-weight:700}
+  .cover h1{font-size:38pt;font-weight:900;line-height:1.18;margin:14mm 0 6mm}
+  .cover .sub{font-size:13pt;color:var(--ink-soft);font-family:var(--serif);font-weight:700}
+  .cover .meta{margin-top:auto;border-top:2px solid var(--ink);padding-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;font-size:9.5pt}
+  .cover .meta b{display:block;font-size:7.5pt;letter-spacing:.16em;color:var(--ink-faint)}
+  .toc{columns:2;column-gap:14mm;font-size:9.6pt;margin-top:4mm}
+  .toc div{display:flex;justify-content:space-between;border-bottom:1px dotted var(--line);padding:2px 0;break-inside:avoid}
+  .toc div span:last-child{font-variant-numeric:tabular-nums;color:var(--ink-faint)}
+
+  /* overview day strip */
+  .ov td.d{font-weight:900;font-family:var(--serif);white-space:nowrap}
+  .ov td.d.c1{color:var(--d1)} .ov td.d.c2{color:var(--d2)} .ov td.d.c3{color:var(--d3)} .ov td.d.c4{color:var(--d4)} .ov td.d.c5{color:var(--d5)}
+  .note-page textarea,.lines{width:100%}
+  .lines{height:230mm;background:repeating-linear-gradient(#fff 0 8.6mm,var(--line) 8.6mm calc(8.6mm + 1px))}
+  .toolbar{position:fixed;top:10px;right:10px;z-index:9;display:flex;gap:6px}
+  .toolbar button{font:700 10pt var(--sans);padding:8px 12px;border:0;border-radius:4px;background:var(--ink);color:#fff;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+</style>
+</head>
+<body>
+<div class="toolbar noprint"><button onclick="window.print()">🖨️ 列印／存成 PDF</button></div>
+
+<!-- ============================================================ 1. 封面 -->
+<section class="page cover">
+  <div>
+    <div class="eyebrow">OKINAWA · FAMILY TRIP · 5D4N · HANDBOOK</div>
+    <h1>沖繩五天四夜<br>親子包車旅遊手冊</h1>
+    <div class="sub">2026 年 10 月 29 日（四）— 11 月 2 日（一）</div>
+    <p class="muted" style="margin-top:8mm;max-width:150mm">前兩晚住恩納村 BEB5 瀨良垣，走中北部的萬座毛、美麗海、古宇利；10/31 萬聖節在美國村，當晚南下那霸 OMO5；最後兩天玩那霸與南部，直奔機場。全程兩台包車、三張嬰兒安全座椅，行李只搬一次。</p>
+    <h3 style="margin-top:10mm">目錄</h3>
+    <div class="toc">
+      <div><span>五天總覽・成員・包車</span><span>2</span></div>
+      <div><span>航班・集合・台灣端接送</span><span>3</span></div>
+      <div><span>住宿：BEB5／OMO5・房間分配</span><span>4</span></div>
+      <div><span>Day 1　10/29（四）抵達・PARCO・嘉手納・萬座毛</span><span>5</span></div>
+      <div><span>Day 2　10/30（五）許田・美麗海・古宇利</span><span>6</span></div>
+      <div><span>Day 3　10/31（六）殘波岬・美國村萬聖節・新都心</span><span>7</span></div>
+      <div><span>Day 4　11/1（日）波上宮・糸滿・DMM・Outlet・瀨長島</span><span>8</span></div>
+      <div><span>Day 5　11/2（一）返程</span><span>9</span></div>
+      <div><span>預約・門票・現金準備</span><span>10</span></div>
+      <div><span>購物總覽・免稅規則</span><span>11</span></div>
+      <div><span>緊急聯絡・實用資訊</span><span>12</span></div>
+      <div><span>打包清單（依 10/28 預報）</span><span>13</span></div>
+      <div><span>筆記</span><span>14</span></div>
+    </div>
+  </div>
+  <div class="meta">
+    <div><b>成員</b>9 位大人・3 位幼童（1–2 歲）＝12 人</div>
+    <div><b>住宿</b>BEB5 瀨良垣 ×2 晚 → OMO5 那霸 ×2 晚</div>
+    <div><b>交通</b>包車 2 台（Alphard＋HiAce）・每日 10 小時 × 4 天</div>
+    <div><b>版本</b>v1.0・依網頁版 v4.30（2026/10/28）整理</div>
+  </div>
+</section>
+
+<!-- ============================================================ 2. 總覽 -->
+<section class="page">
+  <h2 class="sec">五天總覽 <small>OVERVIEW</small></h2>
+  <table class="ov">
+    <thead><tr><th>Day</th><th>住宿</th><th>行程主軸</th><th>包車</th><th>天氣（10/28 預報）</th></tr></thead>
+    <tbody>
+      <tr><td class="d c1">Day 1<br><span class="small">10/29 四</span></td><td>BEB5</td><td>抵達 → PARCO CITY 午餐血拼 → 道の駅かでな看戰機 → 萬座毛 → 入住 → Ocean Boo! 涮涮鍋（已訂）</td><td>13:00–20:10<br>7h10</td><td>23–25℃・午後雨 48–55%<br><span class="warn">14:00 前後雷雨訊號</span></td></tr>
+      <tr><td class="d c2">Day 2<br><span class="small">10/30 五</span></td><td>BEB5</td><td>道の駅許田買折扣票 → 美麗海水族館 → 古宇利島 → 星巴克名護 → 回 BEB5 自炊</td><td>9:00–17:50<br>8h50</td><td>24–26℃・雨 41→<b>82%</b>（15:00）<br><span class="warn">最濕的一天，風至 27 km/h</span></td></tr>
+      <tr><td class="d c3">Day 3<br><span class="small">10/31 六</span></td><td>→ OMO5</td><td>BEB5 悠閒早晨 → おんなの駅 → 殘波岬 → 美國村萬聖節＋夕陽 → 分兩隊（DEPO／teamLab）→ 新都心晚餐 → 入住</td><td>11:00–21:00<br><b>10h00 壓線</b></td><td>22–26℃・雨 ≤10%，<b>17:00 後 0%</b><br>北風 16–20，傍晚 22℃ 帶外套</td></tr>
+      <tr><td class="d c4">Day 4<br><span class="small">11/1 日</span></td><td>OMO5</td><td>波上宮 → 糸滿魚市場 → DMM 水族館 → Ashibinaa Outlet → 瀨長島夕陽 → 步行國際通晚餐</td><td>9:00–18:00<br>9h00</td><td>22–26℃・<b>全天 0%</b>・UV 6<br>傍晚風弱，薄外套即可</td></tr>
+      <tr><td class="d c5">Day 5<br><span class="small">11/2 一</span></td><td>—</td><td>退房 → 那霸機場（桃園組 CI121 11:55／台中組 CI311 13:15）</td><td>無包車<br>計程車</td><td>23–26℃・雨 4–14%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="cols" style="margin-top:10px">
+    <div class="card">
+      <h4>同行成員（12 人）</h4>
+      <table class="small">
+        <tr><th>桃園組</th><td>瑋桓、楷婷、芳瑜（兒童）</td></tr>
+        <tr><th>台中組</th><td>爸（俊寬）、媽（秀盆）、宸菲、哥哥（瑋哲）、巧倫、萱萱（嬰兒）、巧倫妹（太君）、梓瑄、阿秉（兒童）</td></tr>
+      </table>
+      <p class="faint" style="margin-top:4px">三位幼童：芳瑜、萱萱、阿秉（1–2 歲，各景點 3 歲以下免費）</p>
+    </div>
+    <div class="card">
+      <h4>兩台包車配置</h4>
+      <table class="small">
+        <tr><th>Alphard 阿法</th><td>日文司機・約 7 座・<b>4 大 2 小</b>・不放行李・汽座 2 張</td></tr>
+        <tr><th>HiAce 海獅</th><td>中文司機・大台・<b>5 大 1 小</b>・<b>9 個大行李箱</b>＋推車・汽座 1 張</td></tr>
+        <tr><th>費用</th><td>NT$1,650／人／日・合計 NT$79,200・<span class="ok">已付清</span></td></tr>
+        <tr><th>司機聯絡</th><td>______________________（行前填入）</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="box rose">
+    <b>包車每日 10 小時：計時＝首次上車 → 當日最後下車（中間閒置也算）。</b>
+    Day 1 計時起點務必是 <b>13:00 全團集合</b>（不要去接 10:45 的桃園組）；Day 3 計時起點務必是 <b>11:00 出發</b>（司機提早到搬行李不計）；Day 3 已無餘裕，超時優先壓縮晚餐、不壓兩隊的 90 分。Day 5 不含包車。
+  </div>
+  <div class="box sky">
+    <b>動線原則：</b>由北而南、行李只搬一次（Day 3）。長車程對齊寶寶午睡。Day 2 晚餐刻意在 BEB5 館內解決——恩納餐廳走不到，晚上再出車會超過 10 小時額度。
+  </div>
+  <div class="pg-foot"><span>沖繩五天四夜親子包車旅遊手冊</span><span>2</span></div>
+</section>
+
+<!-- ============================================================ 3. 航班 -->
+<section class="page">
+  <h2 class="sec">航班・集合・台灣端接送 <small>FLIGHTS</small></h2>
+  <div class="cols">
+    <div class="card">
+      <h4>桃園組（瑋桓一家 3 人）<span class="badge b-ok">已開票</span></h4>
+      <div class="kv">
+        <b>去程</b><span><b>CI120</b>・10/29（四）桃園 T2 <b>08:10</b> → 那霸 T1 <b>10:45</b></span>
+        <b>回程</b><span><b>CI121</b>・11/2（一）那霸 T1 <b>11:55</b> → 桃園 T2 <b>12:35</b></span>
+        <b>訂位代號</b><span>ES5IXS・行李每人 1 件・兒童 CH50</span>
+        <b>送機</b><span>10/29 <b>05:20</b> 住家上車 → 桃園 T2（四人座＋兒童座椅 1）</span>
+        <b>接機</b><span>11/2 接 CI121 12:35 落地 → 住家・未加購舉牌，出關後直接聯繫司機</span>
+        <b>接送費</b><span>NT$800・已繳</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>台中組（其餘 9 人）<span class="badge b-ok">已開票</span></h4>
+      <div class="kv">
+        <b>去程</b><span><b>CI310</b>・10/29（四）台中 RMQ T2 <b>09:45</b> → 那霸 T1 <b>12:15</b></span>
+        <b>回程</b><span><b>CI311</b>・11/2（一）那霸 T1 <b>13:15</b> → 台中 RMQ T2 <b>14:05</b></span>
+        <b>訂位代號</b><span>FGJ7Q3・FGPMO5・EYW3N2・FHWM4A・FL9R3O</span>
+        <b>備註</b><span>冬季班表已更新（去程原 10:00→12:40、回程原 13:40→14:10），本頁為最新</span>
+      </div>
+    </div>
+  </div>
+
+  <h3>10/29 抵達・集合流程</h3>
+  <table class="tt">
+    <tr><td>10:45</td><td>桃園組抵達那霸 T1</td><td>通關後在機場自理：用餐、採買、免稅店。<b>不要叫包車先來接</b>（計時會從 10:45 起算，當日會爆到 9.5 小時）。</td></tr>
+    <tr><td>12:15</td><td>台中組抵達那霸 T1</td><td>通關約 30–45 分。</td></tr>
+    <tr><td><b>13:00</b></td><td><b>全團集合・上包車</b></td><td>包車計時起點。上車先確認 3 張汽座（阿法 2・海獅 1）、9 個行李箱集中海獅，再出發。</td></tr>
+  </table>
+
+  <h3>11/2 返程・報到時間</h3>
+  <table class="tt">
+    <tr><td>桃園組</td><td>CI121 11:55</td><td>國際線建議 <b>09:45–10:00 前抵達機場</b>報到。OMO5 早餐後約 09:15 退房，計程車約 15 分。返程日不安排購物。</td></tr>
+    <tr><td>台中組</td><td>CI311 13:15</td><td>可悠閒早餐，約 <b>11:00 退房</b>再赴機場，報到約 12:15，機場用午餐、逛免稅。</td></tr>
+    <tr><td>交通</td><td>計程車</td><td>Day 5 不含包車。12 人＋9 箱行李約需 <b>2–3 台計程車</b>，可請 OMO5 櫃台協助叫車；兩組分批叫車即可。</td></tr>
+  </table>
+
+  <h3>乘客名單・機票號碼</h3>
+  <table class="small dense">
+    <thead><tr><th>成員</th><th>身分</th><th>英文姓名</th><th>機票號碼（訂位代號）</th></tr></thead>
+    <tbody>
+      <tr><td>瑋桓</td><td>大人</td><td>Tsao Weihuan Mr（曹瑋桓）</td><td>297 2425909951（ES5IXS）</td></tr>
+      <tr><td>楷婷</td><td>大人</td><td>Hsu Kaiting Ms（徐楷婷）</td><td>297 2425909950（ES5IXS）</td></tr>
+      <tr><td>芳瑜</td><td>兒童</td><td>Tsao Fangyu Miss（曹芳瑜）</td><td>297 2425909952（ES5IXS）</td></tr>
+      <tr><td>爸</td><td>大人</td><td>Tsao Chunkuan Mr（曹俊寬）</td><td>297 2426052359（FGJ7Q3）</td></tr>
+      <tr><td>媽</td><td>大人</td><td>Su Hsiupen Ms（蘇秀盆）</td><td>297 2426052358（FGJ7Q3）</td></tr>
+      <tr><td>宸菲</td><td>大人</td><td>Cao Chenfei Ms（曹辰菲）</td><td>297 2426052406（FGPMO5）</td></tr>
+      <tr><td>哥哥</td><td>大人</td><td>Tsao Weiche Mr（曹瑋哲）</td><td>297 2426053546（FHWM4A）</td></tr>
+      <tr><td>巧倫</td><td>大人</td><td>Chou Chiaolun Ms（周巧倫）</td><td>297 2426053545（FHWM4A）</td></tr>
+      <tr><td>萱萱</td><td>嬰兒</td><td>Tsau Haushiuan（曹皓萱）</td><td>297 2426053544（FHWM4A）</td></tr>
+      <tr><td>巧倫妹</td><td>大人</td><td>Chou Taichun Ms</td><td>297 2426054919（FL9R3O）</td></tr>
+      <tr><td>梓瑄</td><td>大人</td><td>Hsu Tzuhsuan Ms（徐梓萱）</td><td>297 2426044238（EYW3N2）</td></tr>
+      <tr><td>阿秉</td><td>兒童</td><td>Li Pingyu Mstr（李秉育）</td><td>297 2426044239（EYW3N2）</td></tr>
+    </tbody>
+  </table>
+  <p class="faint">華航電子商務 ☎ 886-2-4129000。護照、機票 QR 另備電子版。</p>
+  <div class="pg-foot"><span>航班・集合・接送</span><span>3</span></div>
+</section>
+
+<!-- ============================================================ 4. 住宿 -->
+<section class="page">
+  <h2 class="sec">住宿 <small>HOTELS</small></h2>
+  <div class="cols">
+    <div class="card">
+      <h4>星野 BEB5 沖繩瀨良垣 <span class="badge b-ok">已訂</span></h4>
+      <div class="kv">
+        <b>入住</b><span>10/29（四）→ 10/31（六）・2 晚</span>
+        <b>時間</b><span>入住 15:00～／退房 ～11:00</span>
+        <b>地址</b><span>〒904-0404 沖縄県国頭郡恩納村瀬良垣 1860-4</span>
+        <b>電話</b><span>050-3134-8098（星野預約中心）</span>
+        <b>訂單</b><span>BOSTTA261730・4 間房・不含餐</span>
+        <b>早餐</b><span>07:00–09:30（L.O.）・¥1,300／份・1F TAMARIBA・<b>有外帶盒</b>可帶回房／海灘。幼童收費請向飯店確認。</span>
+        <b>設施</b><span>全房附廚房・冰箱・洗衣機；室外泳池 09:00–22:00（備救生衣）；TAMARIBA 24h 公共空間；停車場 24h</span>
+        <b>補給</b><span>入住後先到附近 <b>MaxValu</b> 補副食品、鮮乳、水果（Day 2 晚餐自炊食材）</span>
+      </div>
+      <table class="small" style="margin-top:6px">
+        <tr><th>Room 1</th><td>三人房</td><td>瑋桓一家三口（2 大 1 小）</td></tr>
+        <tr><th>Room 2</th><td>三人房</td><td>爸媽＋宸菲（3 大）</td></tr>
+        <tr><th>Room 3</th><td>四人房</td><td>哥哥一家三口＋妹妹（3 大 1 小）</td></tr>
+        <tr><th>Room 4</th><td>雙人房</td><td>梓瑄＋阿秉（1 大 1 小）</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>OMO5 沖繩那霸 by 星野集團 <span class="badge b-ok">已訂</span></h4>
+      <div class="kv">
+        <b>入住</b><span>10/31（六）→ 11/2（一）・2 晚</span>
+        <b>時間</b><span>入住 15:00～／退房 ～11:00</span>
+        <b>地址</b><span>〒900-0032 沖縄県那覇市松山 1-3-16</span>
+        <b>電話</b><span>050-3134-8095（OMO 預約中心）</span>
+        <b>預訂編號</b><span>OONDDD266852・4 間房・¥136,400（含稅）・部分現場付</span>
+        <b>代表人</b><span>徐楷婷（Hsu Kaiting）。<span class="warn">確認書誤植「許凱婷」，入住前至「編輯賓客資訊」更正。</span>入住前 5 天需線上填各房賓客資料。</span>
+        <b>早餐</b><span>OMO Café 07:00–10:00（L.O. 09:30）・不含餐，需另訂或外食</span>
+        <b>設施</b><span>投幣洗衣 2F・賣店 07:30–23:00・退房後免費寄物櫃・<b>無大浴場</b>・車位有限，包車停放先確認</span>
+        <b>位置</b><span>鄰國際通（步行 8–10 分到西端）・距機場約 15 分</span>
+      </div>
+      <table class="small" style="margin-top:6px">
+        <tr><th>Room 1</th><td>YAGURA 房</td><td>3 大 1 小</td></tr>
+        <tr><th>Room 2</th><td>皇后房</td><td>1 大 1 小（單人旅行特惠）</td></tr>
+        <tr><th>Room 3</th><td>皇后房</td><td>3 大</td></tr>
+        <tr><th>Room 4</th><td>YAGURA 房</td><td>2 大 1 小</td></tr>
+      </table>
+      <p class="faint" style="margin-top:4px">OMO Ranger〈裏國際通散步〉每天 16:00–17:00 免費、〈超市 Ranger〉08:45–10:00 ¥1,000——皆須前一日 22:00 前預約。</p>
+    </div>
+  </div>
+  <div class="box">
+    <b>行李只搬一次：</b>Day 3 早上 11:00 BEB5 退房後，9 個行李箱全留在海獅上一整天（含美國村、新都心），約 21:00 才進 OMO5。當天隨身包放：雨具、寶寶替換衣、尿布、萬聖節裝扮、外套、護照（免稅用）。
+  </div>
+  <div class="pg-foot"><span>住宿</span><span>4</span></div>
+</section>
+
+<!-- ============================================================ 5. DAY 1 -->
+<section class="page" style="--dc:var(--d1)">
+  <div class="day-hd">
+    <div class="n"><small>DAY 1 ｜ 週四</small>10/29</div>
+    <div class="t">抵達沖繩 → PARCO CITY 敘敘苑午餐＋血拼 → 道の駅かでな看戰機 → 萬座毛 → 入住 BEB5 → Ocean Boo! 涮涮鍋</div>
+    <div class="stay">🏨 BEB5 瀨良垣<br>包車 13:00–20:10（7h10）</div>
+  </div>
+  <table class="tt">
+    <tr><td>10:45</td><td>桃園組抵達</td><td>機場自理用餐、免稅。台中組 12:15 到。</td></tr>
+    <tr><td><b>13:00</b></td><td>全團集合・上車</td><td>計時起點。裝 3 張汽座、9 箱行李上海獅。</td></tr>
+    <tr class="drv"><td>車 15 分</td><td colspan="2"></td></tr>
+    <tr><td>13:15–15:45</td><td>PARCO CITY（浦添）<span class="sub">150 分</span></td><td><b>3F 敘敘苑</b> 午餐 90 分（☎ 098-871-0189，12 人＋3 幼童需訂位、備兒童椅）→ 免稅血拼 60 分：唐吉訶德、藥妝、西松屋／阿卡將、UNIQLO。美食街 3F、育嬰室 2–3F。<span class="sub">雷雨訊號在 14:00 前後，這段正好在室內。</span></td></tr>
+    <tr class="drv"><td>車 25 分</td><td colspan="2"></td></tr>
+    <tr><td>16:10–16:40</td><td>道の駅かでな（嘉手納）<span class="sub">30 分・免費</span></td><td>4F 展望台正對嘉手納基地跑道，看 F-15 與加油機起降（平日才有，今天週四正好）。有電梯、推車可上。展望台 8:30–22:00、直賣所 9:00–19:00。</td></tr>
+    <tr class="drv"><td>車 30 分</td><td colspan="2"></td></tr>
+    <tr><td>17:10–17:40</td><td>萬座毛（恩納）<span class="sub">30 分・日落 17:50</span></td><td>象鼻岩＋斷崖海景，平坦步道推車友善；物產中心買黑糖、海鹽、紅芋塔。<span class="warn">步道濕滑時推車慢行；大雨就只逛物產中心。</span></td></tr>
+    <tr class="drv"><td>車 15 分</td><td colspan="2"></td></tr>
+    <tr><td>17:55</td><td>BEB5 入住放行李<span class="sub">30 分</span></td><td>快速辦入住、大行李直接進房，整理留到飯後。</td></tr>
+    <tr><td>18:20</td><td>原車出發</td><td>車 7 分到店。若萬座毛拖到 17:45 後，改直接開去餐廳（8 分），飯後再入住。</td></tr>
+    <tr><td><b>18:30–20:00</b></td><td>Ocean Boo! 恩納萬座店 <span class="badge b-ok">已訂</span><span class="sub">90 分</span></td><td>あぐー豚しゃぶしゃぶ専門店・<b>12 位已預約</b>・☎ <b>098-952-5640</b>・恩納村恩納 6497-1 K&amp;S ビル南恩納 202（2F）。有兒童椅與兒童餐具、沙發座。吃法：昆布高湯先下高麗菜絲＋海蘊＋麩再涮豬，不附沾醬吃原味，最後煮雜炊。</td></tr>
+    <tr class="drv"><td>車 7 分</td><td colspan="2"></td></tr>
+    <tr><td>20:10</td><td>回 BEB5・包車收工</td><td>順路停 MaxValu 約 15 分補明晚自炊食材＋副食品＋鮮乳（包車延至 20:30 仍有餘裕）。</td></tr>
+  </table>
+
+  <div class="wx"><span class="lab">🌤 當天天氣<br><span class="faint">10/28 預報・恩納</span></span>
+    <table><tr><th></th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th></tr>
+    <tr><th>℃</th><td>25</td><td>24</td><td>25</td><td>25</td><td>25</td><td>24</td><td>23</td><td>23</td></tr>
+    <tr><th>雨%</th><td class="wet">51</td><td class="wet">54</td><td class="wet">55</td><td class="wet">54</td><td class="wet">51</td><td>49</td><td>48</td><td>48</td></tr></table></div>
+
+  <div class="cols">
+    <div>
+      <h3>當日提醒</h3>
+      <ul class="tight small">
+        <li><b>雨具放隨身包</b>，不要塞進託運行李——抵達日午後 48–55%，會淋到的是嘉手納展望台與萬座毛。</li>
+        <li>PARCO 從 180 分縮成 150 分換嘉手納一站；逛不夠的藥妝、日用品 Day 4 的 iias 還能補。</li>
+        <li>免稅：單店滿 ¥5,500（含稅）＋護照。抵達日先掃日用品、藥妝、親子用品；名牌與伴手禮留到 Day 4。</li>
+        <li>兩段車程（PARCO→嘉手納 25 分、嘉手納→恩納 30 分）都對齊寶寶午睡。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>必買・必吃</h3>
+      <ul class="tight small">
+        <li><b>PARCO 藥妝清單</b>：蒸氣眼罩、休足時間、小林退熱貼、龍角散、EVE、太田胃散、曼秀雷敦 AD、面膜、防蚊噴霧。</li>
+        <li><b>親子</b>：西松屋、阿卡將——童裝、尿布、副食品。</li>
+        <li><b>萬座毛物產中心</b>：黑糖、海鹽、紅芋塔、藍色海鹽汽水、霜淇淋。</li>
+        <li><b>MaxValu</b>：和光堂／明治嬰兒食品、鮮乳、水果、雪鹽餅乾。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg-foot"><span>Day 1 ・ 10/29（四）</span><span>5</span></div>
+</section>
+
+<!-- ============================================================ 6. DAY 2 -->
+<section class="page" style="--dc:var(--d2)">
+  <div class="day-hd">
+    <div class="n"><small>DAY 2 ｜ 週五</small>10/30</div>
+    <div class="t">道の駅許田買折扣票 → 美麗海水族館 → 古宇利大橋離島 → 星巴克名護海景 → 回 BEB5 自炊</div>
+    <div class="stay">🏨 BEB5 瀨良垣<br>包車 9:00–17:50（8h50）</div>
+  </div>
+  <table class="tt">
+    <tr><td>07:30–08:30</td><td>BEB5 早餐</td><td>1F TAMARIBA・¥1,300・L.O. 09:30。12 人點餐會拖，<b>趕的話裝外帶盒上車吃</b>。</td></tr>
+    <tr><td><b>09:00</b></td><td>出發</td><td>計時起點。</td></tr>
+    <tr class="drv"><td>車 35 分</td><td colspan="2"></td></tr>
+    <tr><td>09:35–10:05</td><td>道の駅許田（名護）<span class="sub">30 分</span></td><td><b>買美麗海折扣票：大人 ¥2,000</b>（窗口與官網皆 ¥2,180）・<b>只收現金，備 ¥18,000</b>・未滿 6 歲免費。順道廁所、名護物產。天婦羅 10:30 才開賣，今天吃不到。☎ 0980-54-0880</td></tr>
+    <tr class="drv"><td>車 35 分</td><td colspan="2"></td></tr>
+    <tr><td>10:40–13:10</td><td>沖繩美麗海水族館<span class="sub">150 分</span></td><td>黑潮之海鯨鯊大水槽、戶外免費海豚秀；推車友善、有育嬰室。10:40 到會遇旅行團——想避人潮就把許田縮成 15 分快閃。</td></tr>
+    <tr><td>13:10–13:50</td><td>午餐<span class="sub">40 分（INOH 抓 60）</span></td><td><b>首選 4F「INOH」吃到飽</b>：大人 ¥2,600・7–12 歲 ¥1,400・3–6 歲 ¥500（3 歲以下請問）・<b>12 人可電話預約、不收當日：☎ 0980-48-2745</b>（9–18 時），訂 12:30 前避開尖峰、不需水族館門票。<span class="sub">備選（現場排）：J's Kitchen、papaiya、Kairo、きしもと食堂（本部そば）。</span></td></tr>
+    <tr class="drv"><td>車 40 分</td><td colspan="2"></td></tr>
+    <tr><td>14:30–16:00</td><td>古宇利島<span class="sub">90 分</span></td><td>古宇利大橋（請司機放慢讓大人拍照）、橋下海灘、心形岩（退潮佳）、KOURI SHRIMP 蝦蝦飯（11–18 時、免預約）。<br><span class="badge b-rain">☔ 雨備</span> <b>古宇利海洋塔</b>（全室內 360° 展望＋貝殼博物館・大人 ¥1,000・島上即到，不動包車）。<span class="warn">依預報 13–16 時雨 73–82%、風 27 km/h，雨備大概率會用到。</span></td></tr>
+    <tr class="drv"><td>車 30 分</td><td colspan="2"></td></tr>
+    <tr><td>16:30–17:10</td><td>星巴克 名護21世紀之森公園あけみおてらす店<span class="sub">40 分</span></td><td>2026/4 新開海景店（名護市宮里 2-2・7:30–21:00）・榻榻米緣側平台、免費借藺草蓆到草坪／沙灘野餐（風大則室內）・沖繩限定自選水果星冰樂、限定風獅爺。把 70 分回程拆成 30＋40 讓寶寶下車伸展；想一路睡滿可跳過直達。</td></tr>
+    <tr class="drv"><td>車 40 分</td><td colspan="2"></td></tr>
+    <tr><td>17:50</td><td>回 BEB5・包車收工</td><td>泳池（至 22:00）／TAMARIBA。</td></tr>
+    <tr><td>晚餐</td><td>BEB5 館內自炊 <span class="badge b-ok">已定案</span></td><td>Day 1 MaxValu 食材・火鍋／義大利麵＋現成生魚片；或 TAMARIBA 輕食。<b>不出車</b>（恩納餐廳走不到，再出車會超 10 小時）。真要外食叫計程車。</td></tr>
+  </table>
+
+  <div class="wx"><span class="lab">🌧 當天天氣<br><span class="faint">10/28 預報・本部古宇利</span></span>
+    <table><tr><th></th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th></tr>
+    <tr><th>℃</th><td>25</td><td>25</td><td>26</td><td>26</td><td>26</td><td>26</td><td>25</td><td>25</td><td>24</td><td>24</td></tr>
+    <tr><th>雨%</th><td>41</td><td>47</td><td class="wet">56</td><td class="wet">65</td><td class="wet">73</td><td class="wet">80</td><td class="wet">82</td><td class="wet">75</td><td class="wet">62</td><td>49</td></tr></table></div>
+
+  <div class="cols">
+    <div>
+      <h3>當日提醒</h3>
+      <ul class="tight small">
+        <li><b>最濕的一天</b>：雨衣、推車雨罩、寶寶替換衣放隨手拿得到的地方；先跟司機說海洋塔動線。</li>
+        <li>全程拉車最長（180 分）；餘裕 1h10，選 INOH 會多 20 分、約 18:10 回 BEB5，仍在額度內。</li>
+        <li>水族館與古宇利皆有育嬰室、哺乳室。</li>
+        <li>順遊備選（本日已滿、需取捨）：名護鳳梨園、Neo Park、Bios 之丘。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>必買・必吃</h3>
+      <ul class="tight small">
+        <li><b>美麗海</b>：鯨鯊布偶、水族館限定金楚糕；黑潮之海旁咖啡廳看大水槽。</li>
+        <li><b>古宇利</b>：蝦蝦飯、海葡萄丼、海洋塔海鹽霜淇淋。</li>
+        <li><b>本部順買</b>：鹽屋 MASUYA 雪鹽系列、紅型雜貨。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg-foot"><span>Day 2 ・ 10/30（五）</span><span>6</span></div>
+</section>
+
+<!-- ============================================================ 7. DAY 3 -->
+<section class="page" style="--dc:var(--d3)">
+  <div class="day-hd">
+    <div class="n"><small>DAY 3 ｜ 週六・萬聖節</small>10/31</div>
+    <div class="t">BEB5 悠閒早晨 → おんなの駅 → 殘波岬 → 美國村萬聖節＋夕陽 → 新都心分兩隊 → 晚餐會合 → 入住 OMO5</div>
+    <div class="stay">🏨 BEB5 → OMO5 那霸<br>包車 11:00–21:00（<b>10h00 壓線</b>）</div>
+  </div>
+  <table class="tt">
+    <tr><td>～09:30</td><td>BEB5 早餐</td><td><b>L.O. 09:30，別睡過頭</b>；想賴床先拿外帶盒回房。之後泳池／TAMARIBA／整理行李。</td></tr>
+    <tr><td><b>11:00</b></td><td>退房出發</td><td>計時起點＝11:00。行李全上海獅，今日唯一一次搬行李（21:00 才進 OMO5）。</td></tr>
+    <tr class="drv"><td>車 15 分</td><td colspan="2"></td></tr>
+    <tr><td>11:15–12:05</td><td>おんなの駅 なかゆくい市場<span class="sub">50 分・含午餐</span></td><td>美食街現場點：沖繩麵、天婦羅、現榨甘蔗汁／百香果汁、海葡萄。順買島蔬果伴手禮。快速解決，時間留給萬聖節。</td></tr>
+    <tr class="drv"><td>車 35 分</td><td colspan="2"></td></tr>
+    <tr><td>12:40–13:30</td><td>殘波岬公園（讀谷）<span class="sub">50 分・免費</span></td><td>紅瓦巨大獅子＋白燈塔合照、兒童遊具＋小動物區讓寶寶放電。刻意壓成 50 分，可整站省略。</td></tr>
+    <tr class="drv"><td>車 30 分</td><td colspan="2"></td></tr>
+    <tr><td>14:00–14:20</td><td>抵北谷・找車位</td><td>萬聖節交通管制、停車限制，預留 20 分給兩台車卡位。</td></tr>
+    <tr><td><b>14:20–17:50</b></td><td>美國村 萬聖節<span class="sub">210 分</span></td><td>逛街、Blue Seal、皮卡丘塗鴉、摩天輪；<b>17:00–18:00 兒童變裝發糖</b>；堤防看夕陽（17:45）。<b>17:50 準時上車</b>，比人群早走避開散場車潮。</td></tr>
+    <tr class="drv"><td>車 25 分</td><td colspan="2"></td></tr>
+    <tr><td>18:15–19:45</td><td>🛍️ 購物組：SPORTS DEPO 天久店<span class="sub">90 分・海獅</span></td><td>Alpen 沖繩旗艦店（天久 1-2-1 りうぼう楽市內・10–21 時・☎ 098-861-0460）。跑鞋、機能服、球類、露營。免稅滿 ¥5,500＋護照，免稅櫃檯另排、留 10 分。戰利品直接進海獅後車廂。</td></tr>
+    <tr><td>18:20–19:50</td><td>👶 育兒組：teamLab 未來遊樂園<span class="sub">90 分・阿法</span></td><td>T Galleria 沖繩 by DFS 3F（おもろまち 4-1）・塗鴉水族館、光影溜滑梯・全室內推車可進・<b>日期指定票需事先網購</b>，3 歲以下免費・最後入場 19:00、20:00 閉館。阿法在 T Galleria 停車場待命。</td></tr>
+    <tr><td><b>19:50–20:50</b></td><td>晚餐會合：目利きの銀次 新都心店<span class="sub">60 分・兩隊各步行 5 分</span></td><td>產地直送海鮮居酒屋・那霸市天久 1-9-19・☎ <b>098-863-3442</b>・<b>12 人訂 19:50</b>（提前約 1 個月）。購物組先到先點菜。<span class="sub">保底：SAN-A 那霸 Main Place 美食街（免訂位、育嬰室）。</span></td></tr>
+    <tr class="drv"><td>車 10 分</td><td colspan="2"></td></tr>
+    <tr><td>21:00</td><td>OMO5 入住</td><td>兩台車到店門口接人，行李直接下車。</td></tr>
+  </table>
+
+  <div class="wx"><span class="lab">🎃 當天天氣<br><span class="faint">10/28 預報・北谷</span></span>
+    <table><tr><th></th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th></tr>
+    <tr><th>℃</th><td>26</td><td>26</td><td>26</td><td>26</td><td>25</td><td>24</td><td>24</td><td>22</td><td>22</td><td>22</td><td>22</td></tr>
+    <tr><th>雨%</th><td>8</td><td>10</td><td>8</td><td>5</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></div>
+
+  <div class="cols">
+    <div>
+      <h3>當日提醒</h3>
+      <ul class="tight small">
+        <li><b>包車今天剛好 10 小時，沒有餘裕</b>。唯一彈性是 20 分停車緩衝；拖延時優先壓縮晚餐，不壓兩隊的 90 分。簽約註明計時起點＝11:00 出發、今日到 21:00 才收工、傍晚兩車分頭跑。</li>
+        <li>萬聖節 17:00 後 0% 雨，但北風 16–20 km/h、18:00 後 22℃——<b>大人小孩帶外套</b>，寶寶裝扮套在長袖外。</li>
+        <li>兩隊各留一支手機互聯；teamLab 票要先買好 10/31 指定日。</li>
+        <li>彈性開關：想早到美國村→砍殘波岬；玩累了→兩隊都砍直接回 OMO5，DEPO 改 Day 4 傍晚 18:00。</li>
+      </ul>
+    </div>
+    <div>
+      <h3>必買・必吃・必拍</h3>
+      <ul class="tight small">
+        <li><b>おんなの駅</b>：現榨果汁、沖繩天婦羅、黑糖鹽。</li>
+        <li><b>殘波岬</b>：巨大獅子＋燈塔全家福。</li>
+        <li><b>美國村</b>：變裝發糖、隱藏版皮卡丘塗鴉、堤防金黃夕陽、Blue Seal。</li>
+        <li><b>SPORTS DEPO</b>：NIKE／adidas／asics／On／mizuno、兒童運動用品。</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg-foot"><span>Day 3 ・ 10/31（六）萬聖節</span><span>7</span></div>
+</section>
+
+<!-- ============================================================ 8. DAY 4 -->
+<section class="page" style="--dc:var(--d4)">
+  <div class="day-hd">
+    <div class="n"><small>DAY 4 ｜ 週日</small>11/1</div>
+    <div class="t">波上宮 → 糸滿魚市場海鮮 → DMM 水族館 → Ashibinaa Outlet → 瀨長島夕陽 → 步行國際通晚餐</div>
+    <div class="stay">🏨 OMO5 那霸<br>包車 9:00–18:00（9h00）</div>
+  </div>
+  <table class="tt">
+    <tr><td><b>09:00</b></td><td>OMO5 出發</td><td>早餐自理（OMO Café 07:00–10:00 另付／周邊超商）。</td></tr>
+    <tr class="drv"><td>車 10 分</td><td colspan="2"></td></tr>
+    <tr><td>09:10–09:40</td><td>波上宮<span class="sub">30 分</span></td><td>琉球八社之首、海崖朱紅神社；參拜、御守、限定御朱印；旁為波之上海灘。</td></tr>
+    <tr class="drv"><td>車 30 分</td><td colspan="2"></td></tr>
+    <tr><td>10:10–11:40</td><td>糸滿お魚センター<span class="sub">90 分・午餐</span></td><td>日本最南端道の駅・10:00 開門就到避週日人潮・11 家鮮魚店自選海鮮丼、生魚片、天婦羅、海葡萄，白飯另買、12 人分頭買併桌。<b>幼童不吃生食</b>：燒物、天婦羅、魚板、味噌湯。免費入場停車。</td></tr>
+    <tr class="drv"><td>車 15 分</td><td colspan="2"></td></tr>
+    <tr><td>11:55–13:55</td><td>DMM かりゆし水族館<span class="sub">120 分</span></td><td>iias 沖繩豐崎內・全室內、觸摸池、企鵝、水豚、迷你豬餵食（現場加購、先看時段）。<b>官網預購免排隊</b> book.kariyushi-aquarium.com・大人 ¥2,800、3 歲以下免費（約 ¥25,200）。推車全館可行、育嬰室完備。<span class="badge b-rain">☔ 雨備</span> 遇雨延長此處＋iias，砍瀨長島。</td></tr>
+    <tr class="drv"><td>車 10 分</td><td colspan="2"></td></tr>
+    <tr><td>14:05–15:45</td><td>Ashibinaa Outlet<span class="sub">100 分</span></td><td><b>一進門先攻 1F DESCENTE STORE</b>（9 大品牌：DESCENTE、le coq sportif、Munsingwear、UMBRO、arena…☎ 098-891-7265）；adidas、GAP、BEAMS、Levi's 同在 1F。現場免稅。<br>🏃 要買 <b>On 昂跑</b>：斜對面 TOMITON 的スポーツデポ豊崎店（步行 3–5 分、10–21 時），切 20–25 分過去。</td></tr>
+    <tr class="drv"><td>車 10 分</td><td colspan="2"></td></tr>
+    <tr><td>15:55–17:40</td><td>瀨長島 Umikaji Terrace<span class="sub">105 分・日落 17:45</span></td><td>白牆海景商店街、緊鄰跑道看飛機起降；幸福鬆餅、龍蝦堡、沙翁。傍晚 23–24℃、風弱，薄外套擋海風即可。</td></tr>
+    <tr class="drv"><td>車 20 分</td><td colspan="2"></td></tr>
+    <tr><td>18:00</td><td>回 OMO5・包車收工</td><td>休整 20 分：放戰利品、換尿布。</td></tr>
+    <tr><td>18:20 →</td><td>步行國際通<span class="sub">10 分到西端</span></td><td><b>18:30 入座晚餐 60 分</b>，之後自由逛：唐吉訶德近 24h、伴手禮店至 22:00、公設市場約 20:00 關。不佔包車、累了隨時走回。</td></tr>
+  </table>
+
+  <h3>晚餐候選（週日營業・需訂位、備註兒童椅／包廂）</h3>
+  <table class="small dense">
+    <tr><td>①</td><td><b>海渡 KAITO</b></td><td>沖繩料理居酒屋・18–24 時・評價全區最高・首選</td></tr>
+    <tr><td>②</td><td><b>ちゅらちゅら 那霸國際通店</b></td><td>琉球 Dining・有 5–24 人包廂・☎ 098-963-9924</td></tr>
+    <tr><td>③</td><td><b>JUMBO STEAK HAN'S 松山店</b></td><td>離 OMO5 最近・飯沙拉湯吃到飽・走不動時的保底</td></tr>
+    <tr><td>④</td><td>てびち屋本舗 松山店</td><td>沖繩豬腳專門・OMO5 步行圈</td></tr>
+    <tr><td>✕</td><td class="muted">Yunangi ゆうなんぎい</td><td class="muted">週日公休，11/1 不可用。琉球規樂為 Agu 涮涮鍋、與 Day 1 重複。</td></tr>
+  </table>
+
+  <div class="wx" style="margin-top:6px"><span class="lab">☀️ 當天天氣<br><span class="faint">10/28 預報・豐見城</span></span>
+    <table><tr><th></th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th><th>19</th></tr>
+    <tr><th>℃</th><td>24</td><td>25</td><td>25</td><td>25</td><td class="hot">26</td><td class="hot">26</td><td class="hot">26</td><td>25</td><td>24</td><td>23</td><td>22</td></tr>
+    <tr><th>雨%</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr></table></div>
+
+  <ul class="tight small">
+    <li><b>全天 0% 雨，但中午 UV 6</b>：糸滿、Ashibinaa 戶外走道都曬，寶寶帽子＋防曬。</li>
+    <li>糸滿或 DMM 任一段超時 30 分以上，先砍 Ashibinaa，別動瀨長島黃昏時段。</li>
+    <li>🏸 想逛羽球店 シャトルハウス（牧志 2-17-4 2F・YONEX・週日 10–19:30）：<b>19:30 打烊</b>，18:10 先出發、先逛再吃，19:20 餐廳會合。</li>
+    <li>國際通伴手禮：御菓子御殿紅芋塔、雪鹽、石垣島辣油、Calbee+、泡盛（重物最後買、直接托運）。藥妝湊 ¥5,500 免稅、帶護照。</li>
+  </ul>
+  <div class="pg-foot"><span>Day 4 ・ 11/1（日）</span><span>8</span></div>
+</section>
+
+<!-- ============================================================ 9. DAY 5 -->
+<section class="page" style="--dc:var(--d5)">
+  <div class="day-hd">
+    <div class="n"><small>DAY 5 ｜ 週一</small>11/2</div>
+    <div class="t">返程：OMO5 退房 → 那霸機場（桃園組 CI121 11:55／台中組 CI311 13:15）</div>
+    <div class="stay">無包車・計程車自理<br>那霸 23–26℃・雨 4–14%</div>
+  </div>
+  <div class="cols">
+    <div class="card">
+      <h4>桃園組（瑋桓一家）・CI121 11:55</h4>
+      <table class="tt">
+        <tr><td>07:00–08:30</td><td>早餐・整理</td><td>OMO Café 或周邊超商；行李打包、退房前確認寄物不需要。</td></tr>
+        <tr><td>~09:15</td><td>退房・叫車</td><td>請櫃台叫計程車（1 台）；車約 15 分。</td></tr>
+        <tr><td>09:45–10:00</td><td>那霸機場 T1 報到</td><td>國際線報到約起飛前 60 分截止；報到、安檢後逛免稅、簡單早午餐。</td></tr>
+        <tr><td>11:55</td><td>起飛 → 12:35 桃園</td><td>接機已預約（四人座＋兒童椅），出關後直接聯繫司機。</td></tr>
+      </table>
+    </div>
+    <div class="card">
+      <h4>台中組（9 人）・CI311 13:15</h4>
+      <table class="tt">
+        <tr><td>～10:00</td><td>悠閒早餐</td><td>OMO Café 07:00–10:00（L.O. 09:30）或超商。</td></tr>
+        <tr><td>11:00</td><td>退房・叫車</td><td>9 人＋行李約 <b>2 台計程車</b>，請櫃台協助。</td></tr>
+        <tr><td>~12:15</td><td>那霸機場 T1 報到</td><td>機場用午餐、逛免稅店（Royce、紅芋塔、泡盛最後補買）。</td></tr>
+        <tr><td>13:15</td><td>起飛 → 14:05 台中 RMQ</td><td></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="box">
+    <b>返程檢查：</b>護照、機票 QR、免稅品未拆封（海關可能查）、液體託運、泡盛／鍋具等重物已入託運箱、寶寶副食品與奶粉隨身、嬰兒推車到登機門託運。那霸機場免稅店在安檢後，兩組時間都夠。
+  </div>
+  <div class="box sky">
+    <b>兩組分開行動的時間差：</b>桃園組 09:15 出門時台中組還在吃早餐——前一晚先把共用物品（副食品、常備藥、充電器）分好，不要早上再拆行李。團體戰利品誰帶回請在 Day 4 晚上就分配完。
+  </div>
+  <div class="pg-foot"><span>Day 5 ・ 11/2（一）</span><span>9</span></div>
+</section>
+
+<!-- ============================================================ 10. 預約清單 -->
+<section class="page">
+  <h2 class="sec">預約・門票・現金準備 <small>BOOKINGS</small></h2>
+  <h3>餐廳（統一備註：12 人・3 位幼兒需兒童椅／座敷）</h3>
+  <table class="small">
+    <thead><tr><th>日期</th><th>餐別</th><th>店家・電話</th><th>狀態</th></tr></thead>
+    <tbody>
+      <tr><td>10/29 四</td><td>午餐</td><td><b>敘敘苑 PARCO CITY 3F</b>・☎ 098-871-0189・12 人＋3 幼童、兒童椅／大桌或包廂</td><td><span class="badge b-todo">需訂</span></td></tr>
+      <tr><td>10/29 四</td><td>晚餐 18:30</td><td><b>Ocean Boo! 恩納萬座店</b>・☎ 098-952-5640・恩納村恩納 6497-1 2F・12 位</td><td><span class="badge b-ok">已訂</span></td></tr>
+      <tr><td>10/30 五</td><td>午餐 ~12:30</td><td><b>INOH 美麗海 4F</b>・☎ 0980-48-2745（9–18 時）・僅電話、不收當日・問 3 歲以下收費</td><td><span class="badge b-todo">需訂</span></td></tr>
+      <tr><td>10/30 五</td><td>晚餐</td><td>BEB5 館內自炊／TAMARIBA</td><td><span class="badge b-ok">定案</span></td></tr>
+      <tr><td>10/31 六</td><td>午餐</td><td>おんなの駅 美食街（現場）</td><td><span class="badge b-info">現場</span></td></tr>
+      <tr><td>10/31 六</td><td>晚餐 19:50</td><td><b>目利きの銀次 新都心店</b>・☎ 098-863-3442・天久 1-9-19・12 人・保底 Main Place 美食街</td><td><span class="badge b-todo">需訂</span></td></tr>
+      <tr><td>11/1 日</td><td>午餐</td><td>糸滿お魚センター（現場、10:10 到）</td><td><span class="badge b-info">現場</span></td></tr>
+      <tr><td>11/1 日</td><td>晚餐 18:30</td><td>海渡 KAITO／ちゅらちゅら ☎ 098-963-9924／HAN'S 松山店（擇一，確認週日營業）</td><td><span class="badge b-todo">需訂</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>門票・體驗</h3>
+  <table class="small">
+    <thead><tr><th>項目</th><th>日期</th><th>說明</th><th>狀態</th></tr></thead>
+    <tbody>
+      <tr><td><b>美麗海水族館</b></td><td>10/30</td><td>道の駅許田買折扣票：大人 ¥2,000（窗口／官網 ¥2,180）・未滿 6 歲免費・<b>現金 ¥18,000</b></td><td><span class="badge b-info">現場現金</span></td></tr>
+      <tr><td>古宇利海洋塔 ☔</td><td>10/30</td><td>雨備・大人 ¥1,000・現場購票</td><td><span class="badge b-rain">雨備</span></td></tr>
+      <tr><td><b>teamLab 未來遊樂園</b></td><td>10/31</td><td>育兒組・<b>日期指定票，官網事先購買</b>・3 歲以下免費、只買陪同大人（約 ¥2,000）・最後入場 19:00</td><td><span class="badge b-todo">需購</span></td></tr>
+      <tr><td><b>DMM かりゆし水族館</b></td><td>11/1</td><td>官網預購 book.kariyushi-aquarium.com・大人 ¥2,800、3 歲以下免費・約 ¥25,200（2026/3 起調價，以官網為準）</td><td><span class="badge b-todo">需購</span></td></tr>
+      <tr><td>萬座毛／道の駅かでな</td><td>10/29</td><td>萬座毛現場購票；かでな免費</td><td><span class="badge b-info">現場</span></td></tr>
+      <tr><td>美國村萬聖節</td><td>10/31</td><td>免費；出發前查當年發糖時段與交通管制公告</td><td><span class="badge b-info">免費</span></td></tr>
+    </tbody>
+  </table>
+
+  <h3>現金・證件準備</h3>
+  <div class="cols">
+    <div class="box moss">
+      <b>日圓現金（只收現金的點）</b>
+      <ul class="tight">
+        <li>許田美麗海票 ¥18,000</li>
+        <li>糸滿魚市場各攤（部分攤位可刷卡）</li>
+        <li>古宇利心形岩停車 ¥100–500、海灘淋浴 ¥100</li>
+        <li>萬座毛門票、海洋塔門票（雨備）</li>
+        <li>計程車（Day 5，部分車可刷卡）</li>
+      </ul>
+    </div>
+    <div class="box sky">
+      <b>免稅（単店滿 ¥5,500 含稅）：帶護照正本</b>
+      <ul class="tight">
+        <li>PARCO CITY、SPORTS DEPO、Ashibinaa、iias、國際通藥妝／唐吉訶德</li>
+        <li>結帳櫃檯與免稅櫃檯常不同，各留 10 分</li>
+        <li>免稅品袋勿拆封至出境</li>
+      </ul>
+    </div>
+  </div>
+  <div class="pg-foot"><span>預約・門票・現金</span><span>10</span></div>
+</section>
+
+<!-- ============================================================ 11. 購物 -->
+<section class="page">
+  <h2 class="sec">購物總覽 <small>SHOPPING</small></h2>
+  <table class="small">
+    <thead><tr><th>購物點</th><th>Day</th><th>主打・必買</th><th>免稅</th></tr></thead>
+    <tbody>
+      <tr><td><b>PARCO CITY</b>（浦添）</td><td>1</td><td>縣內最大 250 店：唐吉訶德、無印、UNIQLO・GU、3COINS、大創、Loft、Bic Camera、藥妝、西松屋／阿卡將、SAN-A 伴手禮專區。日用品與藥妝在此掃齊。</td><td>✔</td></tr>
+      <tr><td>萬座毛物產中心</td><td>1</td><td>黑糖、海鹽、紅芋塔、藍色海鹽汽水、霜淇淋</td><td>—</td></tr>
+      <tr><td>MaxValu（BEB5 附近）</td><td>1</td><td>寶寶副食品、鮮乳、水果、自炊食材</td><td>—</td></tr>
+      <tr><td>道の駅許田</td><td>2</td><td>美麗海折扣票、名護物產、伴手禮</td><td>—</td></tr>
+      <tr><td>本部・鹽屋 MASUYA</td><td>2</td><td>雪鹽系列、紅型雜貨</td><td>—</td></tr>
+      <tr><td>おんなの駅</td><td>3</td><td>現榨果汁、島蔬果、黑糖鹽、伴手禮</td><td>—</td></tr>
+      <tr><td>美國村 Depot Island</td><td>3</td><td>美式雜貨服飾、Blue Seal、皮卡丘周邊、萬聖節裝扮</td><td>部分</td></tr>
+      <tr><td><b>SPORTS DEPO 天久店</b> ⭐主目標</td><td>3</td><td>Alpen 沖繩旗艦店：跑鞋（NIKE／adidas／asics／On／mizuno）、機能服、球類、露營、兒童運動用品。10–21 時。大件直接進海獅。</td><td>✔</td></tr>
+      <tr><td>糸滿お魚センター</td><td>4</td><td>海葡萄、もずく真空包、魚板、島蔬果（生鮮不可帶回台）</td><td>—</td></tr>
+      <tr><td>iias 沖繩豐崎</td><td>4</td><td>大型商場、美食街、育嬰室；Day 1 沒買齊的日用品在這補</td><td>✔</td></tr>
+      <tr><td><b>Ashibinaa Outlet</b> ⭐主目標</td><td>4</td><td><b>1F DESCENTE STORE</b>（DESCENTE／le coq sportif／Munsingwear／UMBRO／arena／MOVESPORT／inov-8／LANVIN SPORT／SRIXON）；adidas、GAP、BEAMS、Levi's、Coach、Le Creuset、日系童裝。<b>On 昂跑</b>在斜對面 TOMITON スポーツデポ豊崎店。</td><td>✔</td></tr>
+      <tr><td>瀨長島 Umikaji Terrace</td><td>4</td><td>幸福鬆餅、龍蝦堡、沙翁、海景雜貨</td><td>—</td></tr>
+      <tr><td><b>國際通</b>（晚上步行）</td><td>4</td><td>御菓子御殿紅芋塔、雪鹽、石垣島辣油、Calbee+、沖繩限定 KitKat／金楚糕、Jimmy's、泡盛、琉球玻璃、紅型、シーサー、藍染；唐吉訶德近 24h；大國／マツキヨ藥妝；第一牧志公設市場（~20:00）</td><td>✔</td></tr>
+      <tr><td>シャトルハウス 那霸國際通店</td><td>4</td><td>YONEX 羽球專門（球拍、球線、握把布、球鞋）；多支球拍 25% off 起。<b>週日 19:30 打烊</b>。</td><td>—</td></tr>
+      <tr><td>那霸機場免稅店</td><td>5</td><td>Royce、紅芋塔、泡盛，最後補買</td><td>✔</td></tr>
+      <tr><td class="muted">AEON Rycom（遠端雨備）</td><td class="muted">—</td><td class="muted">北中城・沖繩最大商場、頂級育嬰室、免費兒童推車・距 OMO5 約 25 分</td><td>✔</td></tr>
+    </tbody>
+  </table>
+  <h3>免稅與帶回台灣注意</h3>
+  <ul class="tight small">
+    <li>一般物品與消耗品合計滿 ¥5,500（含稅）即可免稅；消耗品封袋後在日本境內不可拆封。</li>
+    <li>生鮮魚貨、肉製品不可帶回台灣；海葡萄、もずく選真空包裝。</li>
+    <li>液體（泡盛、辣油）超過 100ml 需託運；鍋具等重物最後買、直接進託運箱。</li>
+    <li>每人攜帶 1 件託運行李（機票規定），採買前預估重量。</li>
+  </ul>
+  <div class="pg-foot"><span>購物總覽</span><span>11</span></div>
+</section>
+
+<!-- ============================================================ 12. 緊急聯絡 -->
+<section class="page">
+  <h2 class="sec">緊急聯絡・實用資訊 <small>EMERGENCY</small></h2>
+  <div class="cols">
+    <div class="card">
+      <h4>🚨 日本緊急電話</h4>
+      <div class="kv">
+        <b>警察</b><span><b>110</b></span>
+        <b>救護車・消防</b><span><b>119</b>（可說「救急車をお願いします」）</span>
+        <b>海上事故</b><span>118</span>
+        <b>多語言 24h 觀光客專線</b><span><b>050-3816-2787</b>（JNTO・中文可・事故／受傷／急病諮詢）</span>
+        <b>急救諮詢</b><span><b>おきなわ #7119</b>・24h・<b>含中文等 12 國語言</b>（該不該叫救護車、附近哪家醫院開；IP 電話撥 098-866-7119）</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>🇹🇼 台北駐日經濟文化代表處 那霸分處</h4>
+      <div class="kv">
+        <b>地址</b><span>那霸市久茂地 3-15-9 アルテビル那覇 6F（國際通西端附近，距 OMO5 步行約 10 分）</span>
+        <b>辦公電話</b><span><b>098-862-7008</b>（台灣手機 +81-98-862-7008）・週一–五 9–12、13–18</span>
+        <b>急難救助</b><span><b>080-8056-0122</b>（台灣手機 +81-80-8056-0122）・僅限車禍、搶劫、生命安危</span>
+        <b>Email</b><span>tecooka@mofa.gov.tw</span>
+        <b>外交部緊急聯絡中心</b><span>+886-800-085-095（24h・國際話費自付）；日本境內免付費：<b>001-010-800-0885-0885</b>。聯繫不上分處時再撥。</span>
+      </div>
+    </div>
+  </div>
+  <div class="cols">
+    <div class="card">
+      <h4>🏥 醫療（幼童發燒、受傷）</h4>
+      <div class="kv">
+        <b>那霸市立病院</b><span>那霸市古島 2-31-1（單軌「市立病院前」站）・代表 098-884-5111・<b>救急直通 098-887-1199</b>・平日 17:00–翌 8:30、週末假日 24h；小兒救急輪值週三・五・日（<b>11/1 週日有輪值</b>），去前先打直通確認</span>
+        <b>就近求助</b><span>先問飯店櫃台（BEB5／OMO5 皆有英語對應），或撥 JNTO 中文專線 050-3816-2787 協助翻譯與轉介</span>
+        <b>藥局</b><span>PARCO、國際通藥妝店（退熱貼、小林製藥兒童用品）；處方藥需醫師開立</span>
+        <b>保險</b><span>旅平險保單號 ________________・保險公司 24h ________________</span>
+      </div>
+    </div>
+    <div class="card">
+      <h4>📞 本團聯絡</h4>
+      <table class="small">
+        <tr><th>BEB5</th><td>050-3134-8098</td></tr>
+        <tr><th>OMO5</th><td>050-3134-8095</td></tr>
+        <tr><th>阿法司機（日文）</th><td>______________</td></tr>
+        <tr><th>海獅司機（中文）</th><td>______________</td></tr>
+        <tr><th>車行</th><td>______________</td></tr>
+        <tr><th>華航</th><td>886-2-4129000</td></tr>
+        <tr><th>桃園接送車行</th><td>______________</td></tr>
+        <tr><th>團內聯絡 A</th><td>______________</td></tr>
+        <tr><th>團內聯絡 B</th><td>______________</td></tr>
+      </table>
+    </div>
+  </div>
+  <h3>實用資訊</h3>
+  <div class="cols3 small">
+    <div class="box"><b>時差・電壓</b><br>與台灣同時區（無時差）。電壓 100V、A 型兩孔扁插，台灣電器可直用。</div>
+    <div class="box"><b>付款</b><br>刷卡普及但道の駅、市場、小店多只收現金；Suica／PayPay 普遍。ATM：7-11、郵局可用台灣卡提領。</div>
+    <div class="box"><b>日落・氣溫</b><br>10/29–11/2 日落約 17:45–17:50。白天 24–26℃、傍晚 22–24℃；10/29–30 有雨、10/31 起放晴。</div>
+    <div class="box"><b>幼童用品</b><br>尿布、副食品：西松屋／阿卡將（PARCO）、MaxValu、各大商場；各景點皆有育嬰室（美麗海、DMM、iias、Main Place）。</div>
+    <div class="box"><b>開車側・安全</b><br>日本靠左行駛，過馬路先看右。汽座 3 張固定在包車上，中途換車請重新確認。</div>
+    <div class="box"><b>萬聖節 10/31</b><br>美國村交通管制、停車場閉門時間調整；17:00–18:00 兒童發糖；人潮極多，走失點約定：摩天輪下。</div>
+  </div>
+  <div class="pg-foot"><span>緊急聯絡・實用資訊</span><span>12</span></div>
+</section>
+
+<!-- ============================================================ 13. 打包 -->
+<section class="page">
+  <h2 class="sec">打包清單 <small>PACKING ・ 依 10/28 預報</small></h2>
+  <div class="cols3">
+    <div>
+      <h3>證件・錢</h3>
+      <ul class="check small tight">
+        <li>護照（免稅、入住都要正本）</li>
+        <li>機票 QR／訂位代號截圖</li>
+        <li>飯店確認信（BEB5 BOSTTA261730／OMO5 OONDDD266852）</li>
+        <li>日圓現金（許田 ¥18,000＋市場、小店）</li>
+        <li>信用卡 ×2（不同卡別）</li>
+        <li>旅平險保單</li>
+        <li>幼童健保卡／出生證明影本（兒童機票）</li>
+      </ul>
+      <h3>☔ 雨天（10/29 午後、10/30 整天）</h3>
+      <ul class="check small tight">
+        <li>輕便雨衣（大人每人 1）</li>
+        <li>折疊傘 ×3–4</li>
+        <li><b>推車雨罩</b></li>
+        <li>寶寶替換衣 ×2 套（隨身包）</li>
+        <li>防水袋／夾鏈袋（手機、相機）</li>
+        <li>快乾毛巾</li>
+      </ul>
+    </div>
+    <div>
+      <h3>衣物（24–26℃・傍晚 22℃）</h3>
+      <ul class="check small tight">
+        <li>短袖＋薄長袖為主</li>
+        <li><b>薄外套／防風外套</b>（10/31 美國村夕陽 22℃＋北風；瀨長島海風）</li>
+        <li>幼童長袖外套 ×2</li>
+        <li><b>萬聖節小裝扮</b>（可套長袖外）</li>
+        <li>好走的鞋（萬座毛、殘波岬步道）</li>
+        <li>帽子、太陽眼鏡（11/1 UV 6）</li>
+        <li>防曬乳（大人／幼童）</li>
+        <li>泳衣（BEB5 泳池、古宇利海灘）＋幼童泳褲、浮具</li>
+      </ul>
+      <h3>幼童</h3>
+      <ul class="check small tight">
+        <li>尿布（首日量＋現地補）、濕紙巾</li>
+        <li>奶粉／副食品（第一天量，MaxValu 補）</li>
+        <li>水壺、餐具、圍兜</li>
+        <li>推車 ×3（可折、登機門託運）</li>
+        <li>揹巾（美國村人潮、市場）</li>
+        <li>安撫玩具、小點心（車程用）</li>
+        <li>退熱貼、體溫計、常備藥</li>
+      </ul>
+    </div>
+    <div>
+      <h3>電子</h3>
+      <ul class="check small tight">
+        <li>手機＋行動電源（兩隊分頭時各一）</li>
+        <li>eSIM／漫遊已開通</li>
+        <li>充電線、相機</li>
+        <li>離線地圖（Google Maps 下載沖繩）</li>
+      </ul>
+      <h3>自炊（Day 2 晚餐・BEB5 廚房）</h3>
+      <ul class="check small tight">
+        <li>MaxValu 採買清單：火鍋料／義大利麵、現成生魚片、蔬菜、水果、鮮乳、嬰兒食品</li>
+        <li>免洗餐具少量（房內有餐具可省）</li>
+        <li>保鮮袋（帶剩食上路）</li>
+      </ul>
+      <h3>其他</h3>
+      <ul class="check small tight">
+        <li>環保購物袋 ×2（免稅戰利品）</li>
+        <li>行李秤（每人 1 件託運）</li>
+        <li>此手冊紙本 ×2＋手機 PDF</li>
+        <li>兩隊聯絡手機號碼互存</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box rose" style="margin-top:8px">
+    <b>隨身包（上車不託運）每天固定放：</b>雨具、寶寶替換衣、尿布、護照、現金、行動電源、此手冊。Day 3 行李整天在車上，<b>萬聖節裝扮和外套</b>也要在隨身包。
+  </div>
+  <div class="pg-foot"><span>打包清單</span><span>13</span></div>
+</section>
+
+<!-- ============================================================ 14. 筆記 -->
+<section class="page">
+  <h2 class="sec">花費備忘・筆記 <small>EXPENSES · NOTES</small></h2>
+  <table class="small dense">
+    <thead><tr><th>項目</th><th style="width:26mm">金額</th><th style="width:22mm">付款人</th><th>備註</th></tr></thead>
+    <tbody>
+      <tr><td>美麗海折扣票（許田・現金）</td><td>¥</td><td></td><td>9 大 × ¥2,000</td></tr>
+      <tr><td>INOH 午餐</td><td>¥</td><td></td><td>9 大 × ¥2,600＋幼童</td></tr>
+      <tr><td>BEB5 早餐 ×2 天</td><td>¥</td><td></td><td>9 大 × ¥1,300 × 2</td></tr>
+      <tr><td>Ocean Boo! 晚餐</td><td>¥</td><td></td><td></td></tr>
+      <tr><td>目利きの銀次 晚餐</td><td>¥</td><td></td><td></td></tr>
+      <tr><td>DMM 水族館</td><td>¥</td><td></td><td>9 大 × ¥2,800</td></tr>
+      <tr><td>teamLab（育兒組大人）</td><td>¥</td><td></td><td></td></tr>
+      <tr><td>國際通晚餐</td><td>¥</td><td></td><td></td></tr>
+      <tr><td>計程車（Day 5）</td><td>¥</td><td></td><td>2–3 台</td></tr>
+      <tr><td></td><td>¥</td><td></td><td></td></tr>
+      <tr><td></td><td>¥</td><td></td><td></td></tr>
+      <tr><td></td><td>¥</td><td></td><td></td></tr>
+    </tbody>
+  </table>
+  <h3>筆記</h3>
+  <div class="lines" style="height:150mm"></div>
+  <div class="pg-foot"><span>筆記</span><span>14</span></div>
+</section>
+
+</body>
+</html>
