@@ -81,6 +81,10 @@
   .tt .drv td{background:var(--wash);color:var(--ink-faint);font-size:8.2pt;padding:2px 6px;font-weight:500}
   .tt .drv td:first-child,.tt .drv td:nth-child(2){font-weight:500}
   .tt .sub{color:var(--ink-soft);font-weight:400;font-size:8.6pt;display:block}
+  /* timetables inside a half-width card: free the fixed column widths so the note column keeps room */
+  .cols .tt td:first-child{width:auto;padding-right:4px}
+  .cols .tt td:nth-child(2){width:26mm}
+  .cols .tt td{font-size:8.8pt;padding:3px 5px}
   .wx{display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center;font-size:8.5pt;margin:6px 0 2px}
   .wx .lab{font-weight:700;color:var(--ink-soft);white-space:nowrap}
   .wx table{font-size:8.2pt} .wx td,.wx th{padding:1px 4px;text-align:center;border-color:var(--line-soft)}
